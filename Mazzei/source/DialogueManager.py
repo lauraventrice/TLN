@@ -27,7 +27,72 @@
 # - gestione della memoria con intent-domanda-risposta DECIDERE
 
 import pandas as pd
+import csv
+import os
+import random
 
-df = pd.DataFrame(index=range(4),columns=['a'])
+def create_data_frame(columnName, rowNum):
+    df = pd.DataFrame(index=range(rowNum),columns=[columnName])
+    return df
 
-print(df)
+# Parte 1
+
+def read_potions():
+    dictionary = {} 
+
+    cur_path = os.path.dirname(__file__)
+    cur_path = cur_path.replace('/source', '')
+    filename = os.path.join(cur_path, 'data', 'potions.csv')
+
+    postions_numbers = 0
+
+    with open(filename) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            dictionary[row[0]] = row[1:len(row)]
+            postions_numbers += 1
+
+    return dictionary, postions_numbers
+
+def read_ingredients():
+    ingredients = []
+
+    cur_path = os.path.dirname(__file__)
+    cur_path = cur_path.replace('/source', '')
+    filename = os.path.join(cur_path, 'data', 'ingredients.csv')
+
+    with open(filename) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            ingredients.append(row[0])
+
+    return ingredients
+
+
+def create_list_of_data_frame():
+    potions_dictionary, postions_numbers = read_potions()
+    ingredients_list =  read_ingredients()  #TODO: questo serve da un'altra parte mi sa
+
+    # Parte 2
+    random_indexes = list(random.sample(range(1, postions_numbers), 3))
+
+    data_frame_list = []
+
+    # Prendi la pozione a indice index1
+    for i in range(len(random_indexes)):
+        potion_name = list(potions_dictionary.keys())[random_indexes[i]]
+        potion_ingredients = list(potions_dictionary.values())[random_indexes[i]]
+        df = create_data_frame(potion_name, len(potion_ingredients))
+        data_frame_list.append(df)
+    
+    return data_frame_list
+
+data_frame_list = create_list_of_data_frame()
+
+print("STAMPO LA LISTA DI DATA FRAME")
+print(data_frame_list)
+
+# Tentativo di inserimento di un valore in un dataframe
+# print(data_frame_list[0].columns[0])
+# data_frame_list[0].at[0, data_frame_list[0].columns[0]] = "CIAO"
+# print(data_frame_list)
