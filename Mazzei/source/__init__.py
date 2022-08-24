@@ -1,6 +1,6 @@
 import csv
 
-from dialogueManager import DialogueManager
+from dialogue_manager import DialogueManager
 #from languageUnderstanding import LanguageUnderstanding
 #from responseGeneration import ResponseGeneration
 #from speechRecognition import SpeechRecognition
