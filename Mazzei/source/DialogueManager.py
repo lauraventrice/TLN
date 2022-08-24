@@ -5,7 +5,7 @@
 
 # si sceglie la pozione su cui interrogare, processa l'input e aggiorna la memoria
 
-# Parte 1:
+# Parte 1: INIT!
 # - funzione che carica un file con tutte le pozioni
 # - crea dizionario con chiave nome della pozione e valore lista ingredienti
 # - crea lista di ingredienti completa
@@ -27,75 +27,65 @@
 # - gestione della memoria con intent-domanda-risposta DECIDERE
 
 import pandas as pd
-import csv
-import os
 import random
 
-def create_data_frame(columnName, rowNum):
-    df = pd.DataFrame(index=range(rowNum),columns=[columnName])
-    return df
+INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation"]
 
-# Parte 1
+class DialogueManager:
+    """A class that manages the dialogue between the user and the system.
+    """
 
-def read_potions():
-    dictionary = {} 
+    def __init__(self):
+        self.potions_chosen = []
+        self.memory = None #scegliere come gestirlo, forse dataframe??
+        self.ingredients_available = None
+        
 
-    #cur_path = os.path.dirname(__file__)
-    #cur_path = cur_path.replace('/source', '')
-    #filename = os.path.join(cur_path, 'data', 'potions.csv')
+    def create_potion_data_frame(self, column_name: str, row_num: int):
+        """Creates a data frame with the given column name and row number.
 
-    postions_numbers = 0
+        Args:
+            column_name (str): The name of the column, aka the name of the potion.
+            row_num (int): The number of rows in the data frame, which is the number of ingredients of the potion. 
+        
+        Returns:
+            pandas.DataFrame: The data frame that will represent the potion with its ingredients.
+        """
+        df = pd.DataFrame(index=range(row_num),columns=[column_name])
+        return df
 
-    filename = f"Mazzei/data/potions.csv"
+    def choose_potions(self, potions: dict):
+        """Chooses 3 random potions from the given dictionary.
 
-    with open(filename) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            dictionary[row[0]] = row[1:len(row)]
-            postions_numbers += 1
+        Args:
+            potions (dict): The dictionary with the potions available with ingredients.
+        """
+        # Parte 2
+        random_indexes = list(random.sample(range(1, len(potions)), 3))
 
-    return dictionary, postions_numbers
+        for i in range(len(random_indexes)):
+            potion_name = list(potions.keys())[random_indexes[i]]
+            potion_ingredients = list(potions.values())[random_indexes[i]]
+            df = self.create_potion_data_frame(potion_name, len(potion_ingredients))
+            self.potions_chosen.append(df)
+        
+        print("POTIONS CHOSEN: \n", self.potions_chosen)
 
-def read_ingredients():
-    ingredients = []
-
-    #cur_path = os.path.dirname(__file__)
-    #cur_path = cur_path.replace('/source', '')
-    #filename = os.path.join(cur_path, 'data', 'ingredients.csv')
-
-    filename = f"Mazzei/data/ingredients.csv"
-    with open(filename) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            ingredients.append(row[0])
-
-    return ingredients
+    def set_ingredients(self, ingredients: list):
+        """Sets the ingredients of the potions.
+        
+        Args:
+            ingredients (list): The list of the ingredients of the potions.
+        """
+        self.ingredients_available = ingredients
+        print("INGREDIENTS AVAILABLE: \n", self.ingredients_available)
 
 
-def create_list_of_data_frame():
-    potions_dictionary, postions_numbers = read_potions()
-    ingredients_list =  read_ingredients()  #TODO: questo serve da un'altra parte mi sa
+    #def start_dialogue(self):
+        # Parte 3!
 
-    # Parte 2
-    random_indexes = list(random.sample(range(1, postions_numbers), 3))
 
-    data_frame_list = []
-
-    # Prendi la pozione a indice index1
-    for i in range(len(random_indexes)):
-        potion_name = list(potions_dictionary.keys())[random_indexes[i]]
-        potion_ingredients = list(potions_dictionary.values())[random_indexes[i]]
-        df = create_data_frame(potion_name, len(potion_ingredients))
-        data_frame_list.append(df)
-    
-    return data_frame_list
-
-data_frame_list = create_list_of_data_frame()
-
-print("STAMPO LA LISTA DI DATA FRAME")
-print(data_frame_list)
-
-# Tentativo di inserimento di un valore in un dataframe
-# print(data_frame_list[0].columns[0])
-# data_frame_list[0].at[0, data_frame_list[0].columns[0]] = "CIAO"
-# print(data_frame_list)
+    # Tentativo di inserimento di un valore in un dataframe
+    # print(data_frame_list[0].columns[0])
+    # data_frame_list[0].at[0, data_frame_list[0].columns[0]] = "CIAO"
+    # print(data_frame_list)
