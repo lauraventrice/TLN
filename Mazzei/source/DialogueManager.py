@@ -40,11 +40,13 @@ def create_data_frame(columnName, rowNum):
 def read_potions():
     dictionary = {} 
 
-    cur_path = os.path.dirname(__file__)
-    cur_path = cur_path.replace('/source', '')
-    filename = os.path.join(cur_path, 'data', 'potions.csv')
+    #cur_path = os.path.dirname(__file__)
+    #cur_path = cur_path.replace('/source', '')
+    #filename = os.path.join(cur_path, 'data', 'potions.csv')
 
     postions_numbers = 0
+
+    filename = f"Mazzei/data/potions.csv"
 
     with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -57,10 +59,11 @@ def read_potions():
 def read_ingredients():
     ingredients = []
 
-    cur_path = os.path.dirname(__file__)
-    cur_path = cur_path.replace('/source', '')
-    filename = os.path.join(cur_path, 'data', 'ingredients.csv')
+    #cur_path = os.path.dirname(__file__)
+    #cur_path = cur_path.replace('/source', '')
+    #filename = os.path.join(cur_path, 'data', 'ingredients.csv')
 
+    filename = f"Mazzei/data/ingredients.csv"
     with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
