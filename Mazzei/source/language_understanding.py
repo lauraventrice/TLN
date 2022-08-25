@@ -23,5 +23,6 @@ class LanguageUnderstanding:
         pass
     
     def is_claim(self, sentence: str):
-        #dobbiamo capire che fare..
+        #usiamo parser a dipendenze per inviduare negazioni o claim
+        # ricorda, le negazioni sono avverbi!
         pass
