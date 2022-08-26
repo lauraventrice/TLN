@@ -1,9 +1,10 @@
 import csv
 
 from dialogue_manager import DialogueManager
-#from languageUnderstanding import LanguageUnderstanding
-#from responseGeneration import ResponseGeneration
-#from speechRecognition import SpeechRecognition
+from dialogue_system import DialogueSystem
+from language_understanding import LanguageUnderstanding
+#from response_generation import ResponseGeneration
+#from speech_recognition import SpeechRecognition
 
 POTIONS_DIR = f"Mazzei/data/potions.csv"
 INGREDIENTS_DIR = f"Mazzei/data/ingredients.csv"
@@ -39,11 +40,13 @@ def load_ingredients():
     return ingredients
 
 def main():
-    dialogueManager = DialogueManager()
+    dialogue_manager = DialogueManager()
     potions, ingredients = load_config()
-    dialogueManager.set_ingredients(ingredients)
-    dialogueManager.choose_potions(potions)
-    # dialogueManager.start_dialogue()
+    language_understanding = LanguageUnderstanding(ingredients)
+    dialogue_manager.set_ingredients(ingredients)
+    dialogue_manager.choose_potions(potions)
+    dialogue_system = DialogueSystem(dialogue_manager, language_understanding, )
+    # dialogueSystem.start_dialogue()
 
 
 main()

@@ -6,6 +6,16 @@
 
 class LanguageUnderstanding: 
 
+    def __init__(self, ingredients_available: list):
+        self.ingredients_available = ingredients_available #necessario per la parsificazione
+        pass
+
+    def interpret_response(self, response: str):
+        #chiamo check
+        #se è comprensibile vado avanti con il parsing 
+        # controllo se è un claim o una negazione
+        pass
+
     def check_sentence(self, sentence: str):
         #uso di language tool per la correttezza sintattica
         # se lo score è minore di 0.5 allora non è comprensibile, altrimenti si corregge per poi essere interpretata dalla parsificazione

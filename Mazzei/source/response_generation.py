@@ -10,11 +10,13 @@
 
 # Usiamo pyttsx3 per generare audio????? o alternative!!!!!!!!!!
 
+import pandas 
+
 class ResponseGeneration: 
 
     CONTEXT_ANSWERS = ["greetings", "init_exam", "feedback_continue", "unclear_input", "end_exam_eval", "restart"]
 
-    def generate_answer(self, memory, current_intent: str, unclear_answer = False): 
+    def generate_answer(self, memory: pandas.DataFrame, current_intent: str, unclear_answer = False): 
         """Generates an answer for the current intent based on memory.
         
         Args:
@@ -53,3 +55,6 @@ class ResponseGeneration:
 
     def generate_restart(self): #rispondiamo a partire da una lista di possibili risposte
         pass    
+
+
+    # forse alla fine di questa fase ci conviene restituire sia la domanda da stampare che la domanda attesa??

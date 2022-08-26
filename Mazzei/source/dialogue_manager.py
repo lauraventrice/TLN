@@ -30,7 +30,6 @@
 import pandas as pd
 import random
 
-INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation_end", "restart"]
 
 class DialogueManager:
     """A class that manages the dialogue between the user and the system.
@@ -38,7 +37,7 @@ class DialogueManager:
 
     def __init__(self):
         self.potions_chosen = []
-        self.memory = None #scegliere come gestirlo, forse dataframe?? Dovrà essere passato il riferimento sia context che a control
+        self.memory = pd.DataFrame(columns=["Intent", "Answer", "Number correct ingredients", "Number wrong ingredients", "Expected"])
         self.ingredients_available = None
         self.current_potion = None
         #creare oggetto DialogueContext e DialogueControl?
@@ -84,9 +83,17 @@ class DialogueManager:
         print("INGREDIENTS AVAILABLE: \n", self.ingredients_available)
 
 
-    #def start_dialogue(self):
+    def start_dialogue(self):
+        """Starts the dialogue.
+        """
         # Parte 3!
+        # prima verrà chiamato dialog context che ci restiuirà la memoria 
+        # poi verrà chiamato dialog control che ci restituirà l'intent che dovrà avere la risposta
+        # e il discourse planning
+        pass
 
+    def update_dialogue(self, last_answer: str, claims: list, negatives: list, neutrals: list):
+        pass
 
     # Tentativo di inserimento di un valore in un dataframe
     # print(data_frame_list[0].columns[0])
@@ -98,12 +105,17 @@ class DialogueControl:
     """A class that manages how to continue the interaction, and
     defines the Intent based on the state of the memory
     """
+
+    INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation_end", "restart"]
+
+
     # qui ci dovrebbe essere l'automa di cui abbiamo parlato?
     # sarà presente un current state 
     #TODO 1. se si risponde alla prima giusto subito si chiede un'altra pozione
     #TODO 2. se le prime due sono corrette si da punteggio pieno
     #TODO 3. se non si risponde con almeno la metà degli ingredienti corretti si va avanti???
-    # la risposta poi verrà generata da response_generation
+    # dovrà restituire l'intent scelto in base allo stato della conversazione
+    # e dovrà restituire il discourse planning --- bisogna restituire i futuri parametri per SIMPLE NLG!!!
 
 
 
@@ -111,3 +123,6 @@ class DialogueContext:
     """A class that is responsible for maintaining the information that is useful for the performance of the dialogue. 
     Specifically common ground by the system via Intents and by the user with Memory and Frames. 
     """
+
+    def add_answer(self, answer: str, current_intent: str):
+        pass
