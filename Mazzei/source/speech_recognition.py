@@ -5,9 +5,11 @@
 
 class SpeechRecognizer: 
 
-    def read_from_terminal(self):
+    def read_from_terminal(cls):
+        """read from terminal"""
+        
         return input("Student: ")
 
-    def response_interpretation(self, response: str):
+    def response_interpretation(cls, response: str):
         #qui uso di speech recognition
         pass

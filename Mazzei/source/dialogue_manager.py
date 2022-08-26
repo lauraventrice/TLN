@@ -40,7 +40,8 @@ class DialogueManager:
         self.memory = pd.DataFrame(columns=["Intent", "Answer", "Number correct ingredients", "Number wrong ingredients", "Expected"])
         self.ingredients_available = None
         self.current_potion = None
-        #creare oggetto DialogueContext e DialogueControl?
+        self.dialogue_context = DialogueContext(self.memory)
+        self.dialogue_control = DialogueControl(self.memory, self.current_potion)
         
 
     def create_potion_data_frame(self, column_name: str, row_num: int):
@@ -86,14 +87,41 @@ class DialogueManager:
     def start_dialogue(self):
         """Starts the dialogue.
         """
-        # Parte 3!
-        # prima verrà chiamato dialog context che ci restiuirà la memoria 
-        # poi verrà chiamato dialog control che ci restituirà l'intent che dovrà avere la risposta
-        # e il discourse planning
+        self.current_potion = 0
+
         pass
 
     def update_dialogue(self, last_answer: str, claims: list, negatives: list, neutrals: list):
+        # Parte 3!
+        self.dialogue_context.update_memory() 
+        intent = self.dialogue_control.manage_intent()
+        # se l'intent è una domanda si no quindi con indice 2 o 3, allora si deve decidere anche l'ingrediente su cui si deve basare la domanda
+        if intent == 2: 
+            ingredient = self.choose_ingredient_general()
+            # bisogna chiamare il generatore della risposta con un ingrediente random della lista totale ma che non sia stato detto dall'utente
+        elif intent == 3: 
+            ingredient = self.choose_ingredient_from_answer()
+            # bisogna chiamare il generatore della risposta con un ingrediente detto dall'utente in risposta alla prima domanda
+
+    def choose_ingredient_general(self):
+        ingredients_to_choose = []
+        for i in range(len(self.ingredients_available)):
+            if self.ingredients_available[i] not in self.memory["Answer"].values:
+                ingredients_to_choose.append(self.ingredients_available[i])
+        
+        random_indexes = list(random.sample(range(len(ingredients_to_choose)), 1)) 
+        return random_indexes[0]
+
+    def choose_ingredient_from_answer(self):
+        #controllare risposta con riga dell'intent 1, gli ingredienti citati
+        
+        #crea una lista
+
+        #elimina gli ingredienti già chiesti eventualmente in domande con intent 2 o 3 precedentemente
+
+        #scegli casuale e restituisci l'ingrediente da chiedere
         pass
+
 
     # Tentativo di inserimento di un valore in un dataframe
     # print(data_frame_list[0].columns[0])
@@ -108,21 +136,69 @@ class DialogueControl:
 
     INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation_end", "restart"]
 
+    def __init__(self, memory: pd.DataFrame):
+        self.memory = memory
+        self.current_intent = -1
 
-    # qui ci dovrebbe essere l'automa di cui abbiamo parlato?
-    # sarà presente un current state 
-    #TODO 1. se si risponde alla prima giusto subito si chiede un'altra pozione
-    #TODO 2. se le prime due sono corrette si da punteggio pieno
-    #TODO 3. se non si risponde con almeno la metà degli ingredienti corretti si va avanti???
-    # dovrà restituire l'intent scelto in base allo stato della conversazione
-    # e dovrà restituire il discourse planning --- bisogna restituire i futuri parametri per SIMPLE NLG!!!
+    def manage_intent(self):
+        """Manages the intent, implements automata. 
+        """
+        are_correct, length = self.check_correct_current_potion()
+        length_interview = self.check_length_interview()
 
+        #controlla la memoria se abbiamo fatto 4 domande ferma la conversazione fai il voto
+        if are_correct: #appena ne fa giusta una finisce la conversazione
+            self.current_intent = 4
+        elif length > 3 and length_interview < 3: #facciamo restart solo se abbiamo fatto 4 domande, ha ancora qualcosa di sbagliato e non abbiamo ancora chiesto 3 pozioni
+            self.current_intent = 5
+        elif length > 3 and length_interview == 3:
+            self.current_intent = 4
+        elif self.current_intent == -1:
+            self.current_intent = 0 #handshake
+        elif self.current_intent == 0: 
+            self.current_intent = 1 #start asking ingredients
+        elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
+            random_index = list(random.sample(range(2, 4), 1)) #non determinist next state 2 or 3
+            self.current_intent = random_index[0] #2 or 3
+        elif self.current_intent == 2:
+            random_index = list(random.sample(range(2, 5), 1)) #non determinist next state 2 or 3 or 4
+            self.current_intent = random_index[0] #2 or 3 or 4
+        elif self.current_intent == 3:
+            random_index = list(random.sample(range(1), 1)) #non determinist next state 2 or 3
+            if random_index[0] == 0:
+                self.current_intent = 2 #2 or 4
+            else: 
+                self.current_intent = 4
+        else:
+            self.current_intent = -1
 
+    def check_correct_current_potion(self): 
+        """Checks if the student has answered correctly the current potion.
+        
+        Returns:
+            bool: True if the ingredients of the current potion are correct, False otherwise.
+        """
+        
+        #controllare il frame se è pieno della current potion se è pieno
+        pass
+
+    def check_length_interview(self):
+        """Checks the number of potions asked in the whole interview. 
+        
+        Returns:
+            int: The number of potions asked in the whole interview.
+        """
+
+        # sarebbe quanti valori differenti sono presenti nella colonna della current_potion dellla memoria
+        pass
 
 class DialogueContext: 
     """A class that is responsible for maintaining the information that is useful for the performance of the dialogue. 
     Specifically common ground by the system via Intents and by the user with Memory and Frames. 
     """
+    def __init__(self, memory: pd.DataFrame):
+        self.memory = memory
+        self.frames = []
 
-    def add_answer(self, answer: str, current_intent: str):
+    def update_memory(self, answer: str, current_intent: str, number_correct_ingredients: int, number_wrong_ingredients: int, expected: str):
         pass
