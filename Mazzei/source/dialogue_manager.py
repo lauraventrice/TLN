@@ -86,10 +86,15 @@ class DialogueManager:
 
     def start_dialogue(self):
         """Starts the dialogue.
+
+        Returns:
+            intent (int): The intent of the first question to ask.
         """
         self.current_potion = 0
+        intent = self.dialogue_control.manage_intent()
 
-        pass
+        return intent
+        
 
     def update_dialogue(self, last_answer: str, claims: list, negatives: list, neutrals: list):
         # Parte 3!
@@ -136,12 +141,21 @@ class DialogueControl:
 
     INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation_end", "restart"]
 
-    def __init__(self, memory: pd.DataFrame):
+    def __init__(self, memory: pd.DataFrame, current_potion: pd.DataFrame):
         self.memory = memory
         self.current_intent = -1
+        self.current_potion = current_potion
 
     def manage_intent(self):
         """Manages the intent, implements automata. 
+
+        Returns:
+            str: The intent of the question to ask. 
+        """
+
+        if self.current_intent == -1:
+            self.current_intent = 0
+
         """
         are_correct, length = self.check_correct_current_potion()
         length_interview = self.check_length_interview()
@@ -171,6 +185,9 @@ class DialogueControl:
                 self.current_intent = 4
         else:
             self.current_intent = -1
+        """
+        return self.INTENTS[self.current_intent]
+
 
     def check_correct_current_potion(self): 
         """Checks if the student has answered correctly the current potion.

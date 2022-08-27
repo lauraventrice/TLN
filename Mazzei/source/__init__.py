@@ -45,7 +45,7 @@ def main():
     language_understanding = LanguageUnderstanding(ingredients)
     dialogue_manager.set_ingredients(ingredients)
     dialogue_manager.choose_potions(potions)
-    dialogue_system = DialogueSystem(dialogue_manager, language_understanding, )
+    dialogue_system = DialogueSystem(dialogue_manager, language_understanding)
     dialogue_system.start_dialogue()
 
 
