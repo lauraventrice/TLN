@@ -8,13 +8,22 @@ class LanguageUnderstanding:
 
     def __init__(self, ingredients_available: list):
         self.ingredients_available = ingredients_available #necessario per la parsificazione
-        pass
+        
 
     def interpret_response(self, response: str):
-        #chiamo check
-        #se è comprensibile vado avanti con il parsing 
-        # controllo se è un claim o una negazione
-        pass
+
+        in_potion = []
+        not_in_potion = []
+        y_n = ""
+        is_correct = True
+        if not response.__contains__("Good Morning Professor.") and \
+            not response.__contains__("Good Morning"):
+            
+            is_correct = self.check_sentence(response)
+            if is_correct: 
+                in_potion, not_in_potion, y_n = self.parsing_sentence(response, self.ingredients_available)
+            
+        return in_potion, not_in_potion, y_n, is_correct
 
     def check_sentence(self, sentence: str):
         #uso di language tool per la correttezza sintattica
