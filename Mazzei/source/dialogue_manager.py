@@ -20,8 +20,6 @@
 # Parte 4:
 # - gestione della memoria con intent-domanda-risposta DECIDERE
 
-from operator import index
-from pickle import FALSE
 import pandas as pd
 import random
 from tabulate import tabulate
@@ -37,7 +35,7 @@ class DialogueManager:
         self.ingredients_available = None
         self.current_potion = pd.DataFrame()
         self.dialogue_context = DialogueContext(self.memory)
-        self.dialogue_control = DialogueControl(self.memory)
+        self.dialogue_control = DialogueControl(self.dialogue_context)
         self.expected_current_answer = ""
         self.ingredients_potions_chosen = []
 
@@ -116,7 +114,7 @@ class DialogueManager:
        
         current_intent = self.dialogue_control.get_current_intent()
         self.dialogue_context.update_memory(last_answer, current_intent, in_potion, not_in_potion, y_n, self.expected_current_answer) 
-        memory, intent, to_ask, expected = self.dialogue_control.manage_intent() #forse memory si può togliere??
+        memory, intent, to_ask, expected = self.dialogue_control.manage_intent() #forse memory si può togliere?? da restituire si intende
         self.expected_current_answer = expected
         # se l'intent è una domanda si no quindi con indice 2 o 3, allora si deve decidere anche l'ingrediente su cui si deve basare la domanda
         if intent == "ingredients_yes_no": 
@@ -126,7 +124,7 @@ class DialogueManager:
             ingredient = self.choose_ingredient_from_answer()
             # bisogna chiamare il generatore della risposta con un ingrediente detto dall'utente in risposta alla prima domanda
 
-        print("INTENT: ", intent)
+        #print("INTENT: ", intent)
         return self.memory, intent, to_ask
 
     def choose_ingredient_general(self):
@@ -162,8 +160,8 @@ class DialogueControl:
 
     INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation_end", "restart"]
 
-    def __init__(self, memory: pd.DataFrame):
-        self.memory = memory
+    def __init__(self, dialogue_context):
+        self.dialogue_context = dialogue_context 
         self.current_intent = -1
 
     def set_current_potion(self, current_potion: pd.DataFrame, ingredients_current_potion: list): 
@@ -180,8 +178,12 @@ class DialogueControl:
             expected (str): Expecting the answer of the user.
         """
 
-        are_correct, length = self.check_correct_current_potion()
-        length_interview = self.check_length_interview()
+        memory = self.dialogue_context.memory
+
+        print("memory in dialogue control: \n", tabulate(memory, headers='keys', tablefmt='psql'))
+
+        are_correct, length = self.check_correct_current_potion(memory)
+        length_interview = self.check_length_interview(memory)
         expected = ""
         to_ask = ""
         #controlla la memoria se abbiamo fatto 4 domande ferma la conversazione fai il voto
@@ -237,10 +239,10 @@ class DialogueControl:
         else:
             self.current_intent = -1
         
-        return self.memory, self.INTENTS[self.current_intent], to_ask, expected
+        return memory, self.INTENTS[self.current_intent], to_ask, expected
 
 
-    def check_correct_current_potion(self): 
+    def check_correct_current_potion(self, memory: pd.DataFrame): 
         """Checks if the student has answered correctly the current potion.
         
         Returns:
@@ -250,33 +252,37 @@ class DialogueControl:
         mistakes = True
         last_value = len(self.frame.index) - 1
         name_potion = self.frame.columns[0]
-        print("LUNGHEZZA :", last_value + 1, "\n \n")
+        #print("LUNGHEZZA :", last_value + 1, "\n \n")
         if last_value > 0:
             mistakes = pd.isna(self.frame.loc[last_value, name_potion]) # check if the last value is nan
-        print("MISTAKES: ", mistakes, "\n \n")
+        #print("MISTAKES: ", mistakes, "\n \n")
 
-        memory_current_potion = self.memory.query("Potion == @name_potion") # get the current potion from the memory
+        memory_current_potion = memory.query("Potion == @name_potion") # get the current potion from the memory
         length = len(memory_current_potion.index) # get the length of the interview current potion
 
-        print("Length: ", length, "\n \n")
+        #print("Length: ", length, "\n \n")
         return not mistakes, length
         
 
-    def check_length_interview(self):
+    def check_length_interview(self, memory: pd.DataFrame):
         """Checks the number of potions asked in the whole interview. 
             
         Returns:
             int: The number of potions asked in the whole interview.
         """
         
-        #TODO: fare il calcolo corretto 
-        length = 0
-        if False:
-            name_current_potion = self.current_potion.columns[0]
-            change_zero = self.memory["Potion"].where(self.memory != name_current_potion, 0)
-            result = change_zero["Potion"].where(change_zero == name_current_potion, 1)
-            length = result["Potion"].sum()
-        return length
+        length_interview = 0
+
+        if True:
+            #self.memory["Potion"] 
+            seen = list(set(memory["Potion"].to_list())) # get the list of potions asked in the whole interview
+            
+            length_interview = len(seen) # get the length of the interview
+            print("SEEEEN \n \n ", seen, "\n \n")
+            print("print tabulate in check_length: \n ", tabulate(memory, headers='keys', tablefmt='psql'))
+            print("length interview: ", length_interview, "\n \n")
+
+        return length_interview
 
     def get_current_intent(self): 
         return self.INTENTS[self.current_intent]

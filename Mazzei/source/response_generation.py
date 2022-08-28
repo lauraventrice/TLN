@@ -26,7 +26,7 @@ class ResponseGenerator:
             current_intent (str): The current intent of the system.
             unclear_answer (bool, optional): Whether the answer is unclear. Defaults to False. Based on language_understanding module.
         """
-        print("\n CURRENT INTENT: \n", current_intent, "\n")
+        print("\n CURRENT INTENT response_generation: \n", current_intent, "\n")
         print("\n TO ASK: \n", to_ask, "\n")
 
         if unclear_answer: 
