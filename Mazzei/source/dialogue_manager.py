@@ -24,6 +24,7 @@ from operator import index
 from pickle import FALSE
 import pandas as pd
 import random
+from tabulate import tabulate
 
 
 class DialogueManager:
@@ -32,7 +33,7 @@ class DialogueManager:
 
     def __init__(self):
         self.potions_chosen = []
-        self.memory = pd.DataFrame(columns=["Intent", "Answer", "Ingredients in potion", "Ingrediends not in potion", "Expected", "Potion"], dtype=str)
+        self.memory = pd.DataFrame(columns=["Intent", "Answer", "Ingredients in potion", "Ingredients not in potion", "Expected", "Potion"], dtype=str)
         self.ingredients_available = None
         self.current_potion = pd.DataFrame()
         self.dialogue_context = DialogueContext(self.memory)
@@ -320,7 +321,8 @@ class DialogueContext:
         
 
         self.memory = self.memory.append({'Intent': current_intent, 'Answer': answer, 
-                'In potion': ' '.join(in_potion), 'Not in potion': ' '.join(not_in_potion), 
+                'Ingredients in potion': ' '.join(in_potion), 'Ingredients not in potion': ' '.join(not_in_potion), 
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
-        print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory)
+        print(tabulate(self.memory, headers='keys', tablefmt='psql'))
+        #print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory.to_markdown(), "\n \n")
