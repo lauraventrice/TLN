@@ -58,7 +58,8 @@ class DialogueManager:
         Args:
             potions (dict): The dictionary with the potions available with ingredients.
         """
-        random_indexes = list(random.sample(range(1, len(potions)), 3)) #TODO: controllare che gli indici sono diversi quando si genera 
+        random_indexes = list(random.sample(range(1, len(potions)), 3))
+
 
         for i in range(len(random_indexes)):
             potion_name = list(potions.keys())[random_indexes[i]]
@@ -228,9 +229,10 @@ class DialogueControl:
                 #calcolo la valutazione
                 expected = ""
         elif self.current_intent == 3:
-            random_index = list(random.sample(range(2), 1)) #non determinist next state 2 or 3
-            if random_index[0] == 0:
-                self.current_intent = 2 #2 or 4
+            random_index = list(random.sample([2, 4], 1)) #non determinist next state 2 or 4
+            self.current_intent = random_index[0]
+            if self.current_intent == 2:
+                #prima scelgo gli ingredienti da chiedere
                 expected = "ingredients_yes_no"
             else: 
                 self.current_intent = 4

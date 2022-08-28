@@ -1,17 +1,23 @@
-# correttezza sintattica uso di NLTK???????????
-# uso di stanza per il parser a dipendenze
-# funzione is_claim per individuare claim negazioni o frasi neutre --cercare lista di parole con accezione pos e ng
-
-#import language_tool_python as lt
+import language_tool_python as lt
 
 class LanguageUnderstanding: 
 
     def __init__(self, ingredients_available: list):
-        self.ingredients_available = ingredients_available #necessario per la parsificazione
+        self.ingredients_available = ingredients_available 
         
 
     def interpret_response(self, response: str):
+        """ Interprets the response.
 
+        Args:
+            response (str): The response to interpret.
+
+        Returns:
+            in_potion (list) : The ingredients mentioned as in the potion.
+            out_potion (list): The ingredients mentioned as out of the potion.
+            y_n (str): The answer to the question if was yes or no. 
+            unclear_answer (bool): Whether the sentence is unclear.
+        """
         in_potion = []
         not_in_potion = []
         y_n = ""
@@ -19,21 +25,49 @@ class LanguageUnderstanding:
         if not response.__contains__("Good Morning Professor.") and \
             not response.__contains__("Good Morning"):
             
-            unclear_answer = self.check_sentence(response)
+            unclear_answer, correct_sentence = self.check_sentence(response)
             if not unclear_answer: 
                 in_potion, not_in_potion, y_n = self.parsing_sentence(response, self.ingredients_available)
             
         return in_potion, not_in_potion, y_n, unclear_answer
 
     def check_sentence(self, sentence: str):
-        #uso di language tool per la correttezza sintattica
-        # se lo score è minore di 0.5 allora non è comprensibile, altrimenti si corregge per poi essere interpretata dalla parsificazione
-        pass
+        """ Checks if the sentence is unclear using score_sentence.
+
+        Args:
+            sentence (str): The sentence to check.
+        
+        Returns:
+            bool: Whether the sentence is unclear.
+            str: The correct sentence.
+        """
+        score, correct_sentence = self.score_sentence(sentence)
+        unclear = False
+        if score > 0.5:
+            unclear = True
+
+        return unclear, correct_sentence
     
     def score_sentence(selft, sentence: str): 
-        #calcolo score 1-errori/totale parole PRENDERE DAL SITO
-        # usare spacy per splittare in sentence, oppure mi basta la funzione del sito?    
-        pass
+        """ Scores the sentence using the language tool.
+
+        Args:
+            sentence (str): The sentence to score.
+        
+        Returns:
+            float: The score of the sentence.
+            str: The correct sentence.
+        """
+        tool = lt.LanguageTool('en-US')
+        errors = tool.check(sentence)
+        count_errors = len(errors)
+
+        count_words = len(sentence.split(" "))
+
+        correct_sentence = tool.correct(sentence)
+
+        return 1 - count_errors/count_words, correct_sentence
+        
 
     def parsing_sentence(self, sentence: str, ingredients: list):
         #uso di stanza per il parser a dipendenze     
