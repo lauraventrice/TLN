@@ -1,4 +1,5 @@
 import language_tool_python as lt
+import spacy
 
 class LanguageUnderstanding: 
 
@@ -27,7 +28,7 @@ class LanguageUnderstanding:
             
             unclear_answer, correct_sentence = self.check_sentence(response)
             if not unclear_answer: 
-                in_potion, not_in_potion, y_n = self.parsing_sentence(response, self.ingredients_available)
+                in_potion, not_in_potion, y_n = self.parsing_sentence(correct_sentence, self.ingredients_available)
             
         return in_potion, not_in_potion, y_n, unclear_answer
 
@@ -42,13 +43,13 @@ class LanguageUnderstanding:
             str: The correct sentence.
         """
         score, correct_sentence = self.score_sentence(sentence)
-        unclear = False
-        if score > 0.5:
-            unclear = True
+        unclear = True
+        if score < 0.5:
+            unclear = False
 
         return unclear, correct_sentence
     
-    def score_sentence(selft, sentence: str): 
+    def score_sentence(self, sentence: str): 
         """ Scores the sentence using the language tool.
 
         Args:
@@ -70,7 +71,9 @@ class LanguageUnderstanding:
         
 
     def parsing_sentence(self, sentence: str, ingredients: list):
-        #uso di stanza per il parser a dipendenze     
+        """ 
+        """
+
         #analizziamo l'albero per individuare i sotto alberi con noun chunks e dove viene detto un ingrediente
 
         pass
