@@ -26,6 +26,8 @@ class ResponseGenerator:
             current_intent (str): The current intent of the system.
             unclear_answer (bool, optional): Whether the answer is unclear. Defaults to False. Based on language_understanding module.
         """
+        print("\n CURRENT INTENT: \n", current_intent, "\n")
+        print("\n TO ASK: \n", to_ask, "\n")
 
         if unclear_answer: 
             return cls.generate_unclear_answer()
@@ -47,7 +49,7 @@ class ResponseGenerator:
         
         possible_sentences = ["Good morning Mr Potter.", "Welcome to the potions examination Mr Potter."]
         choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
-             
+   
         return possible_sentences[choose_sentence[0]]
 
     @classmethod
@@ -58,7 +60,7 @@ class ResponseGenerator:
                 "Mr. Potter could you tell me the ingredients of the potion" + to_ask + "?"]
         
         choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
-             
+   
         return possible_sentences[choose_sentence[0]]
     
     @classmethod
@@ -74,5 +76,8 @@ class ResponseGenerator:
     def generate_restart(cls, to_ask: str): #rispondiamo a partire da una lista di possibili risposte
         pass    
 
+    @classmethod
+    def generate_unclear_answer(cls): #rispondiamo a partire da una lista di possibili risposte
+        pass
 
     # forse alla fine di questa fase ci conviene restituire sia la domanda da stampare che la domanda attesa??

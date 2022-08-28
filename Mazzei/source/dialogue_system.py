@@ -18,11 +18,13 @@ class DialogueSystem:
         print("\n \nProfessor Piton: ", begin, "\n")
 
         expected = "greetings"
+
         while intent != "evaluation_end": 
             response = SpeechRecognizer.read_from_terminal()
-            in_potion, not_in_potion, y_n, is_correct = self.language_understanding.interpret_response(response)
+            in_potion, not_in_potion, y_n, unclear_answer = self.language_understanding.interpret_response(response)
             memory, intent, to_ask = self.dialogue_manager.update_dialogue(response, in_potion, not_in_potion, y_n)
-            question = ResponseGenerator.generate_answer(memory, intent, to_ask, is_correct)
+            question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer)
             print("Professor Piton: " + question) 
+            
             intent = "evaluation_end"
         

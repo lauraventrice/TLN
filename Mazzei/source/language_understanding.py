@@ -15,15 +15,15 @@ class LanguageUnderstanding:
         in_potion = []
         not_in_potion = []
         y_n = ""
-        is_correct = True
+        unclear_answer = False
         if not response.__contains__("Good Morning Professor.") and \
             not response.__contains__("Good Morning"):
             
-            is_correct = self.check_sentence(response)
-            if is_correct: 
+            unclear_answer = self.check_sentence(response)
+            if not unclear_answer: 
                 in_potion, not_in_potion, y_n = self.parsing_sentence(response, self.ingredients_available)
             
-        return in_potion, not_in_potion, y_n, is_correct
+        return in_potion, not_in_potion, y_n, unclear_answer
 
     def check_sentence(self, sentence: str):
         #uso di language tool per la correttezza sintattica
