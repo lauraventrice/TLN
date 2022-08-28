@@ -319,8 +319,8 @@ class DialogueContext:
 #                number_incorrect.append(ingredient)
         
 
-        self.memory.append({'Intent': current_intent, 'Answer': answer, 
+        self.memory = self.memory.append({'Intent': current_intent, 'Answer': answer, 
                 'In potion': ' '.join(in_potion), 'Not in potion': ' '.join(not_in_potion), 
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
-        print("QUESTA è LA MEMORY AGGIORNATAAAA: \n \n", self.memory)
+        print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory)

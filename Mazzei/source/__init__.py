@@ -6,6 +6,9 @@ from language_understanding import LanguageUnderstanding
 #from response_generation import ResponseGeneration
 #from speech_recognition import SpeechRecognition
 
+import warnings
+warnings.filterwarnings('ignore')
+
 POTIONS_DIR = f"Mazzei/data/potions.csv"
 INGREDIENTS_DIR = f"Mazzei/data/ingredients.csv"
 

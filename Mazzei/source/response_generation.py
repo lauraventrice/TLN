@@ -55,9 +55,14 @@ class ResponseGenerator:
     @classmethod
     def generate_init_exam(cls, to_ask: str): #rispondiamo a partire da una lista di possibili risposte
         
-        possible_sentences = ["Mr. Potter tell me the ingredients of the potion " + to_ask + ".", \
-             "Mr. Potter can you tell me the ingredients of the potion " + to_ask + "?",   \
-                "Mr. Potter could you tell me the ingredients of the potion" + to_ask + "?"]
+        if str.__contains__(to_ask.lower(), "potion"):
+            possible_sentences = ["Mr. Potter tell me the ingredients of the " + to_ask + ".", \
+                "Mr. Potter can you tell me the ingredients of the " + to_ask + " ?",   \
+                    "Mr. Potter could you tell me the ingredients of the " + to_ask + " ?"]
+        else:    
+            possible_sentences = ["Mr. Potter tell me the ingredients of the " + to_ask + " potion.", \
+                "Mr. Potter can you tell me the ingredients of the " + to_ask + " potion?",   \
+                    "Mr. Potter could you tell me the ingredients of the " + to_ask + "potion?"]
         
         choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
    
