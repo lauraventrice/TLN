@@ -83,6 +83,7 @@ class ResponseGenerator:
 
     @classmethod
     def generate_unclear_answer(cls): #rispondiamo a partire da una lista di possibili risposte
+        print("\n UNCLEAR ANSWER response_generation: \n")
         pass
 
     # forse alla fine di questa fase ci conviene restituire sia la domanda da stampare che la domanda attesa??

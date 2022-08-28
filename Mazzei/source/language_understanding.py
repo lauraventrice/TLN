@@ -1,5 +1,9 @@
 import language_tool_python as lt
 import spacy
+from spacy import displacy
+from pathlib import Path
+
+nlp = spacy.load("en_core_web_sm")
 
 class LanguageUnderstanding: 
 
@@ -23,8 +27,7 @@ class LanguageUnderstanding:
         not_in_potion = []
         y_n = ""
         unclear_answer = False
-        if not response.__contains__("Good Morning Professor.") and \
-            not response.__contains__("Good Morning"):
+        if not str.__contains__(response.lower(), "good morning"):
             
             unclear_answer, correct_sentence = self.check_sentence(response)
             if not unclear_answer: 
@@ -43,8 +46,9 @@ class LanguageUnderstanding:
             str: The correct sentence.
         """
         score, correct_sentence = self.score_sentence(sentence)
+        print("SCORE: ", score)
         unclear = True
-        if score < 0.5:
+        if score > 0.5:
             unclear = False
 
         return unclear, correct_sentence
@@ -64,7 +68,7 @@ class LanguageUnderstanding:
         count_errors = len(errors)
 
         count_words = len(sentence.split(" "))
-
+        print("")
         correct_sentence = tool.correct(sentence)
 
         return 1 - count_errors/count_words, correct_sentence
@@ -73,7 +77,9 @@ class LanguageUnderstanding:
     def parsing_sentence(self, sentence: str, ingredients: list):
         """ 
         """
+        doc = nlp(sentence)
 
+        
         #analizziamo l'albero per individuare i sotto alberi con noun chunks e dove viene detto un ingrediente
 
         pass

@@ -25,6 +25,4 @@ class DialogueSystem:
             memory, intent, to_ask = self.dialogue_manager.update_dialogue(response, in_potion, not_in_potion, y_n)
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer)
             print("Professor Piton: " + question) 
-            
-            intent = "evaluation_end"
         
