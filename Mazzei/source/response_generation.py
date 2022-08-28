@@ -62,7 +62,7 @@ class ResponseGenerator:
         else:    
             possible_sentences = ["Mr. Potter tell me the ingredients of the " + to_ask + " potion.", \
                 "Mr. Potter can you tell me the ingredients of the " + to_ask + " potion?",   \
-                    "Mr. Potter could you tell me the ingredients of the " + to_ask + "potion?"]
+                    "Mr. Potter could you tell me the ingredients of the " + to_ask + " potion?"]
         
         choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
    
