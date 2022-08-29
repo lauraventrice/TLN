@@ -67,6 +67,8 @@ class LanguageUnderstanding:
 
         count_words = len(sentence.split(" "))
         print("")
+
+        # non effettuare correzioni se sono da corregere ingredienti 
         correct_sentence = tool.correct(sentence)
 
         return 1 - count_errors/count_words, correct_sentence
@@ -77,7 +79,8 @@ class LanguageUnderstanding:
         """
         doc = nlp(sentence)
 
-        
+        # avere la lista di ingredienti presenti nella frase
+        # avere la lista di noun chunks data da spacy 
         #analizziamo l'albero per individuare i sotto alberi con noun chunks e dove viene detto un ingrediente
 
         pass
