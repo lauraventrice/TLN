@@ -21,8 +21,9 @@ class DialogueSystem:
 
         while intent != "evaluation_end": 
             response = SpeechRecognizer.read_from_terminal()
-            in_potion, not_in_potion, y_n, unclear_answer = self.language_understanding.interpret_response(response)
-            memory, intent, to_ask = self.dialogue_manager.update_dialogue(response, in_potion, not_in_potion, y_n)
+            in_potion, out_potion, y_n, unclear_answer = self.language_understanding.interpret_response(response)
+            print("IN POTION: \n \n \n", in_potion, "\n \n \n")
+            memory, intent, to_ask = self.dialogue_manager.update_dialogue(response, in_potion, out_potion, y_n)
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer)
             print("Professor Piton: " + question) 
         

@@ -91,13 +91,13 @@ class DialogueManager:
         self.dialogue_control.set_current_potion(self.current_potion, self.ingredients_potions_chosen[0])
 
         memory, intent, to_ask, expected = self.dialogue_control.manage_intent()
-
+        self.memory = memory
         self.expected_current_answer = expected
 
         return intent
         
 
-    def update_dialogue(self, last_answer: str, in_potion: list, not_in_potion: list, y_n: str):
+    def update_dialogue(self, last_answer: str, in_potion: list, out_potion: list, y_n: str):
         """Update dialogue, adding the last answer to the memory with all information from understanding.
 
         Args:
@@ -109,20 +109,20 @@ class DialogueManager:
         Returns:
             memory (pandas.DataFrame): The updated memory.
             intent (str): The intent of the next question to ask.
-            to_ask (str) or potion (str): The ingredient to ask or the potion to ask. 
-            potion_to_ask (str): The potion asked in the exam.
+            to_ask (str) or potion (str): The ingredient to ask or the potion to ask.
         """
        
         current_intent = self.dialogue_control.get_current_intent()
-        self.dialogue_context.update_memory(last_answer, current_intent, in_potion, not_in_potion, y_n, self.expected_current_answer) 
-        memory, intent, to_ask, expected = self.dialogue_control.manage_intent() #forse memory si può togliere?? da restituire si intende
+        self.dialogue_context.update_memory(last_answer, current_intent, in_potion, out_potion, y_n, self.expected_current_answer) 
+        memory, intent, to_ask, expected = self.dialogue_control.manage_intent()
+        self.memory = memory
         self.expected_current_answer = expected
         # se l'intent è una domanda si no quindi con indice 2 o 3, allora si deve decidere anche l'ingrediente su cui si deve basare la domanda
         if intent == "ingredients_yes_no": 
-            ingredient = self.choose_ingredient_general()
+            to_ask = self.choose_ingredient_general()
             # bisogna chiamare il generatore della risposta con un ingrediente random della lista totale ma che non sia stato detto dall'utente
         elif intent == "question_tricky": 
-            ingredient = self.choose_ingredient_from_answer()
+            to_ask = self.choose_ingredient_from_answer()
             # bisogna chiamare il generatore della risposta con un ingrediente detto dall'utente in risposta alla prima domanda
 
         #print("INTENT: ", intent)
@@ -131,18 +131,22 @@ class DialogueManager:
     def choose_ingredient_general(self):
         ingredients_to_choose = []
         for i in range(len(self.ingredients_available)):
-            if self.ingredients_available[i] not in self.memory["Answer"].values:
+            if not any(self.ingredients_available[i] in answer for answer in self.memory["Answer"].values):
+            #if self.ingredients_available[i] not in self.memory["Answer"].values:
                 ingredients_to_choose.append(self.ingredients_available[i])
         
         random_indexes = list(random.sample(range(len(ingredients_to_choose)), 1)) 
-        return random_indexes[0]
+        return ingredients_to_choose[random_indexes[0]]
 
     def choose_ingredient_from_answer(self):
         #controllare risposta con riga dell'intent 1, gli ingredienti citati
-        
+        ingredient_to_ask = []
+        name_potion = self.current_potion.columns[0] #nome della pozione
+        row_ingredient_generic = self.memory.loc[self.memory["Potion"] == name_potion & self.memory["Intent"] == "ingredients_generic"]
         #crea una lista
-
-        #elimina gli ingredienti già chiesti eventualmente in domande con intent 2 o 3 precedentemente
+        ingredients_mentioned = list(set(row_ingredient_generic["Ingredients in potion"][0] + row_ingredient_generic["Ingredients not in potion"][0]))
+         
+        #elimina gli ingredienti già chiesti eventualmente in domande con intent 2 o 3 precedentemente si ma devo averli in memoria!
 
         #scegli casuale e restituisci l'ingrediente da chiedere
         pass
@@ -205,7 +209,7 @@ class DialogueControl:
             expected = "greeting"
         elif self.current_intent == 0: 
             self.current_intent = 1 #start asking ingredients
-            to_ask = self.frame.columns[0] 
+            to_ask = self.frame.columns[0] # name of potion
             expected = ' '.join(self.ingredients_current_potion) # o non lo faccio, oppure devo trovare un modo per avere gli ingredienti veri della pozione
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
             random_index = list(random.sample(range(2, 4), 1)) #non determinist next state 2 or 3
@@ -274,15 +278,11 @@ class DialogueControl:
         """
         
         length_interview = 0
-
-        if True:
-            #self.memory["Potion"] 
-            seen = list(set(memory["Potion"].to_list())) # get the list of potions asked in the whole interview
-            
-            length_interview = len(seen) # get the length of the interview
-            print("SEEEEN \n \n ", seen, "\n \n")
-            print("print tabulate in check_length: \n ", tabulate(memory, headers='keys', tablefmt='psql'))
-            print("length interview: ", length_interview, "\n \n")
+        potions_asked = list(set(memory["Potion"].to_list())) # get the list of potions asked in the whole interview
+        
+        length_interview = len(potions_asked)
+        print("print tabulate in check_length: \n ", tabulate(memory, headers='keys', tablefmt='psql'))
+        print("length interview: ", length_interview, "\n \n")
 
         return length_interview
 
@@ -304,21 +304,17 @@ class DialogueContext:
     def set_current_potion(self, current_potion: pd.DataFrame): 
         self.frame = current_potion
 
-    def update_memory(self, answer: str, current_intent: str, in_potion: list, not_in_potion: list, y_n: str, expected: str):
-        
-        number_correct = []
-        number_incorrect = []
-        for ingredient in in_potion: 
-            if ingredient in self.memory.values:
-                number_correct.append[ingredient]
-            else: 
-                number_incorrect.append[ingredient]
-        
-        for ingredient in not_in_potion:
-            if ingredient in self.memory.values:
-                number_incorrect.append(ingredient)
-            else: 
-                number_correct.append(ingredient)
+    def update_memory(self, answer: str, current_intent: str, in_potion: list, out_potion: list, y_n: str, expected: str):
+        """ Updates the memory with the answer of the student.
+
+        Args:
+            answer (str): The answer of the student.
+            current_intent (str): The current intent of the student.
+            in_potion (list): The ingredients of the potion that the student is currently asking.
+            out_potion (list): The ingredients of the potion that the student is currently asking.
+            y_n (str): The answer of the student to the question y_n.
+            expected (str): The expected answer of the student.
+        """
 
 #QUI C'è DA CAPIRE DA DOVE PRENDERE INGREDIENT, PERCHè SARà QUELLO MENZIONATO NELLA DOMANDA E NON SARà SEMPRE PRESENTE NELLA RISPOSTA
 #        if current_intent == "" or current_intent == "": 
@@ -329,8 +325,9 @@ class DialogueContext:
         
 
         self.memory = self.memory.append({'Intent': current_intent, 'Answer': answer, 
-                'Ingredients in potion': ' '.join(in_potion), 'Ingredients not in potion': ' '.join(not_in_potion), 
+                'Ingredients in potion': ' '.join(in_potion), 'Ingredients not in potion': ' '.join(out_potion), 
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
+        print("EXPECTED: \n \n", in_potion, "\n \n")
         print(tabulate(self.memory, headers='keys', tablefmt='psql'))
         #print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory.to_markdown(), "\n \n")

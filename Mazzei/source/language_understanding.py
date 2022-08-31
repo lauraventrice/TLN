@@ -23,16 +23,16 @@ class LanguageUnderstanding:
             unclear_answer (bool): Whether the sentence is unclear.
         """
         in_potion = []
-        not_in_potion = []
+        out_potion = []
         y_n = ""
         unclear_answer = False
         if not str.__contains__(response.lower(), "good morning"):
-            
-            unclear_answer, correct_sentence = self.check_sentence(response)
+            unclear_answer = self.check_sentence(response)
             if not unclear_answer: 
-                in_potion, not_in_potion, y_n = self.parsing_sentence(response)
-            
-        return in_potion, not_in_potion, y_n, unclear_answer
+                in_potion, out_potion, y_n = self.parsing_sentence(response)
+        
+        print("IN POTION in language understanding: \n \n \n ", in_potion, "\n \n \n")
+        return in_potion, out_potion, y_n, unclear_answer
 
     def check_sentence(self, sentence: str):
         """ Checks if the sentence is unclear using score_sentence.
@@ -44,13 +44,13 @@ class LanguageUnderstanding:
             bool: Whether the sentence is unclear.
             str: The correct sentence.
         """
-        score, correct_sentence = self.score_sentence(sentence)
+        score = self.score_sentence(sentence)
         print("SCORE: ", score)
         unclear = True
         if score > 0.5:
             unclear = False
 
-        return unclear, correct_sentence
+        return unclear
     
     def score_sentence(self, sentence: str): 
         """ Scores the sentence using the language tool.
@@ -60,7 +60,7 @@ class LanguageUnderstanding:
         
         Returns:
             float: The score of the sentence.
-            str: The correct sentence.
+            str: The correct sentence. ????
         """
         tool = lt.LanguageTool('en-US')
         errors = tool.check(sentence)
@@ -72,7 +72,7 @@ class LanguageUnderstanding:
         # non effettuare correzioni se sono da corregere ingredienti 
         correct_sentence = tool.correct(sentence)
 
-        return 1 - count_errors/count_words, correct_sentence
+        return 1 - count_errors/count_words
         
 
     def parsing_sentence(self, sentence: str):
@@ -118,9 +118,9 @@ class LanguageUnderstanding:
             print("Children ", verb[0].children)
             ingredients_mentioned_verb = self.deep_search(verb[0], [])
             if verb[1] == "pos":
-                in_potion = ingredients_mentioned_verb
+                in_potion = list(set(in_potion + ingredients_mentioned_verb))
             else: # negazione
-                out_potion = ingredients_mentioned_verb
+                out_potion = list(set(out_potion + ingredients_mentioned_verb))
 
         print("in_potion", in_potion)
         print("out_potion", out_potion) 

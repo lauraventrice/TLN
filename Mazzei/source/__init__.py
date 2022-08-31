@@ -3,10 +3,8 @@ import csv
 from dialogue_manager import DialogueManager
 from dialogue_system import DialogueSystem
 from language_understanding import LanguageUnderstanding
-#from response_generation import ResponseGeneration
-#from speech_recognition import SpeechRecognition
-
 import warnings
+
 warnings.filterwarnings('ignore')
 
 POTIONS_DIR = f"Mazzei/data/potions.csv"
