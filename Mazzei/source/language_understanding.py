@@ -30,7 +30,7 @@ class LanguageUnderstanding:
             
             unclear_answer, correct_sentence = self.check_sentence(response)
             if not unclear_answer: 
-                in_potion, not_in_potion, y_n = self.parsing_sentence(correct_sentence)
+                in_potion, not_in_potion, y_n = self.parsing_sentence(response)
             
         return in_potion, not_in_potion, y_n, unclear_answer
 
@@ -92,11 +92,7 @@ class LanguageUnderstanding:
         in_potion = []
         out_potion = []
         y_n = ""
-
         doc = nlp(sentence)
-
-        #TODO cambiare il codice con quello del notebook 
-        # avere la lista di ingredienti presenti nella frase
         ingredients_mentioned = []
         sentence = sentence.lower()
         for ingredient in self.ingredients_available:
@@ -105,43 +101,75 @@ class LanguageUnderstanding:
                 sentence = sentence.replace(ingredient.lower(), ingredient)
                 
         sentence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), sentence, 1)
+        doc = nlp(sentence)
         
-        # avere la lista di noun chunks data da spacy 
-        noun_chunks = doc.noun_chunks
-        
-        #analizziamo l'albero per individuare i sotto alberi con noun chunks e dove viene detto un ingrediente
-        dep_tree = []
         verbs = []
         for token in doc: 
-            dep_tree.append((str(token.text), str(token.dep_), str(token.head.text), str(token.tag_),  [child for child in token.children]))
-
-        for node in dep_tree: 
-            if node[3] == "VBP": # token.tag_
-                verb_context = self.check_verb_context(node)
-                verbs.append((str(token.text), verb_context, [child for child in token.children])) 
+            print(token.text, token.tag_)
+            if str(token.tag_) == "VBP" or str(token.tag_) == "VBZ": # token.tag_
+                verb_context = self.check_verb_context(token)
+                verbs.append((token, verb_context)) 
         
+        print("verbs: \n")
         for verb in verbs: 
-            for child in verb[2]: #visita in profondità
-                if child[0] in ingredients_mentioned: # che facciamo con i maiuscoli/minuscoli??
-                    if verb[1] == "pos":
-                        in_potion.append(child[0])
-                    else: # negazione
-                        out_potion.append(child[0])
+            print ("{:<15} | {:<15} |".format(str(verb[0]), verb[1]))
+
+        for verb in verbs: 
+            print("Children ", verb[0].children)
+            ingredients_mentioned_verb = self.deep_search(verb[0], [])
+            if verb[1] == "pos":
+                in_potion = ingredients_mentioned_verb
+            else: # negazione
+                out_potion = ingredients_mentioned_verb
+
+        print("in_potion", in_potion)
+        print("out_potion", out_potion) 
+        return in_potion, out_potion, []
+
+
+    def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
+        print("NOME NODO", node.text, " TAG ", str(node.tag_))
+        if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ": # siamo in root 
+            for child in node.children:
+                if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp":
+                    ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
+                    print("ingredients_mentioned", ingredients_mentioned)
+            return ingredients_mentioned
+        elif any(node.text in ingredient for ingredient in self.ingredients_available) or is_compound:    
+            if node.text in self.ingredients_available:
+                print("SONO NELL'IF")
+                ingredients_mentioned.append(node.text)
+                for child in node.children:
+                    if child.dep_ == "conj" or child.dep_ == "appos" or child.dep_ == "npadvmod":
+                        ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
+                return ingredients_mentioned
+            else: # controlliamo se c'è possibilità di comporre il nome dell'ingrediente
+                print("siamo nell'else")
+                is_present = False
+                for child in node.children: 
+                    is_present = is_present or child.dep_ == "compound" or child.dep_ == "amod" or child.dep_ == "nsubj"
+                if not is_present and is_compound:
+                    return node.text
                 else: 
-                    # compound
-                    for nephew in child[4]:
-                        if nephew[1] == "compound" or nephew[1] == "amod": 
-                            ingredients_compound = nephew[0] + " " + child[0] 
-                            if ingredients_compound in ingredients_mentioned: 
-                                if verb[1] == "pos": 
-                                    in_potion.append(ingredients_compound)
-                                else: # negazione
-                                    out_potion.append(ingredients_compound)
-                                # controllo i fratelli per prendere il resto degli ingredienti
+                    for child in node.children:
+                        print("child: ", child.text)
+                        if child.dep_ == "compound" or child.dep_ == "amod" or child.dep_ == "nsubj":
+                            ingredient_name = self.deep_search(child, ingredients_mentioned, True)
+                            ingredient_name = ingredient_name + " " + node.text
+                            print("Ingredient name", ingredient_name)
+                            if ingredient_name in self.ingredients_available:
+                                print("l'ingrediente è presente")
+                                ingredients_mentioned.append(ingredient_name)
+                            elif is_compound: 
+                                return ingredient_name
+                        if child.dep_ == "conj" or child.dep_ == "appos" or child.dep_ == "npadvmod" :
+                            ingredients_mentioned = self.deep_search(child, ingredients_mentioned) 
+                    return ingredients_mentioned
+        else: 
+            return ingredients_mentioned
 
 
-
-    def check_verb_context(self, node: tuple):
+    def check_verb_context(self, token):
         """ Checks the verb context.
 
         Args:
@@ -151,10 +179,8 @@ class LanguageUnderstanding:
             context (str) : The context of the verb.
         """
 
-        #usiamo parser a dipendenze per inviduare negazioni o claim
-        # ricorda, le negazioni sono avverbi!
         context = "pos" 
-        for child in node[4]:
+        for child in token.children:
             if str(child.dep_) == "neg":
                 context = "neg" 
             
