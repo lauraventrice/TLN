@@ -70,7 +70,10 @@ class ResponseGenerator:
     
     @classmethod
     def generate_feedback_continue(cls, to_ask = ""): #usiamo simpleNLG per generare risposte 
-
+        if to_ask != "":
+            cls.generate_question_yes_no(to_ask)
+        else:
+            cls.generate_tricky_question()
         #bisogna stare attenti agli ingredienti delle risposte dell'utente e quelli richiesti dal sistema per evitare ripetizioni
         pass
     
@@ -88,3 +91,11 @@ class ResponseGenerator:
         pass
 
     # forse alla fine di questa fase ci conviene restituire sia la domanda da stampare che la domanda attesa??
+
+    @classmethod
+    def generate_question_yes_no(cls, to_ask): #generiamo la domanda che prevede si/no come risposta
+        pass
+
+    @classmethod
+    def generate_tricky_question(cls): #generiamo la domanda trabocchetto
+        pass
