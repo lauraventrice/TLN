@@ -210,6 +210,7 @@ class DialogueControl:
                     else:
                         expected = "no"   
                 else: # "Quali sono il resto degli ingredienti?" o "Sei sicuro che gli ingredienti siano finiti?"
+                    #TODO: qui dentro dovremmo scegliere di nuovo casualmente??? perchè in un caso io avrò una risposta si no nell'altro una lista di ingredienti!
                     to_ask = "question_tricky"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
         elif self.current_intent == 2:

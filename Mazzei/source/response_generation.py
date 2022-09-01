@@ -93,7 +93,7 @@ class ResponseGenerator:
     # forse alla fine di questa fase ci conviene restituire sia la domanda da stampare che la domanda attesa??
 
     @classmethod
-    def generate_question_yes_no(cls, to_ask): #generiamo la domanda che prevede si/no come risposta
+    def generate_question_yes_no(cls, to_ask: str): #generiamo la domanda che prevede si/no come risposta
         pass
 
     @classmethod
