@@ -69,7 +69,8 @@ class ResponseGenerator:
         return possible_sentences[choose_sentence[0]]
     
     @classmethod
-    def generate_feedback_continue(cls): #usiamo simpleNLG per generare risposte 
+    def generate_feedback_continue(cls, to_ask = ""): #usiamo simpleNLG per generare risposte 
+
         #bisogna stare attenti agli ingredienti delle risposte dell'utente e quelli richiesti dal sistema per evitare ripetizioni
         pass
     
