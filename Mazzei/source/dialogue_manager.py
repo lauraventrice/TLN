@@ -29,9 +29,14 @@ class DialogueManager:
     """A class that manages the dialogue between the user and the system.
     """
 
+    """
+    1) metto in memoria le liste di ingredienti che l'utente identifica come "nella pozione" o "NON nella pozione" -> è imparziale
+    2) metto in memoria il numero di ingredienti corretti e il numero di ingredienti sbagliati -> si ma non ho il nome degli ingredienti menzionati (domanda si no?)
+    3) metto in memoria la lista di ingredienti controllati che sono effettivamente corretti 
+    """
     def __init__(self):
         self.potions_chosen = []
-        self.memory = pd.DataFrame(columns=["Intent", "Answer", "Ingredients in potion", "Ingredients not in potion", "Expected", "Potion"], dtype=str)
+        self.memory = pd.DataFrame(columns=["Intent", "Ingredient asked", "Answer", "Correct ingredients", "Incorrect ingredients", "Indifferent ingredients", "Expected", "Potion"], dtype=str)
         self.ingredients_available = None
         self.current_potion = pd.DataFrame()
         self.dialogue_context = DialogueContext(self.memory)
@@ -94,10 +99,10 @@ class DialogueManager:
         self.memory = memory
         self.expected_current_answer = expected
 
-        return intent
+        return intent, to_ask
         
 
-    def update_dialogue(self, last_answer: str, in_potion: list, out_potion: list, y_n: str):
+    def update_dialogue(self, ingredient_asked: str, last_answer: str, in_potion: list, out_potion: list, y_n: str):
         """Update dialogue, adding the last answer to the memory with all information from understanding.
 
         Args:
@@ -113,7 +118,7 @@ class DialogueManager:
         """
        
         current_intent = self.dialogue_control.get_current_intent()
-        self.dialogue_context.update_memory(last_answer, current_intent, in_potion, out_potion, y_n, self.expected_current_answer) 
+        self.dialogue_context.update_memory(ingredient_asked, last_answer, current_intent, in_potion, out_potion, y_n, self.expected_current_answer) # ingredient asked
         memory, intent, to_ask, expected = self.dialogue_control.manage_intent()
         self.memory = memory
         self.expected_current_answer = expected
@@ -205,12 +210,12 @@ class DialogueControl:
             expected = "end"
         elif self.current_intent == -1:
             self.current_intent = 0 #handshake
-            to_ask = ""
+            to_ask = "greeting"
             expected = "greeting"
         elif self.current_intent == 0: 
             self.current_intent = 1 #start asking ingredients
             to_ask = self.frame.columns[0] # name of potion
-            expected = ' '.join(self.ingredients_current_potion) # o non lo faccio, oppure devo trovare un modo per avere gli ingredienti veri della pozione
+            expected = ', '.join(self.ingredients_current_potion) # o non lo faccio, oppure devo trovare un modo per avere gli ingredienti veri della pozione
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
             random_index = list(random.sample(range(2, 4), 1)) #non determinist next state 2 or 3
             self.current_intent = random_index[0] #2 or 3
@@ -304,7 +309,7 @@ class DialogueContext:
     def set_current_potion(self, current_potion: pd.DataFrame): 
         self.frame = current_potion
 
-    def update_memory(self, answer: str, current_intent: str, in_potion: list, out_potion: list, y_n: str, expected: str):
+    def update_memory(self, ingredient_asked: str, answer: str, current_intent: str, in_potion: list, out_potion: list, y_n: str, expected: str):
         """ Updates the memory with the answer of the student.
 
         Args:
@@ -316,6 +321,26 @@ class DialogueContext:
             expected (str): The expected answer of the student.
         """
 
+        correct_ingredients = []
+        incorrect_ingredients = []
+        indifferent_ingredient = []
+        if current_intent == "ingredients_generic":
+            ingredients_potion = expected.split(", ")
+            for ingredient in in_potion:
+                if ingredient in ingredients_potion:
+                    correct_ingredients.append(ingredient)
+                    if not ingredient in self.frame[self.frame.columns[0]].unique():
+                        print(" \n \n l'ingrediente non è già presente nel frame! \n \n")
+                        self.frame.append(ingredient)
+                else:
+                    incorrect_ingredients.append(ingredient)
+
+            for ingredient in out_potion:
+                if ingredient not in ingredients_potion:
+                    indifferent_ingredient.append(ingredient)
+                else: 
+                    incorrect_ingredients.append(ingredient)
+            
 #QUI C'è DA CAPIRE DA DOVE PRENDERE INGREDIENT, PERCHè SARà QUELLO MENZIONATO NELLA DOMANDA E NON SARà SEMPRE PRESENTE NELLA RISPOSTA
 #        if current_intent == "" or current_intent == "": 
 #            if y_n == expected:
@@ -324,10 +349,12 @@ class DialogueContext:
 #                number_incorrect.append(ingredient)
         
 
-        self.memory = self.memory.append({'Intent': current_intent, 'Answer': answer, 
-                'Ingredients in potion': ' '.join(in_potion), 'Ingredients not in potion': ' '.join(out_potion), 
+        self.memory = self.memory.append({'Intent': current_intent, 'Ingredient asked' : ingredient_asked, 'Answer': answer, 
+                'Correct ingredients': ', '.join(correct_ingredients), 'Incorrect ingredients': ', '.join(incorrect_ingredients), 
+                'Indifferent ingredients': ', '.join(indifferent_ingredient),
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
-        print("EXPECTED: \n \n", in_potion, "\n \n")
+        print("EXPECTED: \n \n", expected, "\n \n")
+        print("Correct ingredients: \n \n", correct_ingredients, "\n \n")
         print(tabulate(self.memory, headers='keys', tablefmt='psql'))
         #print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory.to_markdown(), "\n \n")

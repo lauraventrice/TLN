@@ -12,7 +12,7 @@ class DialogueSystem:
 
     def start_dialogue(self): 
 
-        intent = self.dialogue_manager.start_dialogue()
+        intent, to_ask = self.dialogue_manager.start_dialogue()
         
         begin = ResponseGenerator.generate_answer(intent)
         print("\n \nProfessor Piton: ", begin, "\n")
@@ -20,10 +20,14 @@ class DialogueSystem:
         expected = "greetings"
 
         while intent != "evaluation_end": 
+            if intent == "handshake" or intent == "ingredients_generic": 
+                ingredient_asked = ""
+            else: 
+                ingredient_asked = to_ask
             response = SpeechRecognizer.read_from_terminal()
             in_potion, out_potion, y_n, unclear_answer = self.language_understanding.interpret_response(response)
             print("IN POTION: \n \n \n", in_potion, "\n \n \n")
-            memory, intent, to_ask = self.dialogue_manager.update_dialogue(response, in_potion, out_potion, y_n)
+            memory, intent, to_ask = self.dialogue_manager.update_dialogue(ingredient_asked, response, in_potion, out_potion, y_n) 
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer)
             print("Professor Piton: " + question) 
         

@@ -18,7 +18,7 @@ class ResponseGenerator:
     CONTEXT_ANSWERS = ["greetings", "init_exam", "feedback_continue", "unclear_input", "end_exam_eval", "restart"]
 
     @classmethod
-    def generate_answer(cls, current_intent: str, to_ask = "", memory = None, unclear_answer = False): 
+    def generate_answer(cls, current_intent: str, to_ask = "generic", memory = None, unclear_answer = False): 
         """Generates an answer for the current intent based on memory.
         
         Args:
