@@ -78,10 +78,6 @@ class LanguageUnderstanding:
 
         count_words = len(sentence.split(" "))
         print("")
-
-        # non effettuare correzioni se sono da corregere ingredienti 
-        #correct_sentence = tool.correct(sentence)
-
         return 1 - count_errors/count_words
         
 
@@ -112,7 +108,7 @@ class LanguageUnderstanding:
         verbs = []
         for token in doc: 
             print(token.text, token.tag_)
-            if str(token.tag_) == "VBP" or str(token.tag_) == "VBZ": # token.tag_
+            if str(token.tag_) == "VBP" or str(token.tag_) == "VBZ": 
                 verb_context = self.check_verb_context(token)
                 verbs.append((token, verb_context)) 
         
@@ -128,7 +124,7 @@ class LanguageUnderstanding:
             else: # negazione
                 out_potion = list(set(out_potion + ingredients_mentioned_verb))
 
-        # se un ingrediente è presente sia nella lista di in che di out, rimane solo in out
+        # if an ingredient is in both list in_potion and out_potion, it has to be only in out_potion
         in_potion = list(set(in_potion).difference(set(out_potion)))
 
         print("in_potion", in_potion)
@@ -138,7 +134,7 @@ class LanguageUnderstanding:
 
     def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
         print("NOME NODO", node.text, " TAG ", str(node.tag_))
-        if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ": # siamo in root 
+        if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ":  
             for child in node.children:
                 if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp":
                     ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
@@ -152,7 +148,7 @@ class LanguageUnderstanding:
                     if child.dep_ == "conj" or child.dep_ == "appos" or child.dep_ == "npadvmod":
                         ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
                 return ingredients_mentioned
-            else: # controlliamo se c'è possibilità di comporre il nome dell'ingrediente
+            else: # check if there is the chance to compund the name of the ingredient
                 print("siamo nell'else")
                 is_present = False
                 for child in node.children: 
