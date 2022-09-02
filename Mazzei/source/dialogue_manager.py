@@ -7,20 +7,16 @@ class DialogueManager:
     """A class that manages the dialogue between the user and the system.
     """
 
-    """
-    1) metto in memoria le liste di ingredienti che l'utente identifica come "nella pozione" o "NON nella pozione" -> è imparziale
-    2) metto in memoria il numero di ingredienti corretti e il numero di ingredienti sbagliati -> si ma non ho il nome degli ingredienti menzionati (domanda si no?)
-    3) metto in memoria la lista di ingredienti controllati che sono effettivamente corretti 
-    """
     def __init__(self):
         self.potions_chosen = []
         self.memory = pd.DataFrame(columns=["Intent", "Ingredient asked", "Answer", "Correct ingredients", "Incorrect ingredients", "Indifferent ingredients", "Expected", "Potion"], dtype=str)
         self.ingredients_available = None
         self.current_potion = pd.DataFrame()
         self.dialogue_context = DialogueContext(self.memory)
-        self.dialogue_control = DialogueControl(self.dialogue_context)
+        self.dialogue_control = DialogueControl(self.dialogue_context, self)
         self.expected_current_answer = ""
         self.ingredients_potions_chosen = []
+        self.index_current_potion = -1
 
     def create_potion_data_frame(self, column_name: str, row_num: int):
         """Creates a data frame with the given column name and row number.
@@ -63,6 +59,16 @@ class DialogueManager:
         self.dialogue_control.set_ingredient_available(ingredients)
         print("INGREDIENTS AVAILABLE: \n", self.ingredients_available)
 
+    def next_potion(self):
+        """Gets the next potion to ask.
+        """
+
+        self.index_current_potion += 1
+
+        self.current_potion = self.potions_chosen[self.index_current_potion]
+
+        self.dialogue_context.set_current_potion(self.current_potion)
+        self.dialogue_control.set_current_potion(self.current_potion, self.ingredients_potions_chosen[self.index_current_potion])
 
     def start_dialogue(self):
         """Starts the dialogue.
@@ -70,7 +76,8 @@ class DialogueManager:
         Returns:
             intent (int): The intent of the first question to ask.
         """
-        self.current_potion = self.potions_chosen[0]
+        self.index_current_potion = 0
+        self.current_potion = self.potions_chosen[self.index_current_potion]
         self.dialogue_context.set_current_potion(self.current_potion)
         self.dialogue_control.set_current_potion(self.current_potion, self.ingredients_potions_chosen[0])
 
@@ -112,10 +119,11 @@ class DialogueControl:
 
     INTENTS = ["handshake", "ingredients_generic", "ingredients_yes_no", "question_tricky", "evaluation_end", "restart"]
 
-    def __init__(self, dialogue_context):
+    def __init__(self, dialogue_context, dialogue_manager):
         self.dialogue_context = dialogue_context 
         self.current_intent = -1
         self.remaining_ingredients_asked = False
+        self.dialogue_manager = dialogue_manager
     
     def set_ingredient_available(self, ingredients_available: list):
         self.ingredients_available = ingredients_available
@@ -148,11 +156,11 @@ class DialogueControl:
             self.current_intent = 4
             #TODO: calcola la valutazione 
             expected = "end"
-        elif length > 5 and length_interview < 3: 
+        elif length > 4 and length_interview < 3: 
             self.current_intent = 5
-            # TODO: chiedere la nuova pozione
-            expected = "restart"
-        elif length > 5 and length_interview == 3:
+            self.dialogue_manager.next_potion() # TODO: chiedere la nuova pozione
+            expected = ','.join(self.ingredients_current_potion) 
+        elif length > 4 and length_interview == 3:
             self.current_intent = 4
             #TODO: calcola la valutazione 
             expected = "end"
@@ -347,7 +355,7 @@ class DialogueControl:
     def get_current_intent(self): 
         return self.INTENTS[self.current_intent]
 
-    def get_evaluation(self):
+    def get_evaluation(self, memory: pd.DataFrame):
         """Gets the evaluation of the conversation based on the memory.
         """
         pass
@@ -358,11 +366,11 @@ class DialogueContext:
     """
     def __init__(self, memory: pd.DataFrame):
         self.memory = memory
-        self.ingredients_mentioned = []
         
     def set_current_potion(self, current_potion: pd.DataFrame): 
         self.frame = current_potion
         self.index = 0
+        self.ingredients_mentioned = []
 
     def update_memory(self, ingredient_asked: str, answer: str, current_intent: str, in_potion: list, out_potion: list, y_n: str, expected: str):
         """ Updates the memory with the answer of the student.
