@@ -398,8 +398,7 @@ class DialogueContext:
                 else: 
                     incorrect_ingredients.append(ingredient)
         
-            self.ingredients_mentioned = list(set(self.ingredients_mentioned + in_potion + out_potion + indifferent_ingredient))
-        elif current_intent == "ingredient_yes_no" or current_intent == "question_tricky": 
+        elif current_intent == "ingredients_yes_no" or current_intent == "question_tricky": 
             if ingredient_asked != "":
                 if y_n == expected:
                     correct_ingredients.append(ingredient_asked)
@@ -410,6 +409,8 @@ class DialogueContext:
                     correct_ingredients.append("x")
                 else: 
                     incorrect_ingredients.append("x")
+        
+        self.ingredients_mentioned = list(set(self.ingredients_mentioned + in_potion + out_potion + indifferent_ingredient))
 
         self.memory = self.memory.append({'Intent': current_intent, 'Ingredient asked' : ingredient_asked, 'Answer': answer, 
                 'Correct ingredients': ','.join(correct_ingredients), 'Incorrect ingredients': ','.join(incorrect_ingredients), 
