@@ -20,7 +20,7 @@ class DialogueSystem:
         expected = "greetings"
 
         while intent != "evaluation_end": 
-            if intent == "handshake" or intent == "ingredients_generic": 
+            if intent == "handshake" or intent == "ingredients_generic" or to_ask == "question_tricky": 
                 ingredient_asked = ""
             else: 
                 ingredient_asked = to_ask

@@ -120,13 +120,16 @@ class LanguageUnderstanding:
         for verb in verbs: 
             print ("{:<15} | {:<15} |".format(str(verb[0]), verb[1]))
 
-        for verb in verbs: 
-            print("Children ", verb[0].children)
+        for verb in verbs:
             ingredients_mentioned_verb = self.deep_search(verb[0], [])
+            print("\n \n VERB: ", verb[0].text, " ingredients_mentioned_verb: ", ingredients_mentioned_verb, "\n \n")
             if verb[1] == "pos":
                 in_potion = list(set(in_potion + ingredients_mentioned_verb))
             else: # negazione
                 out_potion = list(set(out_potion + ingredients_mentioned_verb))
+
+        # se un ingrediente è presente sia nella lista di in che di out, rimane solo in out
+        in_potion = list(set(in_potion).difference(set(out_potion)))
 
         print("in_potion", in_potion)
         print("out_potion", out_potion) 

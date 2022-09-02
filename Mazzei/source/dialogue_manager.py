@@ -191,7 +191,6 @@ class DialogueControl:
         elif self.current_intent == 0: 
             self.current_intent = 1 #start asking ingredients
             to_ask = "start_ingredients_generic"
-            # to_ask = self.frame.columns[0] # TODO name of potion DA ELIMINARE
             expected = ','.join(self.ingredients_current_potion) 
             print()
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
@@ -424,15 +423,21 @@ class DialogueContext:
                 else: 
                     incorrect_ingredients.append(ingredient)
         
-        self.ingredients_mentioned = list(set(self.ingredients_mentioned + in_potion + out_potion + indifferent_ingredient))
+            self.ingredients_mentioned = list(set(self.ingredients_mentioned + in_potion + out_potion + indifferent_ingredient))
+        elif current_intent == "ingredient_yes_no" or current_intent == "question_tricky": 
+            if ingredient_asked != "":
+                if y_n == expected:
+                    correct_ingredients.append(ingredient_asked)
+                else: 
+                    incorrect_ingredients.append(ingredient_asked)
+            else: 
+                if y_n == expected:
+                    correct_ingredients.append("x")
+                else: 
+                    incorrect_ingredients.append("x")
 
-#QUI C'è DA CAPIRE DA DOVE PRENDERE INGREDIENT, PERCHè SARà QUELLO MENZIONATO NELLA DOMANDA E NON SARà SEMPRE PRESENTE NELLA RISPOSTA
-#        if current_intent == "" or current_intent == "": 
-#            if y_n == expected:
-#                number_correct.append(ingredient)
-#            else:
-#                number_incorrect.append(ingredient)
         
+        # se sono entrambi si o entrambi no si inserisce l'ingrediente nella lista corretti 
 
         self.memory = self.memory.append({'Intent': current_intent, 'Ingredient asked' : ingredient_asked, 'Answer': answer, 
                 'Correct ingredients': ','.join(correct_ingredients), 'Incorrect ingredients': ','.join(incorrect_ingredients), 
