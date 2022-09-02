@@ -128,8 +128,18 @@ class ResponseGenerator:
 
     @classmethod
     def generate_unclear_answer(cls): 
-        print("\n UNCLEAR ANSWER response_generation: \n")
-        pass
+        """ Generates an answer if the answer of the user is unclear. 
+        The answer has to ask to repeat the answer of the user.
+
+        Returns:
+            str: The answer.
+        """
+        possible_sentences = ["Your answer was unclear, please try again.", "I didn't understand, could you repeat?", \
+            "I didn't understand, could you say it again?", "I didn't get it, could you repeat?"]
+        
+        choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
+   
+        return possible_sentences[choose_sentence[0]]
 
     @classmethod
     def generate_question_yes_no(cls, to_ask: str, name_potion: str): 
