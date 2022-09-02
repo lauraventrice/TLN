@@ -34,9 +34,9 @@ class ResponseGenerator:
         elif current_intent == "handshake":
             return cls.generate_greetings()
         elif current_intent == "ingredients_generic":
-            return cls.generate_init_exam(to_ask)
+            return cls.generate_ingredient_generic(to_ask)
         elif current_intent == "ingredients_yes_no" or current_intent == "question_tricky":
-            return cls.generate_feedback_continue()
+            return cls.generate_feedback_continue(to_ask)
         elif current_intent == "evaluation":
             return cls.generate_end_exam_eval()
         elif current_intent == "restart":
@@ -53,7 +53,7 @@ class ResponseGenerator:
         return possible_sentences[choose_sentence[0]]
 
     @classmethod
-    def generate_init_exam(cls, to_ask: str): #rispondiamo a partire da una lista di possibili risposte
+    def generate_ingredient_generic(cls, to_ask: str): #rispondiamo a partire da una lista di possibili risposte
         
         if str.__contains__(to_ask.lower(), "potion"):
             possible_sentences = ["Mr. Potter tell me the ingredients of the " + to_ask + ".", \
@@ -69,11 +69,11 @@ class ResponseGenerator:
         return possible_sentences[choose_sentence[0]]
     
     @classmethod
-    def generate_feedback_continue(cls, to_ask = ""): #usiamo simpleNLG per generare risposte 
-        if to_ask != "":
+    def generate_feedback_continue(cls, intent: str, to_ask = ""): #usiamo simpleNLG per generare risposte 
+        if intent == "ingredients_yes_no":
             cls.generate_question_yes_no(to_ask)
         else:
-            cls.generate_tricky_question()
+            cls.generate_tricky_question(to_ask)
         #bisogna stare attenti agli ingredienti delle risposte dell'utente e quelli richiesti dal sistema per evitare ripetizioni
         pass
     
@@ -97,5 +97,9 @@ class ResponseGenerator:
         pass
 
     @classmethod
-    def generate_tricky_question(cls): #generiamo la domanda trabocchetto
+    def generate_tricky_question(cls, to_ask: str): #generiamo la domanda trabocchetto
+        if to_ask == "question_tricky":
+        
+        else: 
+
         pass
