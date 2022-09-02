@@ -25,7 +25,7 @@ class ResponseGenerator:
     CONTEXT_ANSWERS = ["greetings", "init_exam", "feedback_continue", "unclear_input", "end_exam_eval", "restart"]
 
     @classmethod
-    def generate_answer(cls, current_intent: str, to_ask = "generic", memory = None, unclear_answer = False, name_potion = ""): 
+    def generate_answer(cls, current_intent: str, to_ask = "", memory = None, unclear_answer = False, name_potion = ""): 
         """Generates an answer for the current intent based on memory.
         
         Args:
@@ -41,10 +41,10 @@ class ResponseGenerator:
         elif current_intent == "handshake":
             return cls.generate_greetings()
         elif current_intent == "ingredients_generic":
-            return cls.generate_ingredient_generic(name_potion)
+            return cls.generate_ingredient_generic(to_ask, name_potion)
         elif current_intent == "ingredients_yes_no" or current_intent == "question_tricky":
-            return cls.generate_feedback_continue(to_ask, name_potion)
-        elif current_intent == "evaluation":
+            return cls.generate_feedback_continue(current_intent, to_ask, name_potion)
+        elif current_intent == "evaluation_end":
             return cls.generate_end_exam_eval()
         elif current_intent == "restart":
             return cls.generate_restart(to_ask)
@@ -60,28 +60,77 @@ class ResponseGenerator:
         return possible_sentences[choose_sentence[0]]
 
     @classmethod
-    def generate_ingredient_generic(cls, name_potion : str): #rispondiamo a partire da una lista di possibili risposte
-        
-        if str.__contains__(name_potion.lower(), "potion"):
-            possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + ".", \
-                "Mr. Potter can you tell me the ingredients of the " + name_potion + " ?",   \
-                    "Mr. Potter could you tell me the ingredients of the " + name_potion + " ?"]
-        else:    
-            possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + " potion.", \
-                "Mr. Potter can you tell me the ingredients of the " + name_potion + " potion?",   \
-                    "Mr. Potter could you tell me the ingredients of the " + name_potion + " potion?"]
-        
-        choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
-   
-        return possible_sentences[choose_sentence[0]]
+    def generate_ingredient_generic(cls, to_ask: str, name_potion: str): #rispondiamo a partire da una lista di possibili risposte
+        if to_ask == "start_ingredients_generic":
+            if str.__contains__(name_potion.lower(), "potion"):
+                possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + ".", \
+                    "Mr. Potter can you tell me the ingredients of the " + name_potion + " ?",   \
+                        "Mr. Potter could you tell me the ingredients of the " + name_potion + " ?"]
+            else:    
+                possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + " potion.", \
+                    "Mr. Potter can you tell me the ingredients of the " + name_potion + " potion?",   \
+                        "Mr. Potter could you tell me the ingredients of the " + name_potion + " potion?"]
+            
+            choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
     
+            return possible_sentences[choose_sentence[0]]
+        else: # to_ask == "remaining_ingredients"       
+            lexicon = Lexicon.getDefaultLexicon()
+            realiser = Realiser(lexicon)
+            nlgFactory = NLGFactory(lexicon)
+
+            random_indexes = list(random.sample(range(0, 4), 1))
+
+            if random_indexes[0] == 0:
+                ## You are right but you should tell me some more ingredients. - ingredient_generic
+                p = nlgFactory.createClause("you")
+                verb = nlgFactory.createVerbPhrase("be")
+                p.setVerb(verb)
+                verb.addModifier("right")
+                p0 = nlgFactory.createClause("you")
+                verb0 = nlgFactory.createVerbPhrase("tell")
+                p0.setObject("some more ingredients")
+                p0.setVerb(verb0)
+                verb0.setFeature(Feature.MODAL, "should")
+                verb0.setPostModifier("me")
+                p0.setFeature(Feature.COMPLEMENTISER, "but")
+                p.addComplement(p0)
+            elif random_indexes[0] == 1:
+                # What are the remaining ingredients? - ingredient_generic
+                p = nlgFactory.createClause("the remaining ingredients")
+                verb = nlgFactory.createVerbPhrase("be")
+                verb.setPlural(True)
+                p.setVerbPhrase(verb)
+                p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.WHAT_OBJECT)
+                realiser.realiseSentence(p)
+            elif random_indexes[0] == 2:
+                # What are the other ingredients? - ingredient_generic
+                p = nlgFactory.createClause("the other ingredients")
+                verb = nlgFactory.createVerbPhrase("be")
+                verb.setPlural(True)
+                p.setVerbPhrase(verb)
+                p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.WHAT_OBJECT)
+                realiser.realiseSentence(p)
+            elif random_indexes[0] == 3:
+                # What ingredients are left? - ingredients_generic 
+                p = nlgFactory.createClause("the ingredients")
+                p.setPlural(True)
+                verb = nlgFactory.createVerbPhrase("be left")
+                p.setVerbPhrase(verb)
+                p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.WHAT_OBJECT)
+            
+            phrase = realiser.realiseSentence(p)
+
+            return phrase
+            
     @classmethod
-    def generate_feedback_continue(cls, intent: str, to_ask = "", name_potion = ""): #usiamo simpleNLG per generare risposte 
+    def generate_feedback_continue(cls, intent: str, to_ask: str, name_potion: str): #usiamo simpleNLG per generare risposte 
         if intent == "ingredients_yes_no":
-            cls.generate_question_yes_no(to_ask, name_potion)
+            phrase = cls.generate_question_yes_no(to_ask, name_potion)
         else:
-            cls.generate_tricky_question(to_ask)
-        pass
+            phrase = cls.generate_tricky_question(to_ask)
+        
+        return phrase
     
     @classmethod
     def generate_end_exam_eval(cls): #rispondiamo a partire da una lista di possibili risposte
@@ -114,18 +163,18 @@ class ResponseGenerator:
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 1:
             ## Is INGNAME present in the POTNAME potion? - YES/NO
-            p = nlgFactory.createClause("INGNAME", "be present", "in the POTNAME potion")
+            p = nlgFactory.createClause(to_ask, "be present", "in the "  + name_potion + " potion")
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 2:
             ## Do you think INGNAME is an ingredient of this potion? - YES/NO
             p = nlgFactory.createClause("you", "think")
-            p0 = nlgFactory.createClause("INGNAME", "be", "this potion")
+            p0 = nlgFactory.createClause(to_ask, "be", "this potion")
             p0.setIndirectObject("an ingredient of")
             p.setComplement(p0)
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 3:
             #Is INGNAME in the ingredient list of the POTNAME potion? - YES/NO
-            p = nlgFactory.createClause("INGNAME", "be", "of the POTNAME potion")
+            p = nlgFactory.createClause(to_ask, "be", "of the " + name_potion + " potion")
             p.setIndirectObject("in the ingredient list")
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 4:
@@ -134,7 +183,7 @@ class ResponseGenerator:
             verb = nlgFactory.createVerbPhrase("be able to tell me")
             verb.setFeature(Feature.MODAL, "would")
             p.setVerbPhrase(verb)
-            p0 = nlgFactory.createClause("INGNAME", "be", "this potion")
+            p0 = nlgFactory.createClause(to_ask, "be", "this potion")
             p0.setIndirectObject("an ingredient in")
             p0.setFeature(Feature.COMPLEMENTISER, "if")
             p.setComplement(p0)

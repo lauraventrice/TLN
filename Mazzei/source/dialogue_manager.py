@@ -54,7 +54,7 @@ class DialogueManager:
         Returns:
             pandas.DataFrame: The data frame that will represent the potion with its ingredients.
         """
-        df = pd.DataFrame(index=range(row_num),columns=[column_name])
+        df = pd.DataFrame(index=range(row_num),columns=[column_name], dtype=str)
         return df
 
     def choose_potions(self, potions: dict):
@@ -177,10 +177,10 @@ class DialogueControl:
             self.current_intent = 4
             #calcola la valutazione della conversazione
             expected = "end"
-        elif length > 3 and length_interview < 3: #facciamo restart solo se abbiamo fatto 4 domande, ha ancora qualcosa di sbagliato e non abbiamo ancora chiesto 3 pozioni
+        elif length > 5 and length_interview < 3: #facciamo restart solo se abbiamo fatto 4 domande, ha ancora qualcosa di sbagliato e non abbiamo ancora chiesto 3 pozioni
             self.current_intent = 5
             expected = "restart"
-        elif length > 3 and length_interview == 3:
+        elif length > 5 and length_interview == 3:
             self.current_intent = 4
             #calcola la valutazione della conversazione
             expected = "end"
@@ -190,6 +190,7 @@ class DialogueControl:
             expected = "greeting"
         elif self.current_intent == 0: 
             self.current_intent = 1 #start asking ingredients
+            to_ask = "start_ingredients_generic"
             # to_ask = self.frame.columns[0] # TODO name of potion DA ELIMINARE
             expected = ','.join(self.ingredients_current_potion) 
             print()
@@ -200,13 +201,17 @@ class DialogueControl:
             else:
                 next_state = range(1, 4)
 
+            # momentaneamente andiamo solo in 1
+            # next_state = [1]
+
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 3
             self.current_intent = random_index[0] #1 or 2 or 3
 
             if self.current_intent == 1: # "Quali sono il resto degli ingredienti?"
-                to_ask = ""
+                to_ask = "remaining_ingredients"
                 ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
-                ingredients_in_frame.remove(None)
+                ingredients_in_frame = [ingredient for ingredient in ingredients_in_frame if not pd.isnull(ingredient)]
+                print("INGREDIENTS IN FRAME: \n \n \n", ingredients_in_frame)
                 remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame))) # ingredienti della pozione corrente - ingredienti nel frame
                 expected = ','.join(remaining_ingredients)
                 self.remaining_ingredients_asked = True
@@ -242,9 +247,10 @@ class DialogueControl:
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 2 or 3 or 4
             self.current_intent = random_index[0] # 1 or 2 or 3 or 4
             if self.current_intent == 1:
-                to_ask = ""
+                to_ask = "remaining_ingredients"
                 ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
-                ingredients_in_frame.remove(None)
+                ingredients_in_frame = [ingredient for ingredient in ingredients_in_frame if not pd.isnull(ingredient)]
+                print("INGREDIENTS IN FRAME: \n \n \n", ingredients_in_frame)
                 remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame))) 
                 expected = ','.join(remaining_ingredients)
             elif self.current_intent == 2:
@@ -281,9 +287,10 @@ class DialogueControl:
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 4
             self.current_intent = random_index[0]
             if self.current_intent == 1:
-                to_ask = ""
+                to_ask = "remaining_ingredients"
                 ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
-                ingredients_in_frame.remove(None)
+                ingredients_in_frame = [ingredient for ingredient in ingredients_in_frame if not pd.isnull(ingredient)]
+                print("INGREDIENTS IN FRAME: \n \n \n", ingredients_in_frame)
                 remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame)))
                 expected = ','.join(remaining_ingredients)
             elif self.current_intent == 2:
