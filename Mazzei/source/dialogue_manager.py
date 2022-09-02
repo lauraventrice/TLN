@@ -150,6 +150,7 @@ class DialogueControl:
             expected = "end"
         elif length > 5 and length_interview < 3: 
             self.current_intent = 5
+            # TODO: chiedere la nuova pozione
             expected = "restart"
         elif length > 5 and length_interview == 3:
             self.current_intent = 4

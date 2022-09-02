@@ -32,14 +32,15 @@ class ResponseGenerator:
         elif current_intent == "evaluation_end":
             return cls.generate_end_exam_eval()
         elif current_intent == "restart":
-            return cls.generate_restart(to_ask)
+            return cls.generate_restart(name_potion)
         else:
             return "I don't know what to say."
 
     @classmethod
     def generate_greetings(cls): 
         
-        possible_sentences = ["Good morning Mr Potter.", "Welcome to the potions examination Mr Potter."]
+        possible_sentences = ["Good morning Mr Potter.", "Welcome to the potions examination Mr Potter.", \
+            "Good morning Mr Potter, I hope that you have studied this time.", "Good morning Potter, I hope you are better prepared than last time. "]
         choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
    
         return possible_sentences[choose_sentence[0]]
@@ -47,6 +48,12 @@ class ResponseGenerator:
     @classmethod
     def generate_ingredient_generic(cls, to_ask: str, name_potion: str): 
         if to_ask == "start_ingredients_generic":
+
+            begin_sentence = "Mr. Potter, "
+
+            phrase = cls.choose_phrase(name_potion)
+
+            """
             if str.__contains__(name_potion.lower(), "potion"):
                 possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + ".", \
                     "Mr. Potter can you tell me the ingredients of the " + name_potion + " ?",   \
@@ -57,8 +64,8 @@ class ResponseGenerator:
                         "Mr. Potter could you tell me the ingredients of the " + name_potion + " potion?"]
             
             choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
-    
-            return possible_sentences[choose_sentence[0]]
+            """
+            return begin_sentence + phrase
         else: # to_ask == "remaining_ingredients"       
             lexicon = Lexicon.getDefaultLexicon()
             realiser = Realiser(lexicon)
@@ -108,7 +115,31 @@ class ResponseGenerator:
             phrase = realiser.realiseSentence(p)
 
             return phrase
-            
+
+
+    @classmethod
+    def choose_phrase(cls, name_potion: str):
+        """ Choose a phrase to ask ingredients of the potion, in a random way.
+
+        Args:
+            name_potion (str): The name of the potion.
+        
+        Returns:
+            str: The phrase to ask ingredients of the potion.
+        """
+        if str.__contains__(name_potion.lower(), "potion"):
+                possible_sentences = ["tell me the ingredients of the " + name_potion + ".", \
+                    "can you tell me the ingredients of the " + name_potion + " ?",   \
+                        "could you tell me the ingredients of the " + name_potion + " ?"]
+        else:    
+            possible_sentences = ["tell me the ingredients of the " + name_potion + " potion.", \
+                "can you tell me the ingredients of the " + name_potion + " potion?",   \
+                    "could you tell me the ingredients of the " + name_potion + " potion?"]
+        
+        choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
+
+        return possible_sentences[choose_sentence[0]]
+
     @classmethod
     def generate_feedback_continue(cls, intent: str, to_ask: str, name_potion: str): #use of simpleNLG to generate answer 
         if intent == "ingredients_yes_no":
@@ -119,12 +150,43 @@ class ResponseGenerator:
         return phrase
     
     @classmethod
-    def generate_end_exam_eval(cls): 
-        pass
+    def generate_end_exam_eval(cls, evaluation: str): # o forse è meglio un numero??
+        """ Generates the end of the exam with evaluation in to_ask.
+
+        Args:
+            evaluation (str): The evaluation of the exam.
+
+        Returns:
+            str: The end of the exam with evaluation.
+        """
+
+        phrases_end = ["This exam is over. ", "This exam has ended. ", "This examination is now over. ", "This is the end of this exam. "]
+        choose_end = list(random.sample(range(0, len(phrases_end)), 1))
+        phrase_end = phrases_end[choose_end[0]]
+
+        if evaluation == "bad": # magari minore di 70?
+            possible_comments = ["You failed the exam, Potter. ", "You didn't pass the exam, Potter. "]
+        else: 
+            possible_comments = ["You passed the exam, but there is still a long way to go. ", "At the limit of decency Potter, you saved yourself this time. "\
+                "You got away with it in the end, Potter. "]
+
+        choose_comment = list(random.sample(range(0, len(phrases_end)), 1))
+        phrase_comment = possible_comments[choose_comment[0]]
+
+        phrase_evaluation = "Your final grade for this exam is " + evaluation + "."
+        
+        return phrase_end + phrase_comment + phrase_evaluation
     
     @classmethod
-    def generate_restart(cls, to_ask: str): 
-        pass    
+    def generate_restart(cls, name_potion: str): 
+        possible_start = ["Next question, ", "Perhaps we should change potions, ", "Let's try another question, ", "Let's try another potion, "]
+        
+        choose_start = list(random.sample(range(0, len(possible_start)), 1))
+        phrase_start = possible_start[choose_start[0]]
+
+        phrase = cls.choose_phrase(name_potion)
+
+        return phrase_start + phrase
 
     @classmethod
     def generate_unclear_answer(cls): 
