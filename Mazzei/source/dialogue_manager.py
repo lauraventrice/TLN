@@ -96,7 +96,7 @@ class DialogueManager:
         self.dialogue_context.set_current_potion(self.current_potion)
         self.dialogue_control.set_current_potion(self.current_potion, self.ingredients_potions_chosen[0])
 
-        memory, intent, to_ask, expected = self.dialogue_control.manage_intent()
+        memory, intent, to_ask, expected, _ = self.dialogue_control.manage_intent()
         self.memory = memory
         self.expected_current_answer = expected
 
@@ -120,11 +120,11 @@ class DialogueManager:
        
         current_intent = self.dialogue_control.get_current_intent()
         self.dialogue_context.update_memory(ingredient_asked, last_answer, current_intent, in_potion, out_potion, y_n, self.expected_current_answer) 
-        memory, intent, to_ask, expected = self.dialogue_control.manage_intent()
+        memory, intent, to_ask, expected, name_potion = self.dialogue_control.manage_intent()
         self.memory = memory
         self.expected_current_answer = expected
            
-        return self.memory, intent, to_ask
+        return self.memory, intent, to_ask, name_potion
 
 
     # Tentativo di inserimento di un valore in un dataframe
@@ -160,6 +160,7 @@ class DialogueControl:
             intent (str): The intent of the question to ask.
             to_ask (str): The ingredient or potion to ask.   
             expected (str): Expecting the answer of the user.
+            name_potion (str): The name of the potion.
         """
 
         memory = self.dialogue_context.memory
@@ -189,7 +190,7 @@ class DialogueControl:
             expected = "greeting"
         elif self.current_intent == 0: 
             self.current_intent = 1 #start asking ingredients
-            to_ask = self.frame.columns[0] # name of potion
+            # to_ask = self.frame.columns[0] # TODO name of potion DA ELIMINARE
             expected = ','.join(self.ingredients_current_potion) 
             print()
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
@@ -298,7 +299,7 @@ class DialogueControl:
         else:
             self.current_intent = -1
         
-        return memory, self.INTENTS[self.current_intent], to_ask, expected
+        return memory, self.INTENTS[self.current_intent], to_ask, expected, self.frame.columns[0]
 
     def choose_ingredient_general(self):
         """Chooses an ingredient to ask from the list of ingredients available without ingredients mentioned by the user.
