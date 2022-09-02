@@ -143,6 +143,7 @@ class DialogueControl:
     def __init__(self, dialogue_context):
         self.dialogue_context = dialogue_context 
         self.current_intent = -1
+        self.remaining_ingredients_asked = False
     
     def set_ingredient_available(self, ingredients_available: list):
         self.ingredients_available = ingredients_available
@@ -165,12 +166,13 @@ class DialogueControl:
 
         print("memory in dialogue control: \n", tabulate(memory, headers='keys', tablefmt='psql'))
 
-        are_correct, length = self.check_correct_current_potion(memory)
+        incomplete, length = self.check_correct_current_potion(memory)
         length_interview = self.check_length_interview(memory)
         expected = ""
         to_ask = ""
+
         #controlla la memoria se abbiamo fatto 4 domande ferma la conversazione fai il voto
-        if are_correct: #appena ne fa giusta una finisce la conversazione
+        if not incomplete: #appena ne fa giusta una finisce la conversazione
             self.current_intent = 4
             #calcola la valutazione della conversazione
             expected = "end"
@@ -191,17 +193,30 @@ class DialogueControl:
             expected = ','.join(self.ingredients_current_potion) 
             print()
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
-            random_index = list(random.sample(range(2, 4), 1)) #non deterministic next state 2 or 3
-            self.current_intent = random_index[0] #2 or 3
-            if self.current_intent == 2: # ingredients_yes_no "Questo ingrediente è presente nella pozione?"
+            
+            if self.remaining_ingredients_asked:
+                next_state = range(2, 4)
+            else:
+                next_state = range(1, 4)
+
+            random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 3
+            self.current_intent = random_index[0] #1 or 2 or 3
+
+            if self.current_intent == 1: # "Quali sono il resto degli ingredienti?"
+                to_ask = ""
+                ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
+                ingredients_in_frame.remove(None)
+                remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame))) # ingredienti della pozione corrente - ingredienti nel frame
+                expected = ','.join(remaining_ingredients)
+                self.remaining_ingredients_asked = True
+            elif self.current_intent == 2: # ingredients_yes_no "Questo ingrediente è presente nella pozione?"
                 to_ask = self.choose_ingredient_general() 
-                
                 if to_ask in self.ingredients_current_potion:
                     expected = "yes"
                 else:
                     expected = "no"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
-            else: # question_tricky 
+            else: # question_tricky (self.current_intent == 3)
                 random_index = list(random.sample(range(0, 2), 1)) #non deterministic choose type of questions 
                 if random_index[0] == 0: #question_tricky "Sei sicuro che questo *ingrediente* sia presente?"
                     to_ask = self.choose_ingredient_from_answer()
@@ -209,31 +224,76 @@ class DialogueControl:
                         expected = "yes"
                     else:
                         expected = "no"   
-                else: # "Quali sono il resto degli ingredienti?" o "Sei sicuro che gli ingredienti siano finiti?"
-                    #TODO: qui dentro dovremmo scegliere di nuovo casualmente??? perchè in un caso io avrò una risposta si no nell'altro una lista di ingredienti!
+                else: # "Sei sicuro che gli ingredienti siano finiti?"
+                    incomplete, _ = self.check_correct_current_potion(memory)
+                    if incomplete:
+                        expected = "no"
+                    else: 
+                        expected = "yes"  
                     to_ask = "question_tricky"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
         elif self.current_intent == 2:
-            random_index = list(random.sample(range(2, 5), 1)) #non deterministic next state 2 or 3 or 4
-            self.current_intent = random_index[0] #2 or 3 or 4
-            if self.current_intent == 2:
-                #prima scelgo gli ingredienti da chiedere
-                expected = "ingredients_yes_no"
-            elif self.current_intent == 3: 
-                #prima scelgo gli ingredienti da chiedere
-                expected = ""
+            if self.remaining_ingredients_asked:
+                next_state = range(2, 5)
             else:
-                #calcolo la valutazione
+                next_state = range(1, 5)
+
+            random_index = list(random.sample(next_state, 1)) #non deterministic next state 2 or 3 or 4
+            self.current_intent = random_index[0] # 1 or 2 or 3 or 4
+            if self.current_intent == 1:
+                to_ask = ""
+                ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
+                ingredients_in_frame.remove(None)
+                remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame))) 
+                expected = ','.join(remaining_ingredients)
+            elif self.current_intent == 2:
+                to_ask = self.choose_ingredient_general() 
+                if to_ask in self.ingredients_current_potion:
+                    expected = "yes"
+                else:
+                    expected = "no"
+            elif self.current_intent == 3: 
+                random_index = list(random.sample(range(0, 2), 1)) #non deterministic choose type of questions 
+                if random_index[0] == 0: #question_tricky "Sei sicuro che questo *ingrediente* sia presente?"
+                    to_ask = self.choose_ingredient_from_answer()
+                    if to_ask in self.ingredients_current_potion:
+                        expected = "yes"
+                    else:
+                        expected = "no"   
+                else: # "Sei sicuro che gli ingredienti siano finiti?"
+                    incomplete, _ = self.check_correct_current_potion(memory)
+                    if incomplete:
+                        expected = "no"
+                    else: 
+                        expected = "yes"
+                    to_ask = "question_tricky"
+            else: # (self.current_intent == 4)
+                #TODO: calcolo la valutazione
                 expected = ""
         elif self.current_intent == 3:
-            random_index = list(random.sample([2, 4], 1)) #non deterministic next state 2 or 4
+
+            if self.remaining_ingredients_asked:
+                next_state = [2, 4]
+            else:
+                next_state = [1, 2, 4]
+
+            random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 4
             self.current_intent = random_index[0]
-            if self.current_intent == 2:
-                #prima scelgo gli ingredienti da chiedere
-                expected = "ingredients_yes_no"
+            if self.current_intent == 1:
+                to_ask = ""
+                ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
+                ingredients_in_frame.remove(None)
+                remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame)))
+                expected = ','.join(remaining_ingredients)
+            elif self.current_intent == 2:
+                to_ask = self.choose_ingredient_general() 
+                if to_ask in self.ingredients_current_potion:
+                    expected = "yes"
+                else:
+                    expected = "no"
             else: 
                 self.current_intent = 4
-                #calcolo la valutazione
+                #TODO: calcolo la valutazione
                 expected = ""
         else:
             self.current_intent = -1
@@ -267,22 +327,22 @@ class DialogueControl:
         """Checks if the student has answered correctly the current potion.
         
         Returns:
-            bool: True if the ingredients of the current potion are correct, False otherwise.
-            length: interview length for the current potion.
+            incomplete (bool): True if there is some ingredients of the current potion that is missing, False otherwise.
+            length (int): interview length for the current potion.
         """
-        mistakes = True
+        incomplete = True
         last_value = len(self.frame.index) - 1
         name_potion = self.frame.columns[0]
         #print("LUNGHEZZA :", last_value + 1, "\n \n")
         if last_value > 0:
-            mistakes = pd.isna(self.frame.loc[last_value, name_potion]) # check if the last value is nan
+            incomplete = pd.isna(self.frame.loc[last_value, name_potion]) # check if the last value is nan
         #print("MISTAKES: ", mistakes, "\n \n")
 
         memory_current_potion = memory.query("Potion == @name_potion") # get the current potion from the memory
         length = len(memory_current_potion.index) # get the length of the interview current potion
 
         #print("Length: ", length, "\n \n")
-        return not mistakes, length
+        return incomplete, length
         
 
     def check_length_interview(self, memory: pd.DataFrame):
