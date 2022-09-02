@@ -82,6 +82,7 @@ class ResponseGenerator:
             random_indexes = list(random.sample(range(0, 4), 1))
 
             if random_indexes[0] == 0:
+                #TODO: rimuovere You are right
                 ## You are right but you should tell me some more ingredients. - ingredient_generic
                 p = nlgFactory.createClause("you")
                 verb = nlgFactory.createVerbPhrase("be")

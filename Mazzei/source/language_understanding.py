@@ -10,12 +10,12 @@ class LanguageUnderstanding:
         self.ingredients_available = ingredients_available 
         
 
-    def interpret_response(self, response: str):
+    def interpret_response(self, response: str, intent: str):
         """ Interprets the response.
 
         Args:
             response (str): The response to interpret.
-
+            intent (str): The intent of the response of the question.
         Returns:
             in_potion (list) : The ingredients mentioned as in the potion.
             out_potion (list): The ingredients mentioned as out of the potion.
@@ -26,12 +26,22 @@ class LanguageUnderstanding:
         out_potion = []
         y_n = ""
         unclear_answer = False
-        if not str.__contains__(response.lower(), "good morning"):
+        if not str.__contains__(response.lower(), "good morning") and not str.__contains__(response.lower(), "goodmorning"):
             unclear_answer = self.check_sentence(response)
             if not unclear_answer: 
-                in_potion, out_potion, y_n = self.parsing_sentence(response)
+                if intent == "ingredients_yes_no" or intent == "question_tricky": # parsing sentence with answer yes or no
+                    negative_lemmas = ["no", "not", "'nt"]
+                    is_negative = bool([neg_lemma for neg_lemma in negative_lemmas if(neg_lemma in response.lower())])
+
+                    if is_negative:
+                        y_n = "no"
+                    else: 
+                        y_n = "yes"
+                else:
+                    in_potion, out_potion = self.parsing_sentence(response)
         
         print("IN POTION in language understanding: \n \n \n ", in_potion, "\n \n \n")
+        print("YES NO ANSWER, ", y_n)
         return in_potion, out_potion, y_n, unclear_answer
 
     def check_sentence(self, sentence: str):
@@ -70,7 +80,7 @@ class LanguageUnderstanding:
         print("")
 
         # non effettuare correzioni se sono da corregere ingredienti 
-        correct_sentence = tool.correct(sentence)
+        #correct_sentence = tool.correct(sentence)
 
         return 1 - count_errors/count_words
         
@@ -84,14 +94,10 @@ class LanguageUnderstanding:
         Returns:
             in_potion (list): The ingredients mentioned as in the potion.
             out_potion (list): The ingredients mentioned as out of the potion.
-            y_n (str): The answer to the question if was yes or no.
         """
-
-        #TODO: gestire risposta si/no
 
         in_potion = []
         out_potion = []
-        y_n = ""
         doc = nlp(sentence)
         ingredients_mentioned = []
         sentence = sentence.lower()
@@ -124,7 +130,7 @@ class LanguageUnderstanding:
 
         print("in_potion", in_potion)
         print("out_potion", out_potion) 
-        return in_potion, out_potion, []
+        return in_potion, out_potion
 
 
     def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
