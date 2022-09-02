@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-#DA AGGIUSTARE
-import source
+from __init__ import main
 
 if __name__ == "__main__":
-    source.main()
+    main()
