@@ -96,6 +96,7 @@ class LanguageUnderstanding:
         out_potion = []
         doc = nlp(sentence)
         ingredients_mentioned = []
+        # preprocessing
         sentence = sentence.lower()
         for ingredient in self.ingredients_available:
             if ingredient.lower() in sentence:
@@ -103,12 +104,16 @@ class LanguageUnderstanding:
                 sentence = sentence.replace(ingredient.lower(), ingredient)
                 
         sentence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), sentence, 1)
+
+        # trim 
+        sentence = " ".join(sentence.split())
+        print("AFTER PRE PROCESSING: ", sentence)
         doc = nlp(sentence)
         
         verbs = []
         for token in doc: 
             print(token.text, token.tag_)
-            if str(token.tag_) == "VBP" or str(token.tag_) == "VBZ": 
+            if str(token.tag_) == "VBP" or str(token.tag_) == "VBZ" or str(token.tag_) == "VB": 
                 verb_context = self.check_verb_context(token)
                 verbs.append((token, verb_context)) 
         
@@ -134,7 +139,7 @@ class LanguageUnderstanding:
 
     def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
         print("NOME NODO", node.text, " TAG ", str(node.tag_))
-        if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ":  
+        if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ" or str(node.tag_) == "VB":  
             for child in node.children:
                 if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp":
                     ingredients_mentioned = self.deep_search(child, ingredients_mentioned)

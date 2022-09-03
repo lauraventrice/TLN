@@ -30,7 +30,7 @@ class ResponseGenerator:
         elif current_intent == "ingredients_yes_no" or current_intent == "question_tricky":
             return cls.generate_feedback_continue(current_intent, to_ask, name_potion)
         elif current_intent == "evaluation_end":
-            return cls.generate_end_exam_eval()
+            return cls.generate_end_exam_eval(to_ask)
         elif current_intent == "restart":
             return cls.generate_restart(name_potion)
         else:
@@ -150,7 +150,7 @@ class ResponseGenerator:
         return phrase
     
     @classmethod
-    def generate_end_exam_eval(cls, evaluation: str): # o forse è meglio un numero??
+    def generate_end_exam_eval(cls, evaluation: str): 
         """ Generates the end of the exam with evaluation in to_ask.
 
         Args:
@@ -164,8 +164,11 @@ class ResponseGenerator:
         choose_end = list(random.sample(range(0, len(phrases_end)), 1))
         phrase_end = phrases_end[choose_end[0]]
 
-        if evaluation == "bad": # magari minore di 70?
+        if evaluation == "insufficient" or evaluation == "failure": 
             possible_comments = ["You failed the exam, Potter. ", "You didn't pass the exam, Potter. "]
+        elif evaluation == "mediocre": 
+            possible_comments = ["You should study more Potter! You haven't studied enough, you've passed the exam with the minimum mark. ",
+                    "You have studied as little as your usual Potter."]
         else: 
             possible_comments = ["You passed the exam, but there is still a long way to go. ", "At the limit of decency Potter, you saved yourself this time. "\
                 "You got away with it in the end, Potter. "]
@@ -173,7 +176,7 @@ class ResponseGenerator:
         choose_comment = list(random.sample(range(0, len(phrases_end)), 1))
         phrase_comment = possible_comments[choose_comment[0]]
 
-        phrase_evaluation = "Your final grade for this exam is " + evaluation + "."
+        phrase_evaluation = "Your final grade for this exam is " + evaluation.upper() + "."
         
         return phrase_end + phrase_comment + phrase_evaluation
     

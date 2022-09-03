@@ -39,7 +39,7 @@ class DialogueManager:
         """
         #random_indexes = list(random.sample(range(1, len(potions)), 3))
         #sentence = I think that Fluxweed, Rose Thorn, Chinese Chomping cabbage and Caterpillar are in the potion.
-        random_indexes = [2]    # questo serve solo per testare -> rimuovere e rimettere l'indice random
+        random_indexes = [0, 1, 2]    # questo serve solo per testare -> rimuovere e rimettere l'indice random
         for i in range(len(random_indexes)):
             potion_name = list(potions.keys())[random_indexes[i]]
             potion_ingredients = list(potions.values())[random_indexes[i]]
@@ -154,16 +154,16 @@ class DialogueControl:
 
         if not incomplete: 
             self.current_intent = 4
-            #TODO: calcola la valutazione 
-            expected = "end"
+            to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
+            expected = ""
         elif length > 4 and length_interview < 3: 
             self.current_intent = 5
             self.dialogue_manager.next_potion() # TODO: chiedere la nuova pozione
             expected = ','.join(self.ingredients_current_potion) 
         elif length > 4 and length_interview == 3:
             self.current_intent = 4
-            #TODO: calcola la valutazione 
-            expected = "end"
+            to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
+            expected = ""
         elif self.current_intent == -1:
             self.current_intent = 0 #handshake
             to_ask = "greeting"
@@ -174,13 +174,13 @@ class DialogueControl:
             expected = ','.join(self.ingredients_current_potion) 
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
             
-            if self.remaining_ingredients_asked:
-                next_state = range(2, 4)
-            else:
-                next_state = range(1, 4)
+            # if self.remaining_ingredients_asked:
+            #     next_state = range(2, 4)
+            # else:
+            #     next_state = range(1, 4)
 
             # momentaneamente andiamo solo in 1
-            # next_state = [1]
+            next_state = [4]
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 3
             self.current_intent = random_index[0]
@@ -253,7 +253,7 @@ class DialogueControl:
                         expected = "yes"
                     to_ask = "question_tricky"
             else: # (self.current_intent == 4)
-                #TODO: calcolo la valutazione
+                to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
                 expected = ""
         elif self.current_intent == 3:
 
@@ -279,7 +279,7 @@ class DialogueControl:
                     expected = "no"
             else: 
                 self.current_intent = 4
-                #TODO: calcolo la valutazione
+                to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
                 expected = ""
         else:
             self.current_intent = -1
@@ -357,8 +357,54 @@ class DialogueControl:
 
     def get_evaluation(self, memory: pd.DataFrame):
         """Gets the evaluation of the conversation based on the memory.
+
+        Args:
+            memory (pd.DataFrame): The memory of the student.
+
+        Returns:
+            evaluation (str): The evaluation of the conversation.
         """
-        pass
+
+        count_correct = 0
+        count_incorrect = 0
+        count_indiff = 0
+        
+        print("memory index: ", memory.index)
+        for i in memory.index:
+            print("\n \n correct ingredients count: ", memory.loc[i, "Correct ingredients"].split(","))
+            count_correct += len(memory.loc[i, "Correct ingredients"].split(","))
+            print("\n \n incorrect ingredients count: ", memory.loc[i, "Incorrect ingredients"].split(","))
+            count_incorrect += len(memory.loc[i, "Incorrect ingredients"].split(","))
+            print("\n \n indifferent ingredients count: ", memory.loc[i, "Indifferent ingredients"].split(","))
+            count_indiff += len(memory.loc[i, "Indifferent ingredients"].split(","))
+        
+        evaluation = (count_correct - count_incorrect) / (count_correct + count_incorrect + count_indiff)
+        
+        print("count_correct: ", count_correct)
+        print("count_incorrect: ", count_incorrect)
+        print("count_indiff: ", count_indiff)
+
+        print("EVALUATION: ", evaluation)
+
+        if evaluation >= 2:
+            evaluation = "excellent"
+        elif evaluation > 0 and evaluation < 2:
+            evaluation = "satisfactory"
+        elif evaluation == 0:
+            evaluation = "mediocre"
+        elif evaluation < 0 and evaluation > -2:
+            evaluation = "insufficient"
+        elif evaluation <= -2:
+            evaluation = "failure"
+        
+        """
+        E (Excellent)
+        S (Satisfactory)
+        M (Mediocre)
+        I (Insufficient)
+        F (Failure)
+        """
+        return evaluation
 
 class DialogueContext: 
     """A class that is responsible for maintaining the information that is useful for the performance of the dialogue. 
