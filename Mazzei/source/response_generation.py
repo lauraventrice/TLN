@@ -17,9 +17,10 @@ class ResponseGenerator:
             memory (pandas.DataFrame): The memory of the system.
             current_intent (str): The current intent of the system.
             unclear_answer (bool, optional): Whether the answer is unclear. Defaults to False. Based on language_understanding module.
+
+        Returns:
+            str: The answer to the current intent.
         """
-        print("\n CURRENT INTENT response_generation: \n", current_intent, "\n")
-        print("\n TO ASK: \n", to_ask, "\n")
 
         if unclear_answer: 
             return cls.generate_unclear_answer()
@@ -48,23 +49,9 @@ class ResponseGenerator:
     @classmethod
     def generate_ingredient_generic(cls, to_ask: str, name_potion: str): 
         if to_ask == "start_ingredients_generic":
-
             begin_sentence = "Mr. Potter, "
-
             phrase = cls.choose_phrase(name_potion)
 
-            """
-            if str.__contains__(name_potion.lower(), "potion"):
-                possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + ".", \
-                    "Mr. Potter can you tell me the ingredients of the " + name_potion + " ?",   \
-                        "Mr. Potter could you tell me the ingredients of the " + name_potion + " ?"]
-            else:    
-                possible_sentences = ["Mr. Potter tell me the ingredients of the " + name_potion + " potion.", \
-                    "Mr. Potter can you tell me the ingredients of the " + name_potion + " potion?",   \
-                        "Mr. Potter could you tell me the ingredients of the " + name_potion + " potion?"]
-            
-            choose_sentence = list(random.sample(range(0, len(possible_sentences)), 1))
-            """
             return begin_sentence + phrase
         else: # to_ask == "remaining_ingredients"       
             lexicon = Lexicon.getDefaultLexicon()

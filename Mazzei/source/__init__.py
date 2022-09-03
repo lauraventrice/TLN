@@ -12,6 +12,10 @@ INGREDIENTS_DIR = f"Mazzei/data/ingredients.csv"
 
 def load_config():
     """Loads the configuration of the system (potions and ingredients).
+
+    Returns:
+        potions (dict): The list of potions available.
+        ingredients (list): The list of ingredients available.
     """
     potions = load_potions()
     ingredients = load_ingredients()
@@ -19,6 +23,9 @@ def load_config():
 
 def load_potions():
     """Loads the potions from the csv file.
+
+    Returns:
+        potions_dict (dict): The list of potions available.
     """
     potions_dict = {}
 
@@ -31,6 +38,9 @@ def load_potions():
 
 def load_ingredients():
     """Loads the ingredients from the csv file.
+
+    Returns:
+        ingredients (list): The list of ingredients available.
     """
     ingredients = []
     with open(INGREDIENTS_DIR) as csv_file:

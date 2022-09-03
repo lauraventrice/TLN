@@ -70,14 +70,13 @@ class LanguageUnderstanding:
         
         Returns:
             float: The score of the sentence.
-            str: The correct sentence. ????
         """
         tool = lt.LanguageTool('en-US')
         errors = tool.check(sentence)
         count_errors = len(errors)
 
         count_words = len(sentence.split(" "))
-        print("")
+        
         return 1 - count_errors/count_words
         
 
@@ -105,7 +104,6 @@ class LanguageUnderstanding:
                 
         sentence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), sentence, 1)
 
-        # trim 
         sentence = " ".join(sentence.split())
         print("AFTER PRE PROCESSING: ", sentence)
         doc = nlp(sentence)

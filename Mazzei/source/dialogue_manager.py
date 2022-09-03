@@ -345,7 +345,6 @@ class DialogueControl:
         potions_asked = list(set(memory["Potion"].to_list())) # get the list of potions asked in the whole interview
         
         length_interview = len(potions_asked)
-        print("print tabulate in check_length: \n ", tabulate(memory, headers='keys', tablefmt='grid'))
         print("length interview: ", length_interview, "\n \n")
 
         return length_interview
@@ -355,7 +354,12 @@ class DialogueControl:
 
     def get_evaluation(self, memory: pd.DataFrame):
         """Gets the evaluation of the conversation based on the memory.
-
+            The scale of grades is: 
+                E (Excellent)
+                S (Satisfactory)
+                M (Mediocre)
+                I (Insufficient)
+                F (Failure)
         Args:
             memory (pd.DataFrame): The memory of the student.
 
@@ -367,7 +371,6 @@ class DialogueControl:
         count_incorrect = 0
         count_indiff = 0
         
-        print("memory index: ", memory.index)
         for i in memory.index:
             correct_ingredients = [ingredient for ingredient in memory.loc[i, "Correct ingredients"].split(",") if ingredient != ""]
             count_correct += len(correct_ingredients)
@@ -397,13 +400,6 @@ class DialogueControl:
         elif evaluation <= -0.8:
             evaluation = "failure"
         
-        """
-        E (Excellent)
-        S (Satisfactory)
-        M (Mediocre)
-        I (Insufficient)
-        F (Failure)
-        """
         return evaluation
 
 class DialogueContext: 
@@ -441,7 +437,6 @@ class DialogueContext:
                 if ingredient in self.ingredients_current_potion and ingredient in ingredients_potion_expected:
                     correct_ingredients.append(ingredient)
                     if not ingredient in self.frame[self.frame.columns[0]].unique().tolist():
-                        print(" \n \n l'ingrediente non è già presente nel frame! \n \n")
                         self.frame.loc[self.index, self.frame.columns[0]] = ingredient
                         print("\n \n Frame aggiornato: \n \n ", self.frame, "\n \n")
                         self.index += 1
@@ -478,4 +473,3 @@ class DialogueContext:
         print("EXPECTED: \n \n", expected, "\n \n")
         print("Correct ingredients: \n \n", correct_ingredients, "\n \n")
         print(tabulate(self.memory, headers='keys', tablefmt='grid'))
-        #print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory.to_markdown(), "\n \n")
