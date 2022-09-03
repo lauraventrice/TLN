@@ -145,7 +145,7 @@ class DialogueControl:
 
         memory = self.dialogue_context.memory
 
-        print("memory in dialogue control: \n", tabulate(memory, headers='keys', tablefmt='psql'))
+        print("memory in dialogue control: \n", tabulate(memory, headers='keys', tablefmt='grid'))
 
         incomplete, length = self.check_correct_current_potion(memory)
         length_interview = self.check_length_interview(memory)
@@ -174,13 +174,13 @@ class DialogueControl:
             expected = ','.join(self.ingredients_current_potion) 
         elif self.current_intent == 1 or self.current_intent == 5: #ingredients_generic or restart
             
-            # if self.remaining_ingredients_asked:
-            #     next_state = range(2, 4)
-            # else:
-            #     next_state = range(1, 4)
+            if self.remaining_ingredients_asked:
+                next_state = range(2, 4)
+            else:
+                next_state = range(1, 4)
 
             # momentaneamente andiamo solo in 1
-            next_state = [4]
+            # next_state = [4]
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 3
             self.current_intent = random_index[0]
@@ -217,10 +217,12 @@ class DialogueControl:
                     to_ask = "question_tricky"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
         elif self.current_intent == 2:
-            if self.remaining_ingredients_asked:
-                next_state = range(2, 5)
-            else:
-                next_state = range(1, 5)
+            # if self.remaining_ingredients_asked:
+            #     next_state = range(2, 5)
+            # else:
+            #     next_state = range(1, 5)
+
+            next_state = [4] 
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 2 or 3 or 4
             self.current_intent = random_index[0] 
@@ -347,7 +349,7 @@ class DialogueControl:
         potions_asked = list(set(memory["Potion"].to_list())) # get the list of potions asked in the whole interview
         
         length_interview = len(potions_asked)
-        print("print tabulate in check_length: \n ", tabulate(memory, headers='keys', tablefmt='psql'))
+        print("print tabulate in check_length: \n ", tabulate(memory, headers='keys', tablefmt='grid'))
         print("length interview: ", length_interview, "\n \n")
 
         return length_interview
@@ -372,11 +374,11 @@ class DialogueControl:
         print("memory index: ", memory.index)
         for i in memory.index:
             print("\n \n correct ingredients count: ", memory.loc[i, "Correct ingredients"].split(","))
-            count_correct += len(memory.loc[i, "Correct ingredients"].split(","))
+            count_correct += len(memory.loc[i, "Correct ingredients"].split(",").remove(""))
             print("\n \n incorrect ingredients count: ", memory.loc[i, "Incorrect ingredients"].split(","))
-            count_incorrect += len(memory.loc[i, "Incorrect ingredients"].split(","))
+            count_incorrect += len(memory.loc[i, "Incorrect ingredients"].split(",").remove(""))
             print("\n \n indifferent ingredients count: ", memory.loc[i, "Indifferent ingredients"].split(","))
-            count_indiff += len(memory.loc[i, "Indifferent ingredients"].split(","))
+            count_indiff += len(memory.loc[i, "Indifferent ingredients"].split(",").remove(""))
         
         evaluation = (count_correct - count_incorrect) / (count_correct + count_incorrect + count_indiff)
         
@@ -474,5 +476,5 @@ class DialogueContext:
 
         print("EXPECTED: \n \n", expected, "\n \n")
         print("Correct ingredients: \n \n", correct_ingredients, "\n \n")
-        print(tabulate(self.memory, headers='keys', tablefmt='psql'))
+        print(tabulate(self.memory, headers='keys', tablefmt='grid'))
         #print("QUESTA è LA MEMORY AGGIORNATA: \n \n", self.memory.to_markdown(), "\n \n")
