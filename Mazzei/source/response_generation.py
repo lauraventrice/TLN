@@ -173,7 +173,7 @@ class ResponseGenerator:
             possible_comments = ["You passed the exam, but there is still a long way to go. ", "At the limit of decency Potter, you saved yourself this time. "\
                 "You got away with it in the end, Potter. "]
 
-        choose_comment = list(random.sample(range(0, len(phrases_end)), 1))
+        choose_comment = list(random.sample(range(0, len(possible_comments)), 1))
         phrase_comment = possible_comments[choose_comment[0]]
 
         phrase_evaluation = "Your final grade for this exam is " + evaluation.upper() + "."

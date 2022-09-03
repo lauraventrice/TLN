@@ -67,7 +67,7 @@ class DialogueManager:
 
         self.current_potion = self.potions_chosen[self.index_current_potion]
 
-        self.dialogue_context.set_current_potion(self.current_potion)
+        self.dialogue_context.set_current_potion(self.current_potion, self.ingredients_potions_chosen[self.index_current_potion])
         self.dialogue_control.set_current_potion(self.current_potion, self.ingredients_potions_chosen[self.index_current_potion])
 
     def start_dialogue(self):
@@ -78,7 +78,7 @@ class DialogueManager:
         """
         self.index_current_potion = 0
         self.current_potion = self.potions_chosen[self.index_current_potion]
-        self.dialogue_context.set_current_potion(self.current_potion)
+        self.dialogue_context.set_current_potion(self.current_potion, self.ingredients_potions_chosen[0])
         self.dialogue_control.set_current_potion(self.current_potion, self.ingredients_potions_chosen[0])
 
         memory, intent, to_ask, expected, _ = self.dialogue_control.manage_intent()
@@ -373,12 +373,14 @@ class DialogueControl:
         
         print("memory index: ", memory.index)
         for i in memory.index:
-            print("\n \n correct ingredients count: ", memory.loc[i, "Correct ingredients"].split(","))
-            count_correct += len(memory.loc[i, "Correct ingredients"].split(",").remove(""))
-            print("\n \n incorrect ingredients count: ", memory.loc[i, "Incorrect ingredients"].split(","))
-            count_incorrect += len(memory.loc[i, "Incorrect ingredients"].split(",").remove(""))
-            print("\n \n indifferent ingredients count: ", memory.loc[i, "Indifferent ingredients"].split(","))
-            count_indiff += len(memory.loc[i, "Indifferent ingredients"].split(",").remove(""))
+            correct_ingredients = [ingredient for ingredient in memory.loc[i, "Correct ingredients"].split(",") if ingredient != ""]
+            count_correct += len(correct_ingredients)
+
+            incorrect_ingredients = [ingredient for ingredient in memory.loc[i, "Incorrect ingredients"].split(",") if ingredient != ""]
+            count_incorrect += len(incorrect_ingredients)
+
+            indifferent_ingredients = [ingredient for ingredient in memory.loc[i, "Indifferent ingredients"].split(",") if ingredient != ""]
+            count_indiff += len(indifferent_ingredients)
         
         evaluation = (count_correct - count_incorrect) / (count_correct + count_incorrect + count_indiff)
         
@@ -388,15 +390,15 @@ class DialogueControl:
 
         print("EVALUATION: ", evaluation)
 
-        if evaluation >= 2:
+        if evaluation >= 0.8:
             evaluation = "excellent"
-        elif evaluation > 0 and evaluation < 2:
+        elif evaluation > 0 and evaluation < 0.8:
             evaluation = "satisfactory"
         elif evaluation == 0:
             evaluation = "mediocre"
-        elif evaluation < 0 and evaluation > -2:
+        elif evaluation < 0 and evaluation > -0.8:
             evaluation = "insufficient"
-        elif evaluation <= -2:
+        elif evaluation <= -0.8:
             evaluation = "failure"
         
         """
@@ -415,10 +417,11 @@ class DialogueContext:
     def __init__(self, memory: pd.DataFrame):
         self.memory = memory
         
-    def set_current_potion(self, current_potion: pd.DataFrame): 
+    def set_current_potion(self, current_potion: pd.DataFrame, ingredient_current_potion: list): 
         self.frame = current_potion
         self.index = 0
         self.ingredients_mentioned = []
+        self.ingredients_current_potion = ingredient_current_potion
 
     def update_memory(self, ingredient_asked: str, answer: str, current_intent: str, in_potion: list, out_potion: list, y_n: str, expected: str):
         """ Updates the memory with the answer of the student.
@@ -434,24 +437,26 @@ class DialogueContext:
 
         correct_ingredients = []
         incorrect_ingredients = []
-        indifferent_ingredient = []
-        if current_intent == "ingredients_generic":
-            ingredients_potion = expected.split(",")
-            print("&&&&&&&&&&&&&&&&& ingredients_potion: " , ingredients_potion, "\n \n")
+        indifferent_ingredients = []
+        if current_intent == "ingredients_generic" or current_intent == "restart":
+            ingredients_potion_expected = expected.split(",")
+            print("&&&&&&&&&&&&&&&&& ingredients_potion: " , ingredients_potion_expected, "\n \n")
             for ingredient in in_potion:
-                if ingredient in ingredients_potion:
+                if ingredient in self.ingredients_current_potion and ingredient in ingredients_potion_expected:
                     correct_ingredients.append(ingredient)
                     if not ingredient in self.frame[self.frame.columns[0]].unique().tolist():
                         print(" \n \n l'ingrediente non è già presente nel frame! \n \n")
                         self.frame.loc[self.index, self.frame.columns[0]] = ingredient
                         print("\n \n Frame aggiornato: \n \n ", self.frame, "\n \n")
                         self.index += 1
-                else:
+                elif not ingredient in self.ingredients_current_potion:
                     incorrect_ingredients.append(ingredient)
+                else: 
+                    indifferent_ingredients.append(ingredient)
 
             for ingredient in out_potion:
-                if ingredient not in ingredients_potion:
-                    indifferent_ingredient.append(ingredient)
+                if ingredient not in ingredients_potion_expected:
+                    indifferent_ingredients.append(ingredient)
                 else: 
                     incorrect_ingredients.append(ingredient)
         
@@ -467,11 +472,11 @@ class DialogueContext:
                 else: 
                     incorrect_ingredients.append("x")
         
-        self.ingredients_mentioned = list(set(self.ingredients_mentioned + in_potion + out_potion + indifferent_ingredient))
+        self.ingredients_mentioned = list(set(self.ingredients_mentioned + in_potion + out_potion + indifferent_ingredients))
 
         self.memory = self.memory.append({'Intent': current_intent, 'Ingredient asked' : ingredient_asked, 'Answer': answer, 
                 'Correct ingredients': ','.join(correct_ingredients), 'Incorrect ingredients': ','.join(incorrect_ingredients), 
-                'Indifferent ingredients': ','.join(indifferent_ingredient),
+                'Indifferent ingredients': ','.join(indifferent_ingredients),
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
         print("EXPECTED: \n \n", expected, "\n \n")
