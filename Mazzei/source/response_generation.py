@@ -168,7 +168,7 @@ class ResponseGenerator:
             possible_comments = ["You failed the exam, Potter. ", "You didn't pass the exam, Potter. "]
         elif evaluation == "mediocre": 
             possible_comments = ["You should study more Potter! You haven't studied enough, you've passed the exam with the minimum mark. ",
-                    "You have studied as little as your usual Potter."]
+                    "You have studied as little as your usual Potter. "]
         else: 
             possible_comments = ["You passed the exam, but there is still a long way to go. ", "At the limit of decency Potter, you saved yourself this time. "\
                 "You got away with it in the end, Potter. "]

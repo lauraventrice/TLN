@@ -48,6 +48,3 @@ def main():
     dialogue_manager.choose_potions(potions)
     dialogue_system = DialogueSystem(dialogue_manager, language_understanding)
     dialogue_system.start_dialogue()
-
-
-main()

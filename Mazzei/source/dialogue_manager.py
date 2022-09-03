@@ -154,16 +154,14 @@ class DialogueControl:
 
         if not incomplete: 
             self.current_intent = 4
-            to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
-            expected = ""
+            to_ask = self.get_evaluation(memory) 
         elif length > 4 and length_interview < 3: 
             self.current_intent = 5
-            self.dialogue_manager.next_potion() # TODO: chiedere la nuova pozione
+            self.dialogue_manager.next_potion() 
             expected = ','.join(self.ingredients_current_potion) 
         elif length > 4 and length_interview == 3:
             self.current_intent = 4
-            to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
-            expected = ""
+            to_ask = self.get_evaluation(memory) 
         elif self.current_intent == -1:
             self.current_intent = 0 #handshake
             to_ask = "greeting"
@@ -255,8 +253,7 @@ class DialogueControl:
                         expected = "yes"
                     to_ask = "question_tricky"
             else: # (self.current_intent == 4)
-                to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
-                expected = ""
+                to_ask = self.get_evaluation(memory) 
         elif self.current_intent == 3:
 
             if self.remaining_ingredients_asked:
@@ -281,8 +278,7 @@ class DialogueControl:
                     expected = "no"
             else: 
                 self.current_intent = 4
-                to_ask = self.get_evaluation(memory) #TODO: calcolo la valutazione
-                expected = ""
+                to_ask = self.get_evaluation(memory) 
         else:
             self.current_intent = -1
         

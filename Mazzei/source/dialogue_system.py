@@ -1,6 +1,6 @@
 from dialogue_manager import DialogueManager
 from response_generation import ResponseGenerator
-from speech_recognition import SpeechRecognizer
+from speech_recognition_source import SpeechRecognizer
 from language_understanding import LanguageUnderstanding
 
 class DialogueSystem: 
@@ -17,8 +17,6 @@ class DialogueSystem:
         begin = ResponseGenerator.generate_answer(intent)
         print("\n \nProfessor Piton: ", begin, "\n")
 
-        expected = "greetings"
-
         while intent != "evaluation_end": 
             if intent == "handshake" or intent == "ingredients_generic" or to_ask == "question_tricky": 
                 ingredient_asked = ""
@@ -29,5 +27,5 @@ class DialogueSystem:
             print("IN POTION: \n \n \n", in_potion, "\n \n \n")
             memory, intent, to_ask, name_potion = self.dialogue_manager.update_dialogue(ingredient_asked, response, in_potion, out_potion, y_n) 
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer, name_potion)
+
             print("Professor Piton: " + question) 
-        
