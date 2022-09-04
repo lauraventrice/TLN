@@ -10,6 +10,7 @@ pip install pyaudio
 #import SpeechRecognition as sr
 import speech_recognition as sr
 import pyttsx3
+from sys import platform
 
 class SpeechRecognizer: 
 
@@ -48,21 +49,26 @@ class SpeechRecognizer:
     # speech
     @classmethod
     def SpeakText (cls, command) :
-        voice_id = "com.apple.speech.synthesis.voice.Alex"
-  
+
+        if platform == "darwin":
+            # OS X
+            voice_id = "com.apple.speech.synthesis.voice.Alex"
+        elif platform == "win32":
+            # Windows...
+            voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_DAVID_11.0"
         # Initialize the engine
         engine = pyttsx3.init()
 
-        # voices = engine.getProperty('voices')
+        voices = engine.getProperty('voices')
   
-        # for voice in voices:
-        #     # to get the info. about various voices in our PC 
-        #     print("Voice:")
-        #     print("ID: %s" %voice.id)
-        #     print("Name: %s" %voice.name)
-        #     print("Age: %s" %voice.age)
-        #     print("Gender: %s" %voice.gender)
-        #     print("Languages Known: %s" %voice.languages)
+        for voice in voices:
+        #    to get the info. about various voices in our PC 
+            print("Voice:")
+            print("ID: %s" %voice.id)
+            print("Name: %s" %voice.name)
+            print("Age: %s" %voice.age)
+            print("Gender: %s" %voice.gender)
+            print("Languages Known: %s" %voice.languages)
 
         # Use female voice
         engine.setProperty('voice', voice_id)
