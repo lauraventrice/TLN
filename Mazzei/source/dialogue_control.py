@@ -111,7 +111,7 @@ class DialogueControl:
             # else:
             #     next_state = range(1, 5)
 
-            next_state = [4] 
+            next_state = [1] 
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 2 or 3 or 4
             self.current_intent = random_index[0] 
@@ -148,9 +148,11 @@ class DialogueControl:
         elif self.current_intent == 3:
 
             if self.remaining_ingredients_asked:
-                next_state = [2, 4]
+                #next_state = [2, 4] GIUSTO
+                next_state = [2]
             else:
-                next_state = [1, 2, 4]
+                #next_state = [1, 2, 4] GIUSTO
+                next_state = [1]
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 4
             self.current_intent = random_index[0]

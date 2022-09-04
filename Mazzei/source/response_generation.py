@@ -3,6 +3,7 @@ from simplenlg.lexicon import *
 from simplenlg.realiser.english import *
 from simplenlg.phrasespec import *
 from simplenlg.features import *
+import pandas as pd
 import random 
 
 class ResponseGenerator: 
@@ -27,7 +28,7 @@ class ResponseGenerator:
         elif current_intent == "handshake":
             return cls.generate_greetings()
         elif current_intent == "ingredients_generic":
-            return cls.generate_ingredient_generic(to_ask, name_potion)
+            return cls.generate_ingredient_generic(to_ask, name_potion, memory)
         elif current_intent == "ingredients_yes_no" or current_intent == "question_tricky":
             return cls.generate_feedback_continue(current_intent, to_ask, name_potion)
         elif current_intent == "evaluation_end":
@@ -47,7 +48,7 @@ class ResponseGenerator:
         return possible_sentences[choose_sentence[0]]
 
     @classmethod
-    def generate_ingredient_generic(cls, to_ask: str, name_potion: str): 
+    def generate_ingredient_generic(cls, to_ask: str, name_potion: str, memory: pd.DataFrame): 
         if to_ask == "start_ingredients_generic":
             begin_sentence = "Mr. Potter, "
             phrase = cls.choose_phrase(name_potion)
@@ -60,21 +61,59 @@ class ResponseGenerator:
 
             random_indexes = list(random.sample(range(0, 4), 1))
 
+            index_last_value = len(memory.index) - 1
+            last_value = memory.loc[index_last_value] 
+            
+            print("\n \n LAST_VALUE: ", last_value, "\n \n")
+            count_correct = 0
+            count_incorrect = 0
+            count_indiff = 0
+        
+            
+            correct_ingredients = [ingredient for ingredient in last_value["Correct ingredients"].split(",") if ingredient != ""]
+            count_correct += len(correct_ingredients)
+
+            incorrect_ingredients = [ingredient for ingredient in last_value["Incorrect ingredients"].split(",") if ingredient != ""]
+            count_incorrect += len(incorrect_ingredients)
+
+            indifferent_ingredients = [ingredient for ingredient in last_value["Indifferent ingredients"].split(",") if ingredient != ""]
+            count_indiff += len(indifferent_ingredients)
+            
+            print("SCELTA COMMMENTO count_correct: ", count_correct)
+            print("SCELTA COMMMENTO count_incorrect: ", count_incorrect)
+            print("SCELTA COMMMENTO count_indiff: ", count_indiff)
+
+            comment = ""
+
+            # scelta commento alla risposta precedente
+            good_answer = ["You are right Potter, but ", "Good Job Potter! ", "Well done Potter, but ", "That's right Potter! ", "That's correct Potter! "]
+            bad_answer = ["You are wrong as usual! ", "Nice try but of course you are wrong. ", "That's not correct Potter! "]
+            indifferent_answer = ["Answer me in a meaningful way Potter! "]
+            neutral_answer = ["I see you confused Potter! "]
+
+            if count_indiff >= 1:
+                random_indexes = list(random.sample(range(0, len(indifferent_answer)), 1))
+                comment = indifferent_answer[random_indexes[0]]
+            elif count_correct >= 1 and count_incorrect == 0:
+                random_indexes = list(random.sample(range(0, len(good_answer)), 1))
+                comment = good_answer[random_indexes[0]]
+            elif count_incorrect >= 1 and count_correct == 0:
+                random_indexes = list(random.sample(range(0, len(bad_answer)), 1))
+                comment = bad_answer[random_indexes[0]]
+            else:
+                random_indexes = list(random.sample(range(0, len(neutral_answer)), 1))
+                comment = neutral_answer[random_indexes[0]]
+            
+            # generazione prossima domanda
             if random_indexes[0] == 0:
-                #TODO: rimuovere You are right
-                ## You are right but you should tell me some more ingredients. 
+                # You should tell me some more ingredients.
                 p = nlgFactory.createClause("you")
-                verb = nlgFactory.createVerbPhrase("be")
+                verb = nlgFactory.createVerbPhrase("tell")
+                p.setObject("some more ingredients")
                 p.setVerb(verb)
-                verb.addModifier("right")
-                p0 = nlgFactory.createClause("you")
-                verb0 = nlgFactory.createVerbPhrase("tell")
-                p0.setObject("some more ingredients")
-                p0.setVerb(verb0)
-                verb0.setFeature(Feature.MODAL, "should")
-                verb0.setPostModifier("me")
-                p0.setFeature(Feature.COMPLEMENTISER, "but")
-                p.addComplement(p0)
+                verb.setFeature(Feature.MODAL, "should")
+                verb.setPostModifier("me")
+                phrase = realiser.realiseSentence(p)
             elif random_indexes[0] == 1:
                 ## What are the remaining ingredients? 
                 p = nlgFactory.createClause("the remaining ingredients")
@@ -82,7 +121,7 @@ class ResponseGenerator:
                 verb.setPlural(True)
                 p.setVerbPhrase(verb)
                 p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.WHAT_OBJECT)
-                realiser.realiseSentence(p)
+                phrase = realiser.realiseSentence(p)
             elif random_indexes[0] == 2:
                 ## What are the other ingredients? 
                 p = nlgFactory.createClause("the other ingredients")
@@ -90,7 +129,7 @@ class ResponseGenerator:
                 verb.setPlural(True)
                 p.setVerbPhrase(verb)
                 p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.WHAT_OBJECT)
-                realiser.realiseSentence(p)
+                phrase = realiser.realiseSentence(p)
             elif random_indexes[0] == 3:
                 ## What ingredients are left? 
                 p = nlgFactory.createClause("the ingredients")
@@ -98,10 +137,20 @@ class ResponseGenerator:
                 verb = nlgFactory.createVerbPhrase("be left")
                 p.setVerbPhrase(verb)
                 p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.WHAT_OBJECT)
-            
-            phrase = realiser.realiseSentence(p)
+                phrase = realiser.realiseSentence(p)
+                
+            if str.__contains__(comment, "but"):
+                phrase = cls.decapitalize(phrase)
 
-            return phrase
+            return comment + phrase
+
+
+    @classmethod
+
+    def decapitalize(s):
+        if not s:  # check that s is not empty string
+            return s
+        return s[0].lower() + s[1:]
 
 
     @classmethod
