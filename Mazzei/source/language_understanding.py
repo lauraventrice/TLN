@@ -28,6 +28,9 @@ class LanguageUnderstanding:
         y_n = ""
         unclear_answer = False
         if not str.__contains__(response.lower(), "good morning") and not str.__contains__(response.lower(), "goodmorning"):
+            
+            response = self.preprocessing(response)
+
             unclear_answer = self.check_sentence(response)
             if not unclear_answer: 
                 if intent == "ingredients_yes_no" or intent == "question_tricky": # parsing sentence with answer yes or no
@@ -86,7 +89,24 @@ class LanguageUnderstanding:
 
         
         return 1 - count_errors/count_words
-        
+    
+    def preprocessing(self, sentence: str): 
+        ingredients_mentioned = []
+        # preprocessing
+        sentence = sentence.lower()
+        for ingredient in self.ingredients_available:
+            if ingredient.lower() in sentence:
+                ingredients_mentioned.append(ingredient)
+                sentence = sentence.replace(ingredient.lower(), ingredient)
+                
+        sentence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), sentence, 1)
+
+        sentence = " ".join(sentence.split()) # delete double spaces
+
+        sentence = re.sub(r'(?<=[.,])(?=[^\s])', r' ', sentence) # add space after comma and dot if there is no space
+
+        print("AFTER PRE PROCESSING: ", sentence)
+        return sentence
 
     def parsing_sentence(self, sentence: str):
         """ Parses the sentence.
@@ -101,19 +121,6 @@ class LanguageUnderstanding:
 
         in_potion = []
         out_potion = []
-        doc = nlp(sentence)
-        ingredients_mentioned = []
-        # preprocessing
-        sentence = sentence.lower()
-        for ingredient in self.ingredients_available:
-            if ingredient.lower() in sentence:
-                ingredients_mentioned.append(ingredient)
-                sentence = sentence.replace(ingredient.lower(), ingredient)
-                
-        sentence = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), sentence, 1)
-
-        sentence = " ".join(sentence.split())
-        print("AFTER PRE PROCESSING: ", sentence)
         doc = nlp(sentence)
         
         verbs = []

@@ -104,6 +104,7 @@ class ResponseGenerator:
                 random_indexes = list(random.sample(range(0, len(neutral_answer)), 1))
                 comment = neutral_answer[random_indexes[0]]
             
+            p = None
             # generazione prossima domanda
             if random_indexes[0] == 0:
                 # You should tell me some more ingredients.
@@ -146,11 +147,10 @@ class ResponseGenerator:
 
 
     @classmethod
-
-    def decapitalize(s):
-        if not s:  # check that s is not empty string
-            return s
-        return s[0].lower() + s[1:]
+    def decapitalize(cls, sentence: str):
+        if not sentence:  # check that s is not empty string
+            return sentence
+        return sentence[0].lower() + sentence[1:]
 
 
     @classmethod

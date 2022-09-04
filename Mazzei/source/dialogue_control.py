@@ -90,7 +90,12 @@ class DialogueControl:
                     expected = "no"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
             else: # question_tricky (self.current_intent == 3)
-                random_index = list(random.sample(range(0, 2), 1)) #non deterministic choose type of questions 
+                # controlla se i menzionati sono vuoti e se non vuoti controlla che non siano mai stati chiesti
+                if len(self.dialogue_context.ingredients_mentioned) == 0 or len(list(set(self.dialogue_context.ingredients_mentioned).difference(set(memory["Ingredient asked"].unique().tolist())))) == 0:
+                    possible_indexes = [1]
+                else: 
+                    possible_indexes = [0, 1]
+                random_index = list(random.sample(possible_indexes, 1)) #non deterministic choose type of questions 
                 if random_index[0] == 0: ## "Are you sure that this INGNAME is in the potion?"
                     to_ask = self.choose_ingredient_from_answer()
                     if to_ask in self.ingredients_current_potion:
@@ -129,7 +134,11 @@ class DialogueControl:
                 else:
                     expected = "no"
             elif self.current_intent == 3: 
-                random_index = list(random.sample(range(0, 2), 1)) #non deterministic choose type of questions 
+                if len(self.dialogue_context.ingredients_mentioned) == 0 or len(list(set(self.dialogue_context.ingredients_mentioned).difference(set(memory["Ingredient asked"].unique().tolist())))) == 0:
+                    possible_indexes = [1]
+                else: 
+                    possible_indexes = [0, 1]
+                random_index = list(random.sample(possible_indexes, 1)) #non deterministic choose type of questions 
                 if random_index[0] == 0: ## "Are you sure that this INGNAME is in the potion?"
                     to_ask = self.choose_ingredient_from_answer()
                     if to_ask in self.ingredients_current_potion:
@@ -197,7 +206,7 @@ class DialogueControl:
         
         ingredients_to_ask= list(set(self.dialogue_context.ingredients_mentioned).difference(set(self.dialogue_context.memory["Ingredient asked"].unique().tolist())))
         
-        random_indexes = list(random.sample(range(len(ingredients_to_ask)), 1)) 
+        random_indexes = list(random.sample(range(len(ingredients_to_ask)), 1)) #
         return ingredients_to_ask[random_indexes[0]]
 
     def check_correct_current_potion(self, memory: pd.DataFrame): 
