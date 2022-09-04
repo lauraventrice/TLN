@@ -1,4 +1,3 @@
-import language_tool_python as lt
 import spacy
 import re
 from gingerit.gingerit import GingerIt
