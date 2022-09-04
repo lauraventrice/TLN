@@ -42,11 +42,32 @@ class LanguageUnderstanding:
                     else: 
                         y_n = "yes"
                 else:
-                    in_potion, out_potion = self.parsing_sentence(response)
+                    unclear_answer = len(self.contains_ingredients(response)) == 0
+                    if not unclear_answer:
+                        in_potion, out_potion = self.parsing_sentence(response)
+                        if in_potion == [] and out_potion == []:
+                            unclear_answer = True
         
         print("IN POTION in language understanding: \n \n \n ", in_potion, "\n \n \n")
         print("YES NO ANSWER, ", y_n)
         return in_potion, out_potion, y_n, unclear_answer
+
+    def contains_ingredients(self, sentence: str):
+        """ Checks if the sentence contains ingredients.
+
+        Args:
+            sentence (str): The sentence to check.
+        
+        Returns:
+            list: The ingredients mentioned in the sentence.
+        """
+
+        ingredients_mentioned = []
+        for ingredient in self.ingredients_available:
+            if ingredient.lower() in sentence.lower():
+                ingredients_mentioned.append(ingredient)
+        
+        return ingredients_mentioned
 
     def check_sentence(self, sentence: str):
         """ Checks if the sentence is unclear using score_sentence.
@@ -122,6 +143,8 @@ class LanguageUnderstanding:
         in_potion = []
         out_potion = []
         doc = nlp(sentence)
+
+        ingredients_mentioned = self.contains_ingredients(sentence)
         
         verbs = []
         for token in doc: 
@@ -147,8 +170,30 @@ class LanguageUnderstanding:
 
         print("in_potion", in_potion)
         print("out_potion", out_potion) 
+
+        check_parsing = self.check_parsing_ingredients(ingredients_mentioned, in_potion, out_potion)
+        if not check_parsing:
+            in_potion = []
+            out_potion = []
+
         return in_potion, out_potion
 
+    def check_parsing_ingredients(self, ingredients_mentioned: list, in_potion: list, out_potion: list):
+        """ Checks if the all ingredients mentioned are correct parsed in the sentence.
+
+        Args:
+            ingredients_mentioned (list): The ingredients mentioned in the sentence.
+            in_potion (list): The ingredients mentioned as in the potion.
+            out_potion (list): The ingredients mentioned as out of the potion.
+        
+        Returns:
+            bool: Whether the parsing is correct.
+        """
+        are_recognized = True
+        for ingredient in ingredients_mentioned:
+            are_recognized = are_recognized and (ingredient in in_potion or ingredient in out_potion)
+        
+        return are_recognized
 
     def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
         print("NOME NODO", node.text, " TAG ", str(node.tag_))
