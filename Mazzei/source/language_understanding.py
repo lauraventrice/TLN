@@ -1,6 +1,7 @@
 import language_tool_python as lt
 import spacy
 import re
+from gingerit.gingerit import GingerIt
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -71,11 +72,18 @@ class LanguageUnderstanding:
         Returns:
             float: The score of the sentence.
         """
+
+        """"
         tool = lt.LanguageTool('en-US')
         errors = tool.check(sentence)
-        count_errors = len(errors)
+        """
+
+        parser = GingerIt()
+        errors = parser.parse(sentence)
+        count_errors = len(errors["corrections"])
 
         count_words = len(sentence.split(" "))
+
         
         return 1 - count_errors/count_words
         
