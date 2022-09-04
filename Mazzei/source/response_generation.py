@@ -59,7 +59,6 @@ class ResponseGenerator:
             realiser = Realiser(lexicon)
             nlgFactory = NLGFactory(lexicon)
 
-            random_indexes = list(random.sample(range(0, 4), 1))
 
             index_last_value = len(memory.index) - 1
             last_value = memory.loc[index_last_value] 
@@ -103,9 +102,9 @@ class ResponseGenerator:
             else:
                 random_indexes = list(random.sample(range(0, len(neutral_answer)), 1))
                 comment = neutral_answer[random_indexes[0]]
+
+            random_indexes = list(random.sample(range(0, 4), 1))
             
-            p = None
-            # generazione prossima domanda
             if random_indexes[0] == 0:
                 # You should tell me some more ingredients.
                 p = nlgFactory.createClause("you")

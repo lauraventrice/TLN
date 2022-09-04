@@ -90,11 +90,10 @@ class DialogueControl:
                     expected = "no"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
             else: # question_tricky (self.current_intent == 3)
-                # controlla se i menzionati sono vuoti e se non vuoti controlla che non siano mai stati chiesti
-                if len(self.dialogue_context.ingredients_mentioned) == 0 or len(list(set(self.dialogue_context.ingredients_mentioned).difference(set(memory["Ingredient asked"].unique().tolist())))) == 0:
-                    possible_indexes = [1]
-                else: 
+                if self.check_question_tricky_ingredient(memory):
                     possible_indexes = [0, 1]
+                else: 
+                    possible_indexes = [1]
                 random_index = list(random.sample(possible_indexes, 1)) #non deterministic choose type of questions 
                 if random_index[0] == 0: ## "Are you sure that this INGNAME is in the potion?"
                     to_ask = self.choose_ingredient_from_answer()
@@ -134,10 +133,10 @@ class DialogueControl:
                 else:
                     expected = "no"
             elif self.current_intent == 3: 
-                if len(self.dialogue_context.ingredients_mentioned) == 0 or len(list(set(self.dialogue_context.ingredients_mentioned).difference(set(memory["Ingredient asked"].unique().tolist())))) == 0:
-                    possible_indexes = [1]
-                else: 
+                if self.check_question_tricky_ingredient(memory):
                     possible_indexes = [0, 1]
+                else: 
+                    possible_indexes = [1]
                 random_index = list(random.sample(possible_indexes, 1)) #non deterministic choose type of questions 
                 if random_index[0] == 0: ## "Are you sure that this INGNAME is in the potion?"
                     to_ask = self.choose_ingredient_from_answer()
@@ -185,6 +184,19 @@ class DialogueControl:
             self.current_intent = -1
         
         return memory, self.INTENTS[self.current_intent], to_ask, expected, self.frame.columns[0]
+    
+    def check_question_tricky_ingredient(self, memory: pd.DataFrame):
+        """ Check if is possible to ask question_tricky with an ingredient.
+        
+        Args:
+            memory (pd.DataFrame): the memory of the dialogue.
+        
+        Returns:
+            bool: True if is possible to ask question_tricky with an ingredient, False otherwise.
+        """
+        exists_mentioned = len(self.dialogue_context.ingredients_mentioned) > 0
+        exists_ingredients_to_ask = len(list(set(self.dialogue_context.ingredients_mentioned).difference(set(memory["Ingredient asked"].unique().tolist())))) > 0
+        return exists_mentioned and exists_ingredients_to_ask
 
     def choose_ingredient_general(self):
         """Chooses an ingredient to ask from the list of ingredients available without ingredients mentioned by the user.
