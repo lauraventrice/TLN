@@ -42,16 +42,33 @@ class SpeechRecognizer:
             MyText = r.recognize_google(audio2)
             MyText = MyText.lower()
             print ("Did you say: " + MyText)
-            #SpeechRecognizer.SpeakText(MyText)
+            SpeechRecognizer.SpeakText("Hello mr Potter! Are you ready for the exam?")
 
     # Function to convert text to
     # speech
     @classmethod
     def SpeakText (cls, command) :
+        voice_id = "com.apple.speech.synthesis.voice.Alex"
+  
         # Initialize the engine
         engine = pyttsx3.init()
+
+        # voices = engine.getProperty('voices')
+  
+        # for voice in voices:
+        #     # to get the info. about various voices in our PC 
+        #     print("Voice:")
+        #     print("ID: %s" %voice.id)
+        #     print("Name: %s" %voice.name)
+        #     print("Age: %s" %voice.age)
+        #     print("Gender: %s" %voice.gender)
+        #     print("Languages Known: %s" %voice.languages)
+
+        # Use female voice
+        engine.setProperty('voice', voice_id)
+
         engine.say(command)
-        engine.runAndwait()
+        engine.runAndWait()
 
 if __name__ == "__main__":
     SpeechRecognizer.test()
