@@ -39,8 +39,6 @@ class DialogueControl:
 
         memory = self.dialogue_context.memory
 
-        print("memory in dialogue control: \n", tabulate(memory, headers='keys', tablefmt='grid'))
-
         incomplete, length = self.check_correct_current_potion(memory)
         length_interview = self.check_length_interview(memory)
         expected = ""
@@ -49,11 +47,11 @@ class DialogueControl:
         if not incomplete: 
             self.current_intent = 4
             to_ask = self.get_evaluation(memory) 
-        elif length > 2 and length_interview < 1: 
+        elif length > 2 and length_interview < 2: 
             self.current_intent = 5
             self.dialogue_manager.next_potion() 
             expected = ','.join(self.ingredients_current_potion) 
-        elif length > 2 and length_interview == 1:
+        elif length > 2 and length_interview == 2:
             self.current_intent = 4
             to_ask = self.get_evaluation(memory) 
         elif self.current_intent == -1:
@@ -70,9 +68,6 @@ class DialogueControl:
                 next_state = range(2, 4)
             else:
                 next_state = range(1, 4)
-
-            # momentaneamente andiamo solo in 1
-            # next_state = [4]
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 3
             self.current_intent = random_index[0]
@@ -113,12 +108,10 @@ class DialogueControl:
                     to_ask = "question_tricky"
                 print("TO_ASK: \n \n", to_ask, " expected: ", expected, "\n \n \n")
         elif self.current_intent == 2:
-            # if self.remaining_ingredients_asked:
-            #     next_state = range(2, 5)
-            # else:
-            #     next_state = range(1, 5)
-
-            next_state = [1] 
+            if self.remaining_ingredients_asked:
+                next_state = range(2, 5)
+            else:
+                next_state = range(1, 5)
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 2 or 3 or 4
             self.current_intent = random_index[0] 
@@ -126,7 +119,6 @@ class DialogueControl:
                 to_ask = "remaining_ingredients"
                 ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
                 ingredients_in_frame = [ingredient for ingredient in ingredients_in_frame if not pd.isnull(ingredient)]
-                print("INGREDIENTS IN FRAME: \n \n \n", ingredients_in_frame)
                 remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame))) 
                 expected = ','.join(remaining_ingredients)
             elif self.current_intent == 2:
@@ -159,11 +151,9 @@ class DialogueControl:
         elif self.current_intent == 3:
 
             if self.remaining_ingredients_asked:
-                #next_state = [2, 4] GIUSTO
-                next_state = [2]
+                next_state = [2, 4] 
             else:
-                #next_state = [1, 2, 4] GIUSTO
-                next_state = [1]
+                next_state = [1, 2, 4]
 
             random_index = list(random.sample(next_state, 1)) #non deterministic next state 1 or 2 or 4
             self.current_intent = random_index[0]
@@ -171,7 +161,6 @@ class DialogueControl:
                 to_ask = "remaining_ingredients"
                 ingredients_in_frame = self.frame[self.frame.columns[0]].tolist()
                 ingredients_in_frame = [ingredient for ingredient in ingredients_in_frame if not pd.isnull(ingredient)]
-                print("INGREDIENTS IN FRAME: \n \n \n", ingredients_in_frame)
                 remaining_ingredients = list(set(self.ingredients_current_potion).difference(set(ingredients_in_frame)))
                 expected = ','.join(remaining_ingredients)
             elif self.current_intent == 2:
@@ -236,15 +225,12 @@ class DialogueControl:
         incomplete = True
         last_value = len(self.frame.index) - 1
         name_potion = self.frame.columns[0]
-        #print("LUNGHEZZA :", last_value + 1, "\n \n")
         if last_value > 0:
             incomplete = pd.isna(self.frame.loc[last_value, name_potion]) # check if the last value is nan
-        #print("MISTAKES: ", mistakes, "\n \n")
 
         memory_current_potion = memory.query("Potion == @name_potion") # get the current potion from the memory
         length = len(memory_current_potion.index) # get the length of the interview current potion
 
-        #print("Length: ", length, "\n \n")
         return incomplete, length
         
 
@@ -284,9 +270,7 @@ class DialogueControl:
             evaluation (str): The evaluation of the conversation.
         """
 
-
-        
-        potions_list = memory["Potion"].unique()   # lista di pozioni presenti in memoria
+        potions_list = memory["Potion"].unique()   # potions asked in the whole interview
 
         print("POTIONS LIST: ", potions_list)
 
@@ -298,7 +282,7 @@ class DialogueControl:
             count_incorrect = 0
             count_indiff = 0
  
-            rows_of_potion = memory.loc[memory['Potion'] == potion]    # prendo le righe che hanno come pozione quella corrente
+            rows_of_potion = memory.loc[memory['Potion'] == potion]    # rows of the interview of the potion
 
             potion_recipe = self.potions_recipe[potion]
 
@@ -314,23 +298,16 @@ class DialogueControl:
                 count_indiff += len(indifferent_ingredients)
 
             not_mentioned_correct_ingredients = list(set(potion_recipe).difference(set(correct_ingredients)))
-            
-            print("potion_recipe: ", potion_recipe)
-            print("correct_ingredients: ", correct_ingredients)
-            print("not_mentioned_correct_ingredients: ", not_mentioned_correct_ingredients)
-
-            print("count_correct: ", count_correct)
-            print("count_incorrect: ", count_incorrect)
-            print("count_indiff: ", count_indiff)
 
             evaluation = count_correct / (count_correct + count_incorrect + count_indiff) - len(not_mentioned_correct_ingredients) * 0.1
-            print("EVALUATION: ", evaluation)
+            print("EVALUATION ", potion, ": ", evaluation)
 
             evaluation_list.append(evaluation)
-            
-        print("EVALUTATION LIST: ", evaluation_list)
 
-        evaluation = round(sum(evaluation_list) / len(evaluation_list), 2)  # facciamo la media dei voti ottenuti sulle singole pozioni
+        evaluation = round(sum(evaluation_list) / len(evaluation_list), 2) 
+
+        print("FINAL EVALUATION ", evaluation)
+
 
         if evaluation >= 0.8:
             evaluation = "excellent"

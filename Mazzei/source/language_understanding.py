@@ -48,8 +48,6 @@ class LanguageUnderstanding:
                         if in_potion == [] and out_potion == []:
                             unclear_answer = True
         
-        print("IN POTION in language understanding: \n \n \n ", in_potion, "\n \n \n")
-        print("YES NO ANSWER, ", y_n)
         return in_potion, out_potion, y_n, unclear_answer
 
     def contains_ingredients(self, sentence: str):
@@ -163,7 +161,7 @@ class LanguageUnderstanding:
                 print("\n \n VERB: ", verb[0].text, " ingredients_mentioned_verb: ", ingredients_mentioned_verb, "\n \n")
                 if verb[1] == "pos":
                     in_potion = list(set(in_potion + ingredients_mentioned_verb))
-                else: # negazione
+                else: 
                     out_potion = list(set(out_potion + ingredients_mentioned_verb))
 
             # if an ingredient is in both list in_potion and out_potion, it has to be only in out_potion
@@ -178,7 +176,6 @@ class LanguageUnderstanding:
                 in_potion = []
                 out_potion = []
         else: 
-            print("NON HO UN VERBO!")
             in_potion = ingredients_mentioned
 
        
@@ -203,7 +200,6 @@ class LanguageUnderstanding:
         return are_recognized
 
     def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
-        print("NOME NODO", node.text, " TAG ", str(node.tag_))
         if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ" or str(node.tag_) == "VB":  
             for child in node.children:
                 if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp":
@@ -212,14 +208,12 @@ class LanguageUnderstanding:
             return ingredients_mentioned
         elif any(node.text in ingredient for ingredient in self.ingredients_available) or is_compound:    
             if node.text in self.ingredients_available:
-                print("SONO NELL'IF")
                 ingredients_mentioned.append(node.text)
                 for child in node.children:
                     if child.dep_ == "conj" or child.dep_ == "appos" or child.dep_ == "npadvmod":
                         ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
                 return ingredients_mentioned
             else: # check if there is the chance to compund the name of the ingredient
-                print("siamo nell'else")
                 is_present = False
                 for child in node.children: 
                     is_present = is_present or child.dep_ == "compound" or child.dep_ == "amod" or child.dep_ == "nsubj"
@@ -227,13 +221,11 @@ class LanguageUnderstanding:
                     return node.text
                 else: 
                     for child in node.children:
-                        print("child: ", child.text)
                         if child.dep_ == "compound" or child.dep_ == "amod" or child.dep_ == "nsubj":
                             ingredient_name = self.deep_search(child, ingredients_mentioned, True)
                             ingredient_name = ingredient_name + " " + node.text
-                            print("Ingredient name", ingredient_name)
+                            
                             if ingredient_name in self.ingredients_available:
-                                print("l'ingrediente è presente")
                                 ingredients_mentioned.append(ingredient_name)
                             elif is_compound: 
                                 return ingredient_name

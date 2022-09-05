@@ -40,11 +40,14 @@ class ResponseGenerator:
         else:
             return "I don't know what to say."
 
-
-    # Function to convert text to
-    # speech
     @classmethod
     def speak(cls, phrase: str) :
+        """ Speaks the given phrase.
+
+        Args:
+            phrase (str): The phrase to speak.
+        
+        """
 
         if platform == "darwin":
             # OS X
@@ -60,10 +63,13 @@ class ResponseGenerator:
         engine.say(phrase)
         engine.runAndWait()
 
-
-
     @classmethod
     def generate_greetings(cls): 
+        """ Generates a greeting.
+
+        Returns:
+            str: The greeting.
+        """
         
         possible_sentences = ["Good morning Mr Potter.", "Welcome to the potions examination Mr Potter.", \
             "Good morning Mr Potter, I hope that you have studied this time.", "Good morning Potter, I hope you are better prepared than last time. "]
@@ -83,7 +89,6 @@ class ResponseGenerator:
             realiser = Realiser(lexicon)
             nlgFactory = NLGFactory(lexicon)
 
-
             index_last_value = len(memory.index) - 1
             last_value = memory.loc[index_last_value] 
             
@@ -91,7 +96,6 @@ class ResponseGenerator:
             count_incorrect = 0
             count_indiff = 0
         
-            
             correct_ingredients = [ingredient for ingredient in last_value["Correct ingredients"].split(",") if ingredient != ""]
             count_correct += len(correct_ingredients)
 
@@ -124,7 +128,7 @@ class ResponseGenerator:
             random_indexes = list(random.sample(range(0, 4), 1))
             
             if random_indexes[0] == 0:
-                # You should tell me some more ingredients.
+                ## You should tell me some more ingredients.
                 p = nlgFactory.createClause("you")
                 verb = nlgFactory.createVerbPhrase("tell")
                 p.setObject("some more ingredients")
@@ -165,7 +169,7 @@ class ResponseGenerator:
 
     @classmethod
     def decapitalize(cls, sentence: str):
-        if not sentence:  # check that s is not empty string
+        if not sentence:
             return sentence
         return sentence[0].lower() + sentence[1:]
 

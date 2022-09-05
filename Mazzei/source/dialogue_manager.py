@@ -39,7 +39,6 @@ class DialogueManager:
             potions (dict): The dictionary with the potions available with ingredients.
         """
         #random_indexes = list(random.sample(range(1, len(potions)), 3))
-        #sentence = I think that Fluxweed, Rose Thorn, Chinese Chomping cabbage and Caterpillar are in the potion.
         random_indexes = [0, 1, 2]    # questo serve solo per testare -> rimuovere e rimettere l'indice random
         for i in range(len(random_indexes)):
             potion_name = list(potions.keys())[random_indexes[i]]

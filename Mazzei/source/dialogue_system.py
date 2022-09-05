@@ -43,7 +43,6 @@ class DialogueSystem:
                 response = SpeechRecognizer.vocal_response()
 
             in_potion, out_potion, y_n, unclear_answer = self.language_understanding.interpret_response(response, intent)
-            print("IN POTION: \n \n \n", in_potion, "\n \n \n")
             if not unclear_answer:
                 memory, intent, to_ask, name_potion = self.dialogue_manager.update_dialogue(ingredient_asked, response, in_potion, out_potion, y_n) 
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer, name_potion)

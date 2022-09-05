@@ -31,7 +31,6 @@ class DialogueContext:
         indifferent_ingredients = []
         if current_intent == "ingredients_generic" or current_intent == "restart":
             ingredients_potion_expected = expected.split(",")
-            print("&&&&&&&&&&&&&&&&& ingredients_potion: " , ingredients_potion_expected, "\n \n")
             for ingredient in in_potion:
                 if ingredient in self.ingredients_current_potion and ingredient in ingredients_potion_expected:
                     correct_ingredients.append(ingredient)
@@ -69,6 +68,4 @@ class DialogueContext:
                 'Indifferent ingredients': ','.join(indifferent_ingredients),
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
-        print("EXPECTED: \n \n", expected, "\n \n")
-        print("Correct ingredients: \n \n", correct_ingredients, "\n \n")
         print(tabulate(self.memory, headers='keys', tablefmt='grid'))
