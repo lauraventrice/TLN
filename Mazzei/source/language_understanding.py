@@ -156,24 +156,31 @@ class LanguageUnderstanding:
         for verb in verbs: 
             print ("{:<15} | {:<15} |".format(str(verb[0]), verb[1]))
 
-        for verb in verbs:
-            ingredients_mentioned_verb = self.deep_search(verb[0], [])
-            print("\n \n VERB: ", verb[0].text, " ingredients_mentioned_verb: ", ingredients_mentioned_verb, "\n \n")
-            if verb[1] == "pos":
-                in_potion = list(set(in_potion + ingredients_mentioned_verb))
-            else: # negazione
-                out_potion = list(set(out_potion + ingredients_mentioned_verb))
+        if verbs: 
+            for verb in verbs:
+                ingredients_mentioned_verb = self.deep_search(verb[0], [])
+                print("\n \n VERB: ", verb[0].text, " ingredients_mentioned_verb: ", ingredients_mentioned_verb, "\n \n")
+                if verb[1] == "pos":
+                    in_potion = list(set(in_potion + ingredients_mentioned_verb))
+                else: # negazione
+                    out_potion = list(set(out_potion + ingredients_mentioned_verb))
 
-        # if an ingredient is in both list in_potion and out_potion, it has to be only in out_potion
-        in_potion = list(set(in_potion).difference(set(out_potion)))
+            # if an ingredient is in both list in_potion and out_potion, it has to be only in out_potion
+            in_potion = list(set(in_potion).difference(set(out_potion)))
 
-        print("in_potion", in_potion)
-        print("out_potion", out_potion) 
+            print("in_potion", in_potion)
+            print("out_potion", out_potion) 
 
-        check_parsing = self.check_parsing_ingredients(ingredients_mentioned, in_potion, out_potion)
-        if not check_parsing:
-            in_potion = []
-            out_potion = []
+            check_parsing = self.check_parsing_ingredients(ingredients_mentioned, in_potion, out_potion)
+
+            if not check_parsing:
+                in_potion = []
+                out_potion = []
+        else: 
+            print("NON HO UN VERBO!")
+            in_potion = ingredients_mentioned
+
+       
 
         return in_potion, out_potion
 
