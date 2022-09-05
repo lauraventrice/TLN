@@ -23,6 +23,9 @@ class DialogueControl:
         self.frame = current_potion
         self.ingredients_current_potion = ingredients_current_potion
 
+    def set_potions_recipe(self, potions_recipe: dict):
+        self.potions_recipe = potions_recipe
+
     def manage_intent(self):
         """Manages the intent, implements automata. 
 
@@ -46,11 +49,11 @@ class DialogueControl:
         if not incomplete: 
             self.current_intent = 4
             to_ask = self.get_evaluation(memory) 
-        elif length > 4 and length_interview < 3: 
+        elif length > 2 and length_interview < 1: 
             self.current_intent = 5
             self.dialogue_manager.next_potion() 
             expected = ','.join(self.ingredients_current_potion) 
-        elif length > 4 and length_interview == 3:
+        elif length > 2 and length_interview == 1:
             self.current_intent = 4
             to_ask = self.get_evaluation(memory) 
         elif self.current_intent == -1:
@@ -281,27 +284,53 @@ class DialogueControl:
             evaluation (str): The evaluation of the conversation.
         """
 
-        count_correct = 0
-        count_incorrect = 0
-        count_indiff = 0
-        
-        for i in memory.index:
-            correct_ingredients = [ingredient for ingredient in memory.loc[i, "Correct ingredients"].split(",") if ingredient != ""]
-            count_correct += len(correct_ingredients)
 
-            incorrect_ingredients = [ingredient for ingredient in memory.loc[i, "Incorrect ingredients"].split(",") if ingredient != ""]
-            count_incorrect += len(incorrect_ingredients)
-
-            indifferent_ingredients = [ingredient for ingredient in memory.loc[i, "Indifferent ingredients"].split(",") if ingredient != ""]
-            count_indiff += len(indifferent_ingredients)
         
-        evaluation = (count_correct - count_incorrect) / (count_correct + count_incorrect + count_indiff)
-        
-        print("count_correct: ", count_correct)
-        print("count_incorrect: ", count_incorrect)
-        print("count_indiff: ", count_indiff)
+        potions_list = memory["Potion"].unique()   # lista di pozioni presenti in memoria
 
-        print("EVALUATION: ", evaluation)
+        print("POTIONS LIST: ", potions_list)
+
+        evaluation_list = []
+
+        for potion in potions_list:
+
+            count_correct = 0
+            count_incorrect = 0
+            count_indiff = 0
+ 
+            rows_of_potion = memory.loc[memory['Potion'] == potion]    # prendo le righe che hanno come pozione quella corrente
+
+            potion_recipe = self.potions_recipe[potion]
+
+            for i in rows_of_potion.index:
+
+                correct_ingredients = [ingredient for ingredient in rows_of_potion.loc[i, "Correct ingredients"].split(",") if ingredient != ""]
+                count_correct += len(correct_ingredients)
+
+                incorrect_ingredients = [ingredient for ingredient in rows_of_potion.loc[i, "Incorrect ingredients"].split(",") if ingredient != ""]
+                count_incorrect += len(incorrect_ingredients)
+
+                indifferent_ingredients = [ingredient for ingredient in rows_of_potion.loc[i, "Indifferent ingredients"].split(",") if ingredient != ""]
+                count_indiff += len(indifferent_ingredients)
+
+            not_mentioned_correct_ingredients = list(set(potion_recipe).difference(set(correct_ingredients)))
+            
+            print("potion_recipe: ", potion_recipe)
+            print("correct_ingredients: ", correct_ingredients)
+            print("not_mentioned_correct_ingredients: ", not_mentioned_correct_ingredients)
+
+            print("count_correct: ", count_correct)
+            print("count_incorrect: ", count_incorrect)
+            print("count_indiff: ", count_indiff)
+
+            evaluation = count_correct / (count_correct + count_incorrect + count_indiff) - len(not_mentioned_correct_ingredients) * 0.1
+            print("EVALUATION: ", evaluation)
+
+            evaluation_list.append(evaluation)
+            
+        print("EVALUTATION LIST: ", evaluation_list)
+
+        evaluation = round(sum(evaluation_list) / len(evaluation_list), 2)  # facciamo la media dei voti ottenuti sulle singole pozioni
 
         if evaluation >= 0.8:
             evaluation = "excellent"
