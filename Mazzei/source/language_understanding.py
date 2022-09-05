@@ -26,7 +26,7 @@ class LanguageUnderstanding:
         out_potion = []
         y_n = ""
         unclear_answer = False
-        if not str.__contains__(response.lower(), "good morning") and not str.__contains__(response.lower(), "goodmorning"):
+        if intent != "handshake":
             
             response = self.preprocessing(response)
 
