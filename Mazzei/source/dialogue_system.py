@@ -15,7 +15,9 @@ class DialogueSystem:
         intent, to_ask = self.dialogue_manager.start_dialogue()
         
         begin = ResponseGenerator.generate_answer(intent)
+
         print("\n \nProfessor Piton: ", begin, "\n")
+        ResponseGenerator.speak(begin)
 
         while intent != "evaluation_end": 
             if intent == "handshake" or intent == "ingredients_generic" or to_ask == "question_tricky": 
@@ -30,3 +32,4 @@ class DialogueSystem:
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer, name_potion)
 
             print("Professor Piton: " + question) 
+            ResponseGenerator.speak(question)

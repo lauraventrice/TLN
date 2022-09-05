@@ -4,7 +4,9 @@ from simplenlg.realiser.english import *
 from simplenlg.phrasespec import *
 from simplenlg.features import *
 import pandas as pd
-import random 
+import random
+from sys import platform
+import pyttsx3
 
 class ResponseGenerator: 
 
@@ -38,6 +40,28 @@ class ResponseGenerator:
         else:
             return "I don't know what to say."
 
+
+    # Function to convert text to
+    # speech
+    @classmethod
+    def speak(cls, phrase: str) :
+
+        if platform == "darwin":
+            # OS X
+            voice_id = "com.apple.speech.synthesis.voice.Alex"
+        elif platform == "win32":
+            # Windows...
+            voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_DAVID_11.0"
+        # Initialize the engine
+        engine = pyttsx3.init()
+
+        engine.setProperty('voice', voice_id)
+
+        engine.say(phrase)
+        engine.runAndWait()
+
+
+
     @classmethod
     def generate_greetings(cls): 
         
@@ -63,7 +87,6 @@ class ResponseGenerator:
             index_last_value = len(memory.index) - 1
             last_value = memory.loc[index_last_value] 
             
-            print("\n \n LAST_VALUE: ", last_value, "\n \n")
             count_correct = 0
             count_incorrect = 0
             count_indiff = 0
@@ -77,14 +100,9 @@ class ResponseGenerator:
 
             indifferent_ingredients = [ingredient for ingredient in last_value["Indifferent ingredients"].split(",") if ingredient != ""]
             count_indiff += len(indifferent_ingredients)
-            
-            print("SCELTA COMMMENTO count_correct: ", count_correct)
-            print("SCELTA COMMMENTO count_incorrect: ", count_incorrect)
-            print("SCELTA COMMMENTO count_indiff: ", count_indiff)
 
             comment = ""
 
-            # scelta commento alla risposta precedente
             good_answer = ["You are right Potter, but ", "Good Job Potter! ", "Well done Potter, but ", "That's right Potter! ", "That's correct Potter! "]
             bad_answer = ["You are wrong as usual! ", "Nice try but of course you are wrong. ", "That's not correct Potter! "]
             indifferent_answer = ["Answer me in a meaningful way Potter! "]

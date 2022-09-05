@@ -31,6 +31,7 @@ class LanguageUnderstanding:
             response = self.preprocessing(response)
 
             unclear_answer = self.check_sentence(response)
+
             if not unclear_answer: 
                 if intent == "ingredients_yes_no" or intent == "question_tricky": # parsing sentence with answer yes or no
                     negative_lemmas = ["no", "not", "'nt"]

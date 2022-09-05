@@ -20,12 +20,7 @@ class SpeechRecognizer:
         return input("Student: ")
 
     @classmethod
-    def response_interpretation(cls, response: str):
-        #qui uso di speech recognition NEL FUTURO!
-        pass
-
-    @classmethod
-    def test(cls):
+    def response_interpretation(cls):
         #qui uso di speech recognition NEL FUTURO!
         # Initialize the recognizer
         r = sr.Recognizer()
@@ -35,45 +30,26 @@ class SpeechRecognizer:
             # adjust the energy threshold based on
             # the surrounding noise level
             r.adjust_for_ambient_noise(source2,duration=0.2)
-            print("PARLA ORA")
+            print("Student: ")
             #Listens for the user's input
             audio2 = r.listen(source2)
-            # Using ggogle to recognize audio
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
-            print ("Did you say: " + MyText)
-            SpeechRecognizer.SpeakText("Hello mr Potter! Are you ready for the exam?")
 
-    # Function to convert text to
-    # speech
-    @classmethod
-    def SpeakText (cls, command) :
 
-        if platform == "darwin":
-            # OS X
-            voice_id = "com.apple.speech.synthesis.voice.Alex"
-        elif platform == "win32":
-            # Windows...
-            voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_DAVID_11.0"
-        # Initialize the engine
-        engine = pyttsx3.init()
+            try:
+                dest = r.recognize_google(audio2)
+                print ("You have said : " + dest)
 
-        voices = engine.getProperty('voices')
-  
-        for voice in voices:
-        #    to get the info. about various voices in our PC 
-            print("Voice:")
-            print("ID: %s" %voice.id)
-            print("Name: %s" %voice.name)
-            print("Age: %s" %voice.age)
-            print("Gender: %s" %voice.gender)
-            print("Languages Known: %s" %voice.languages)
+            except Exception:
+                print("Sorry, I didn't hear you.")
 
-        # Use female voice
-        engine.setProperty('voice', voice_id)
+            # # Using ggogle to recognize audio
+            # MyText = r.recognize_google(audio2)
+            # MyText = MyText.lower()
+            # print ("Did you say: " + MyText)
 
-        engine.say(command)
-        engine.runAndWait()
+            #SpeechRecognizer.SpeakText("Hello mr Potter! Are you ready for the exam?")
+
+
 
 if __name__ == "__main__":
-    SpeechRecognizer.test()
+    SpeechRecognizer.response_interpretation()
