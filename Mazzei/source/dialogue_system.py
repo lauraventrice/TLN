@@ -1,3 +1,5 @@
+from asyncore import write
+from secrets import choice
 from dialogue_manager import DialogueManager
 from response_generation import ResponseGenerator
 from speech_recognition_source import SpeechRecognizer
@@ -12,6 +14,16 @@ class DialogueSystem:
 
     def start_dialogue(self): 
 
+        choice = ""
+        while choice != "written" and choice != "oral": 
+            print("\n \nProfessor Piton:  Would you like to take the exam written or oral?\n")
+            choice = SpeechRecognizer.read_from_terminal()
+
+        if choice == "written":
+            write_response = True
+        else:
+            write_response = False
+
         intent, to_ask = self.dialogue_manager.start_dialogue()
         
         begin = ResponseGenerator.generate_answer(intent)
@@ -24,7 +36,12 @@ class DialogueSystem:
                 ingredient_asked = ""
             else: 
                 ingredient_asked = to_ask
-            response = SpeechRecognizer.read_from_terminal()
+
+            if write_response:
+                response = SpeechRecognizer.read_from_terminal()
+            else:
+                response = SpeechRecognizer.vocal_response()
+
             in_potion, out_potion, y_n, unclear_answer = self.language_understanding.interpret_response(response, intent)
             print("IN POTION: \n \n \n", in_potion, "\n \n \n")
             if not unclear_answer:
