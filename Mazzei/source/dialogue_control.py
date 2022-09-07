@@ -225,8 +225,10 @@ class DialogueControl:
         incomplete = True
         last_value = len(self.frame.index) - 1
         name_potion = self.frame.columns[0]
-        if last_value > 0:
-            incomplete = pd.isna(self.frame.loc[last_value, name_potion]) # check if the last value is nan
+
+        #if last_value > 0:
+        print(self.frame.loc[last_value, name_potion])
+        incomplete = pd.isna(self.frame.loc[last_value, name_potion]) # check if the last value is nan
 
         memory_current_potion = memory.query("Potion == @name_potion") # get the current potion from the memory
         length = len(memory_current_potion.index) # get the length of the interview current potion

@@ -39,7 +39,7 @@ class DialogueManager:
             potions (dict): The dictionary with the potions available with ingredients.
         """
         random_indexes = list(random.sample(range(1, len(potions)), 3))
-        #random_indexes = [0, 1, 2]    # questo serve solo per testare -> rimuovere e rimettere l'indice random
+        #random_indexes = [5]    # questo serve solo per testare -> rimuovere e rimettere l'indice random
         for i in range(len(random_indexes)):
             potion_name = list(potions.keys())[random_indexes[i]]
             potion_ingredients = list(potions.values())[random_indexes[i]]
