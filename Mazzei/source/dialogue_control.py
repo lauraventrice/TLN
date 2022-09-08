@@ -44,8 +44,8 @@ class DialogueControl:
         expected = ""
         to_ask = ""
 
-        number_of_potion = 2    # numero di pozioni da chiedere
-        questions_for_potion = 3    # numero di domande da porre per ogni pozione
+        number_of_potion = 2    # number of potions to ask
+        questions_for_potion = 3    # number of questions to ask for each potion
 
         if not incomplete: 
             self.current_intent = 4
