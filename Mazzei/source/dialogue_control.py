@@ -44,14 +44,17 @@ class DialogueControl:
         expected = ""
         to_ask = ""
 
+        number_of_potion = 2    # numero di pozioni da chiedere
+        questions_for_potion = 3    # numero di domande da porre per ogni pozione
+
         if not incomplete: 
             self.current_intent = 4
             to_ask = self.get_evaluation(memory) 
-        elif length > 2 and length_interview < 2: 
+        elif length > questions_for_potion and length_interview < number_of_potion: 
             self.current_intent = 5
             self.dialogue_manager.next_potion() 
             expected = ','.join(self.ingredients_current_potion) 
-        elif length > 2 and length_interview == 2:
+        elif length > questions_for_potion and length_interview == number_of_potion:
             self.current_intent = 4
             to_ask = self.get_evaluation(memory) 
         elif self.current_intent == -1:
@@ -169,7 +172,7 @@ class DialogueControl:
                     expected = "yes"
                 else:
                     expected = "no"
-            else: 
+            else:
                 self.current_intent = 4
                 to_ask = self.get_evaluation(memory) 
         else:
