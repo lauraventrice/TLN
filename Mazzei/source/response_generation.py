@@ -282,12 +282,18 @@ class ResponseGenerator:
 
         if random_indexes[0] == 0:
             ## Do you think that INGNAME is present in POTNAME? 
+            if str.__contains__(name_potion, "Potion"):
+                name_potion = name_potion.replace("Potion", "")
+            
             p = nlgFactory.createClause("you", "think")
             p0 = nlgFactory.createClause(to_ask, "be present", "in " + name_potion + " potion")
             p.addComplement(p0)
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 1:
             ## Is INGNAME present in the POTNAME potion? 
+            if str.__contains__(name_potion, "Potion"):
+                name_potion = name_potion.replace("Potion", "")
+
             p = nlgFactory.createClause(to_ask, "be present", "in the "  + name_potion + " potion")
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 2:
@@ -299,6 +305,9 @@ class ResponseGenerator:
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
         elif random_indexes[0] == 3:
             ## Is INGNAME in the ingredient list of the POTNAME potion? 
+            if str.__contains__(name_potion, "Potion"):
+                name_potion = name_potion.replace("Potion", "")
+
             p = nlgFactory.createClause(to_ask, "be", "of the " + name_potion + " potion")
             p.setIndirectObject("in the ingredient list")
             p.setFeature(Feature.INTERROGATIVE_TYPE, InterrogativeType.YES_NO)
