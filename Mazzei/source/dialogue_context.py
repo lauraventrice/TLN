@@ -36,7 +36,6 @@ class DialogueContext:
                     correct_ingredients.append(ingredient)
                     if not ingredient in self.frame[self.frame.columns[0]].unique().tolist():
                         self.frame.loc[self.index, self.frame.columns[0]] = ingredient
-                        print("\n \n Frame aggiornato: \n \n ", self.frame, "\n \n")
                         self.index += 1
                 elif not ingredient in self.ingredients_current_potion:
                     incorrect_ingredients.append(ingredient)
@@ -68,4 +67,5 @@ class DialogueContext:
                 'Indifferent ingredients': ','.join(indifferent_ingredients),
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
 
-        print(tabulate(self.memory, headers='keys', tablefmt='grid'))
+        # PRINT MEMORY
+        # print(tabulate(self.memory, headers='keys', tablefmt='grid'))

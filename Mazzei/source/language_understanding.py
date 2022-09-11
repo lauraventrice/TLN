@@ -78,7 +78,6 @@ class LanguageUnderstanding:
             str: The correct sentence.
         """
         score = self.score_sentence(sentence)
-        print("SCORE: ", score)
         unclear = True
         if score > 0.5:
             unclear = False
@@ -124,7 +123,6 @@ class LanguageUnderstanding:
 
         sentence = re.sub(r'(?<=[.,])(?=[^\s])', r' ', sentence) # add space after comma and dot if there is no space
 
-        print("AFTER PRE PROCESSING: ", sentence)
         return sentence
 
     def parsing_sentence(self, sentence: str):
@@ -146,19 +144,13 @@ class LanguageUnderstanding:
         
         verbs = []
         for token in doc: 
-            print(token.text, token.tag_)
             if str(token.tag_) == "VBP" or str(token.tag_) == "VBZ" or str(token.tag_) == "VB": 
                 verb_context = self.check_verb_context(token)
                 verbs.append((token, verb_context)) 
         
-        print("verbs: \n")
-        for verb in verbs: 
-            print ("{:<15} | {:<15} |".format(str(verb[0]), verb[1]))
-
         if verbs: 
             for verb in verbs:
                 ingredients_mentioned_verb = self.deep_search(verb[0], [])
-                print("\n \n VERB: ", verb[0].text, " ingredients_mentioned_verb: ", ingredients_mentioned_verb, "\n \n")
                 if verb[1] == "pos":
                     in_potion = list(set(in_potion + ingredients_mentioned_verb))
                 else: 
@@ -166,9 +158,6 @@ class LanguageUnderstanding:
 
             # if an ingredient is in both list in_potion and out_potion, it has to be only in out_potion
             in_potion = list(set(in_potion).difference(set(out_potion)))
-
-            print("in_potion", in_potion)
-            print("out_potion", out_potion) 
 
             check_parsing = self.check_parsing_ingredients(ingredients_mentioned, in_potion, out_potion)
 
@@ -204,7 +193,6 @@ class LanguageUnderstanding:
             for child in node.children:
                 if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp" or child.dep_ == "dobj": #TODO: verificare che dobj funzioni 
                     ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
-                    print("ingredients_mentioned", ingredients_mentioned)
             return ingredients_mentioned
         elif any(node.text in ingredient for ingredient in self.ingredients_available) or is_compound:    
             if node.text in self.ingredients_available:

@@ -21,15 +21,15 @@ class SpeechRecognizer:
                 # adjust the energy threshold based on
                 # the surrounding noise level
                 r.adjust_for_ambient_noise(source,duration=0.2)
-                print("Student: ")
+                print("\nStudent: ")
                 #Listens for the user's input
                 audio = r.listen(source)
 
                 try:
                     response = r.recognize_google(audio)
-                    print ("You have said : " + response)
+                    print ("\nYou have said : " + response)
 
                 except Exception:
-                    print("Sorry, I didn't hear you.")
+                    print("\nSorry, I didn't hear you.")
         
         return response

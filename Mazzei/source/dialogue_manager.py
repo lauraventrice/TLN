@@ -48,7 +48,10 @@ class DialogueManager:
             self.potions_chosen.append(df)
         
         self.dialogue_control.set_potions_recipe(potions)
-        print("POTIONS CHOSEN: \n", self.potions_chosen)
+
+        # PRINT POTIONTS DATA FRAMES
+        # for i in range (0, len(self.potions_chosen)):
+        #     print(self.potions_chosen[i].to_string(), "\n")
 
     def set_ingredients(self, ingredients: list):
         """Sets the ingredients of the potions.
@@ -58,7 +61,6 @@ class DialogueManager:
         """
         self.ingredients_available = ingredients
         self.dialogue_control.set_ingredient_available(ingredients)
-        print("INGREDIENTS AVAILABLE: \n", self.ingredients_available)
 
     def next_potion(self):
         """Gets the next potion to ask.

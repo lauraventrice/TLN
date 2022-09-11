@@ -47,5 +47,5 @@ class DialogueSystem:
                 memory, intent, to_ask, name_potion = self.dialogue_manager.update_dialogue(ingredient_asked, response, in_potion, out_potion, y_n) 
             question = ResponseGenerator.generate_answer(intent, to_ask, memory, unclear_answer, name_potion)
 
-            print("Professor Piton: " + question) 
+            print("\nProfessor Piton: " + question + "\n") 
             ResponseGenerator.speak(question)
