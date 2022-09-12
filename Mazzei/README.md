@@ -1,4 +1,4 @@
-# PointOfInterest
+# Dialog System - Piton
 
 ## SpaCy setup
 
