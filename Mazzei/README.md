@@ -46,3 +46,49 @@ https://pypi.org/project/SpeechRecognition/
 ## Random library
 
 `pip install random`
+
+## PyAudio
+
+Install PyAudio on Windows:
+
+`pip install pyaudio`
+
+Install PyAudio on M1 Chip:
+
+1.  Install  `portaudio`
+
+```
+brew install portaudio
+```
+
+2.  Link  `portaudio`
+
+```
+brew link portaudio
+```
+
+3.  Copy the path where  `portaudio`  was installed (use it in the next step)
+
+```
+brew --prefix portaudio
+```
+
+4.  Create  `.pydistutils.cfg`  in your home directory
+
+```
+sudo nano $HOME/.pydistutils.cfg
+```
+then paste the following
+```
+[build_ext]
+include_dirs=<PATH FROM STEP 3>/include/
+library_dirs=<PATH FROM STEP 3>/lib/
+```
+
+5.  Install pyaudio
+
+```
+pip install pyaudio
+or
+pip3 install pyaudio
+```
