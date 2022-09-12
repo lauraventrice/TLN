@@ -69,3 +69,6 @@ class DialogueContext:
 
         # PRINT MEMORY
         # print(tabulate(self.memory, headers='keys', tablefmt='grid'))
+
+        # PRINT POTIONS DATA FRAMES
+        # print(self.frame.to_string(), "\n")

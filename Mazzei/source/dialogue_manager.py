@@ -49,7 +49,7 @@ class DialogueManager:
         
         self.dialogue_control.set_potions_recipe(potions)
 
-        # PRINT POTIONTS DATA FRAMES
+        # PRINT POTIONS DATA FRAMES
         # for i in range (0, len(self.potions_chosen)):
         #     print(self.potions_chosen[i].to_string(), "\n")
 
