@@ -71,7 +71,6 @@ https://pypi.org/project/SpeechRecognition/
 
 `pip install SpeechRecognition`
 `pip install pyttsx3`
-`pip install pyaudio`
 
 ### Random library
 
