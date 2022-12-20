@@ -66,9 +66,3 @@ class DialogueContext:
                 'Correct ingredients': ','.join(correct_ingredients), 'Incorrect ingredients': ','.join(incorrect_ingredients), 
                 'Indifferent ingredients': ','.join(indifferent_ingredients),
                 'Expected': expected, 'Potion': self.frame.columns[0]}, ignore_index=True)
-
-        # PRINT MEMORY
-        # print(tabulate(self.memory, headers='keys', tablefmt='grid'))
-
-        # PRINT POTIONS DATA FRAMES
-        # print(self.frame.to_string(), "\n")

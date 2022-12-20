@@ -191,7 +191,7 @@ class LanguageUnderstanding:
     def deep_search(self, node, ingredients_mentioned: list, is_compound = False): 
         if str(node.tag_) == "VBP" or str(node.tag_) == "VBZ" or str(node.tag_) == "VB":  
             for child in node.children:
-                if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp" or child.dep_ == "dobj": #TODO: verificare che dobj funzioni 
+                if child.dep_ == "nsubj" or child.dep_ == "attr" or child.dep_ == "ccomp" or child.dep_ == "dobj": 
                     ingredients_mentioned = self.deep_search(child, ingredients_mentioned)
             return ingredients_mentioned
         elif any(node.text in ingredient for ingredient in self.ingredients_available) or is_compound:    
