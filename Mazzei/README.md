@@ -36,7 +36,7 @@ Analyze at least 3 dialogues (-> **report**)
 
 ## Project report
 
-The project report with the results obtained is [here](/Relazione_DS_Scarpinati_Ventrice.pdf). 
+The project report with the results obtained is [here](./Relazione_DS_Scarpinati_Ventrice.pdf). 
 
 ## Setup and utils 
 ### SpaCy setup and utils
