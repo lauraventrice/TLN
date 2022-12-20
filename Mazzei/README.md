@@ -3,7 +3,7 @@
 ## Text Project: Dialogue System for trainee Witches or Sorcerers 
 Specifications:
 1. The DS (ITA or ENG) must impersonate the Severus Piton character. 
-The DS is task-based: must interrogate the user on the composition of 3 magical potions to be chosen from [link] (https://www.potterpedia.it/?speciale=elenco&categoria=Pozioni "Title").
+The DS is task-based: must interrogate the user on the composition of 3 magical potions to be chosen from [here](https://www.potterpedia.it/?speciale=elenco&categoria=Pozioni).
 2. Algorithm: ANALYSIS-DM-GENERATION.
 
 ### Analysis: 
@@ -37,16 +37,15 @@ Analyze at least 3 dialogues (-> report)
 ## Setup and utils 
 ### SpaCy setup and utils
 
+**API:** 
+https://spacy.io/api
+
+**Token attributes:** 
+https://spacy.io/api/token#attributes
+
 `pip install -U spacy`
 
 `python -m spacy download en_core_web_sm`
-
-https://spacy.io/api
-
-https://spacy.io/usage/linguistic-features
-
-**Token attributes:**
-https://spacy.io/api/token#attributes
 
 ### GingerIt setup and utils
 
@@ -66,7 +65,6 @@ https://github.com/bjascob/pySimpleNLG
 
 `pip install simplenlg`
 
-
 ### Speech recognition setup and utils
 
 https://pypi.org/project/SpeechRecognition/
@@ -74,7 +72,6 @@ https://pypi.org/project/SpeechRecognition/
 `pip install SpeechRecognition`
 `pip install pyttsx3`
 `pip install pyaudio`
-
 
 ### Random library
 
@@ -86,42 +83,4 @@ Install PyAudio on Windows:
 
 `pip install pyaudio`
 
-Install PyAudio on M1 Chip:
-
-1.  Install  `portaudio`
-
-```
-brew install portaudio
-```
-
-2.  Link  `portaudio`
-
-```
-brew link portaudio
-```
-
-3.  Copy the path where  `portaudio`  was installed (use it in the next step)
-
-```
-brew --prefix portaudio
-```
-
-4.  Create  `.pydistutils.cfg`  in your home directory
-
-```
-sudo nano $HOME/.pydistutils.cfg
-```
-then paste the following
-```
-[build_ext]
-include_dirs=<PATH FROM STEP 3>/include/
-library_dirs=<PATH FROM STEP 3>/lib/
-```
-
-5.  Install pyaudio
-
-```
-pip install pyaudio
-or
-pip3 install pyaudio
-```
+Install PyAudio on M1 Chip using [this guide](https://stackoverflow.com/questions/68251169/unable-to-install-pyaudio-on-m1-mac-portaudio-already-installed)
