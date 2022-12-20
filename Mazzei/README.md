@@ -3,7 +3,7 @@
 ## Text Project: Dialogue System for trainee Witches or Sorcerers 
 Specifications:
 1. The DS (ITA or ENG) must impersonate the Severus Piton character. 
-The DS is task-based: must interrogate the user on the composition of 3 magical potions to be chosen from [link] (https://www.potterpedia.it/?speciale=elenco&categoria=Pozioni).
+The DS is task-based: must interrogate the user on the composition of 3 magical potions to be chosen from [link] (https://www.potterpedia.it/?speciale=elenco&categoria=Pozioni "Title").
 2. Algorithm: ANALYSIS-DM-GENERATION.
 
 ### Analysis: 
