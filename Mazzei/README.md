@@ -3,8 +3,7 @@
 ## Text Project: Dialogue System for trainee Witches or Sorcerers 
 Specifications:
 1. The DS (ITA or ENG) must impersonate the Severus Piton character. 
-The DS is task-based: must interrogate the user on the composition of 3 magical potions to be chosen from:
-https://www.po#erpedia.it/?speciale=elenco&categoria=Pozioni
+The DS is task-based: must interrogate the user on the composition of 3 magical potions to be chosen from [link] (https://www.potterpedia.it/?speciale=elenco&categoria=Pozioni).
 2. Algorithm: ANALYSIS-DM-GENERATION.
 
 ### Analysis: 
@@ -12,9 +11,9 @@ https://www.po#erpedia.it/?speciale=elenco&categoria=Pozioni
 - Like Eliza Chatbot: regular expressions on strings.
 - With dependencies: use a dependency parser (e.g. Spacy, Stanza, Tint) you look for regularities in the tree. 
 Ex: "An ingredient is moon water". 
-* ingredient -nsubj-> water
-* is -cop-> water
-* water -nmod-> moon
+    - ingredient -nsubj-> water
+    - is -cop-> water
+    - water -nmod-> moon
 
 ### Dialogue Management
 The initiative lies with the system to query
