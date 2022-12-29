@@ -154,7 +154,7 @@ def onomasiologic_search(concept: dict, n_top: int):
     for word in most_frequent_words:
         synset = get_synset(word, dict_word_dictionary[word])
         if synset:
-            hyponyms.extend(synset.hyponyms())
+            hyponyms.extend(synset.hypernyms())
     
     res = []
     for hyp in hyponyms:
@@ -178,7 +178,7 @@ def onomasiologic_search(concept: dict, n_top: int):
 
 for concept in definitions:
     print(concept['Concept'])
-    result = onomasiologic_search(concept, 15)
+    result = onomasiologic_search(concept, 20)
     print(result, '\n\n\n')
     
 
