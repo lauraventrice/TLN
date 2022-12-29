@@ -108,41 +108,58 @@ def get_top_words(definitions: list, n_top: int):
         concept_counter.update(definition)
     
     most_frequent_words = [word for word, _ in concept_counter.most_common(n_top)]
+
+    print("top words:", most_frequent_words)
+
     return most_frequent_words
 
 def get_synset(word: str, definitions: list): 
-    synset = lesk(definitions, word)
+
+    synset_counter = Counter()
+    for definition in definitions: 
+        synset = lesk(definition, word)
+        if synset:
+            synset_counter.update([synset])
+
+    synset = None
+    #print("word:", word)
+    if len(synset_counter) != 0:
+        synset = synset_counter.most_common(1)[0][0]
+        #print("synset:", synset, "- tot volte:", synset_counter.most_common(1)[0][1], " su: ", len(definitions))
 
     return synset
 
-def create_dict_word_dictionary(most_frequent_words: list, definitions: list): # se non va bene metto le liste separate delle definizioni
+def create_dict_word_dictionary(most_frequent_words: list, definitions: list):
     dict_word_dictionary = {}
     for word in most_frequent_words:
         for definition in definitions: 
             if word in definition:
                 if word in dict_word_dictionary:
-                    dict_word_dictionary[word].update(definition)
+                    dict_word_dictionary[word].append(definition)
                 else:
-                    dict_word_dictionary[word] = set(definition)
+                    dict_word_dictionary[word] = [definition]
 
     return dict_word_dictionary
 
 def onomasiologic_search(concept: dict, n_top: int):
     
     results = []
-    definitions = concept.values()
+    del concept['Concept']
+    definitions = list(concept.values())
+
     most_frequent_words = get_top_words(definitions, n_top)
     dict_word_dictionary = create_dict_word_dictionary(most_frequent_words, definitions)
 
     hyponyms = []
     for word in most_frequent_words:
-        synset = get_synset(word, list(dict_word_dictionary[word]))
+        synset = get_synset(word, dict_word_dictionary[word])
         if synset:
             hyponyms.extend(synset.hyponyms())
     
     res = []
     for hyp in hyponyms:
-        hyp_def = hyp.definition() + " " + ','.join(hyp.examples())
+        hyp_def = hyp.definition() + " " + ', '.join(hyp.examples())
+        #print("DEFINIZIONE: ", hyp_def)
         
         match_words = []
         for word in most_frequent_words:
@@ -159,13 +176,8 @@ def onomasiologic_search(concept: dict, n_top: int):
     return results
 
 
-
-## creare un ranking per ogni concetto in cui sono presenti i synset (top 5)
-
 for concept in definitions:
-    keys = list(concept.keys())
     print(concept['Concept'])
-    keys.remove('Concept')
     result = onomasiologic_search(concept, 15)
     print(result, '\n\n\n')
     
