@@ -1,0 +1,89 @@
+0: New York, often called New York City (NYC), is the most populous city in the United States.
+1: With a 2020 population of 8,804,190 distributed over 300.46 square miles (778.2 km2), New York City is also the most densely populated major city in the United States.
+2: Located at the southern tip of New York State, the city is based in the Eastern Time Zone and constitutes the geographical and demographic center of both the Northeast megalopolis and the New York metropolitan area, the largest metropolitan area in the world by urban landmass.
+3: With over 20.1 million people in its metropolitan statistical area and 23.5 million in its combined statistical area as of 2020, New York is one of the world's most populous megacities.
+4: New York City is a global cultural, financial, and media center with a significant influence on commerce, health care and life sciences, entertainment, research, technology, education, politics, tourism, dining, art, fashion, and sports.
+5: New York is the most photographed city in the world.
+6: Home to the headquarters of the United Nations, New York is an important center for international diplomacy, an established safe haven for global investors, and is sometimes described as the capital of the world.Situated on one of the world's largest natural harbors, with water covering 36.4% of its surface area, New York City comprises five boroughs, each of which is coextensive with a respective county of the state of New York.
+7: The five boroughs—Brooklyn (Kings County), Queens (Queens County), Manhattan (New York County), the Bronx (Bronx County), and Staten Island (Richmond County)—were created when local governments were consolidated into a single municipal entity in 1898.
+8: The city and its metropolitan area constitute the premier gateway for legal immigration to the United States.
+9: As many as 800 languages are spoken in New York, making it the most linguistically diverse city in the world.
+10: New York is home to more than 3.2 million residents born outside the United States, the largest foreign-born population of any city in the world as of 2016.
+11: As of 2018, the New York metropolitan area is estimated to produce a gross metropolitan product (GMP) of nearly $1.8 trillion, ranking it first in the United States.
+12: If the New York metropolitan area were a sovereign state, it would have the eighth-largest economy in the world.
+13: New York is home to the highest number of billionaires of any city in the world.New York City traces its origins to a trading post founded on the southern tip of Manhattan Island by Dutch colonists in approximately 1624.
+14: The settlement was named New Amsterdam (Dutch: Nieuw Amsterdam) in 1626 and was chartered as a city in 1653.
+15: The city came under English control in 1664 and was renamed New York after King Charles II of England granted the lands to his brother, the Duke of York.
+16: The city was regained by the Dutch in July 1673 and was renamed New Orange for one year and three months; the city has been continuously named New York since November 1674.
+17: New York City was the capital of the United States from 1785 until 1790, and has been the largest U.S. city since 1790.
+18: The Statue of Liberty greeted millions of immigrants as they came to the U.S. by ship in the late 19th and early 20th centuries, and is a symbol of the U.S. and its ideals of liberty and peace.
+19: In the 21st century, New York has emerged as a global node of creativity, entrepreneurship, and environmental sustainability, and as a symbol of freedom and cultural diversity.
+20: The New York Times has won the most Pulitzer Prizes for journalism and remains the U.S. media's "newspaper of record".
+21: In 2019, New York was voted the greatest city in the world per a survey of over 30,000 people from 48 cities worldwide, citing its cultural diversity.Many districts and monuments in New York City are major landmarks, including three of the world's ten most visited tourist attractions in 2013.
+22: A record 66.6 million tourists visited New York City in 2019.
+23: Times Square is the brightly illuminated hub of the Broadway Theater District, one of the world's busiest pedestrian intersections, and a major center of the world's entertainment industry.
+24: Many of the city's landmarks, skyscrapers, and parks are known around the world, as is the city's fast pace, spawning the term New York minute.
+25: The Empire State Building has become the global standard of reference to describe the height and length of other structures.
+26: The Stonewall Inn in Greenwich Village, part of the Stonewall National Monument, is considered the historic epicenter of LGBTQ+ culture and the birthplace of the modern gay rights movement.
+27: Manhattan's real estate market is among the most expensive in the world.
+28: Providing continuous 24/7 service and contributing to the nickname The City That Never Sleeps, the New York City Subway is the largest single-operator rapid transit system worldwide, with 472 passenger rail stations; and Penn Station in Midtown Manhattan is the busiest transportation hub in the Western Hemisphere.
+29: The city has over 120 colleges and universities, including Columbia University, New York University, and the City University of New York system, which is the largest urban public university system in the United States.
+30: Anchored by Wall Street in the Financial District of Lower Manhattan, New York City has been called both the world's leading financial centerand the most powerful city in the world, and is home to the world's two largest stock exchanges by total market capitalization, the New York Stock Exchange and Nasdaq.
+31: New York City is the headquarters of the global art market, with numerous art galleries and auction houses collectively hosting half of the world’s art auctions.
+32: Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals and humans.
+33: AI research has been defined as the field of study of intelligent agents, which refers to any system that perceives its environment and takes actions that maximize its chance of achieving its goals.The term "artificial intelligence" had previously been used to describe machines that mimic and display "human" cognitive skills that are associated with the human mind, such as "learning" and "problem-solving".
+34: This definition has since been rejected by major AI researchers who now describe AI in terms of rationality and acting rationally, which does not limit how intelligence can be articulated.AI applications include advanced web search engines (e.g., Google), recommendation systems (used by YouTube, Amazon and Netflix), understanding human speech (such as Siri and Alexa), self-driving cars (e.g., Tesla), automated decision-making and competing at the highest level in strategic game systems (such as chess and Go).
+35: As machines become increasingly capable, tasks considered to require "intelligence" are often removed from the definition of AI, a phenomenon known as the AI effect.
+36: For instance, optical character recognition is frequently excluded from things considered to be AI, having become a routine technology.Artificial intelligence was founded as an academic discipline in 1956, and in the years since has experienced several waves of optimism, followed by disappointment and the loss of funding (known as an "AI winter"), followed by new approaches, success and renewed funding.
+37: AI research has tried and discarded many different approaches since its founding, including simulating the brain, modeling human problem solving, formal logic, large databases of knowledge and imitating animal behavior.
+38: In the first decades of the 21st century, highly mathematical-statistical machine learning has dominated the field, and this technique has proved highly successful, helping to solve many challenging problems throughout industry and academia.The various sub-fields of AI research are centered around particular goals and the use of particular tools.
+39: The traditional goals of AI research include reasoning, knowledge representation, planning, learning, natural language processing, perception, and the ability to move and manipulate objects.
+40: General intelligence (the ability to solve an arbitrary problem) is among the field's long-term goals.
+41: To solve these problems, AI researchers have adapted and integrated a wide range of problem-solving techniques – including search and mathematical optimization, formal logic, artificial neural networks, and methods based on statistics, probability and economics.
+42: AI also draws upon computer science, psychology, linguistics, philosophy, and many other fields.
+43: The field was founded on the assumption that human intelligence "can be so precisely described that a machine can be made to simulate it".
+44: This raised philosophical arguments about the mind and the ethical consequences of creating artificial beings endowed with human-like intelligence; these issues have previously been explored by myth, fiction and philosophy since antiquity.
+45: Computer scientists and philosophers have since suggested that AI may become an existential risk to humanity if its rational capacities are not steered towards beneficial goals.
+46: Vincent Willem van Gogh (Dutch: [ˈvɪnsɛnt ˈʋɪləɱ vɑŋ ˈɣɔx] (listen); 30 March 1853 – 29 July 1890) was a Dutch Post-Impressionist artist who emerged as one of the most famous figures in the history of Western art after his death.
+47: In only a decade, Van Gogh created a prolific body of more than 2,000 works of art.
+48: Most of his 1,100 drawings and works on paper and nearly 900 oil paintings were produced during the last two years of his life.
+49: Van Gogh's landscapes, still lifes, portraits, and self-portraits are characterized by vibrant contrasts of complementary colors and expressive brushwork, and his abstract, linear planes were inspired by the Japanese prints Van Gogh collected and admired.
+50: His innovations contributed to the foundations of modern art.
+51: Van Gogh's images often reflect personal symbolism, experiences, and emotions he discussed in correspondence with family and friends.
+52: He expressed a desire to communicate joy and comfort through his art and aspired to gather a community of like-minded artists in southern France.
+53: Van Gogh did not achieve commercial success in his lifetime and relied on financial support from his brother, Theo van Gogh.
+54: His life was shaped by severe depression and episodes of acute psychological distress.
+55: Van Gogh committed suicide at the age of 37.The son of a Dutch Reformed minister, Van Gogh was serious, quiet and thoughtful as a child.
+56: He began drawing at an early age and as a young man worked as an art dealer, often traveling, but became depressed after he was transferred to London.
+57: He turned to religion and spent time as a Protestant missionary in southern Belgium.
+58: He drifted in ill health and solitude before taking up painting in 1881, having returned home to his parents.
+59: His younger brother Theo supported him financially; the two kept a long correspondence by letter, which, when published, contributed to his growing posthumous reputation as an artist.
+60: His early works, mostly still lifes and depictions of peasant laborers, contain few signs of the vivid color that distinguish his later work.
+61: In 1886, Van Gogh moved to Paris where he met members of the avant-garde, including Émile Bernard and Paul Gauguin, who were reacting against the Impressionist sensibility.
+62: As his work developed he created a new approach to still life and  landscape.
+63: His paintings grew brighter as he developed a style that became fully realised during his stay in Arles in the South of France in 1888.
+64: During this period he broadened his subject matter to include series of olive trees, wheat fields and sunflowers.
+65: Van Gogh suffered from mental illness, psychotic episodes, delusions and, although he worried about his mental stability, often neglected his physical health, did not eat properly, and drank heavily.
+66: His friendship with Gauguin ended after a confrontation between the two when, in a rage, Van Gogh severed a part of his own left ear with a razor.
+67: After, he spent time in psychiatric hospitals, including a period at Saint-Rémy.
+68: Once he discharged himself and moved to the Auberge Ravoux in Auvers-sur-Oise near Paris, he came under the care of the homeopathic doctor Paul Gachet.
+69: His depression persisted and on 27 July 1890, Van Gogh is believed to have shot himself in the chest with a revolver, dying from his injuries two days later, with his brother Theo at his side.
+70: Van Gogh's paintings did not sell during his lifetime, during which he was generally considered a madman and a failure, although some collectors recognized the value of his work.
+71: His fame came only after his death.
+72: Scholars increasingly have recognized the role of Vincent's sister-in-law Jo Bonger-Van Gogh for shaping and promoting his reputation as an artist.
+73: He evolved in the public imagination into a misunderstood genius.
+74: His reputation grew in the early 20th century as elements of his style came to be incorporated by the Fauves and German Expressionists.
+75: He attained widespread critical and commercial success over the ensuing decades, and is remembered as an important but tragic painter whose troubled personality typifies the romantic ideal of the tortured artist.
+76: Today, Van Gogh's works are among the world's most expensive paintings to have ever sold, and his legacy is honoured by the Van Gogh Museum established by the Dutch government in Amsterdam, which holds the world's largest collection of his paintings and drawings.
+77: They were originally held by his brother Theo and inherited by Theo's wife, Jo Bonger-Van Gogh, who shrewdly kept Vincent's best works.
+78: Cubism is an early-20th-century avant-garde art movement that revolutionized European painting and sculpture, and inspired related movements in music, literature and architecture.
+79: In Cubist artwork, objects are analyzed, broken up and reassembled in an abstracted form—instead of depicting objects from a single viewpoint, the artist depicts the subject from a multitude of viewpoints to represent the subject in a greater context.
+80: Cubism has been considered the most influential art movement of the 20th century.
+81: The term is broadly used in association with a wide variety of art produced in Paris (Montmartre and Montparnasse) or near Paris (Puteaux) during the 1910s and throughout the 1920s.
+82: The movement was pioneered by Pablo Picasso and Georges Braque, and joined by Jean Metzinger, Albert Gleizes, Robert Delaunay, Henri Le Fauconnier, Juan Gris, and Fernand Léger.
+83: One primary influence that led to Cubism was the representation of three-dimensional form in the late works of Paul Cézanne.
+84: A retrospective of Cézanne's paintings was held at the Salon d'Automne of 1904, current works were displayed at the 1905 and 1906 Salon d'Automne, followed by two commemorative retrospectives after his death in 1907.In France, offshoots of Cubism developed, including Orphism, abstract art and later Purism.
+85: The impact of Cubism was far-reaching and wide-ranging.
+86: In France and other countries Futurism, Suprematism, Dada, Constructivism, Vorticism, De Stijl and Art Deco developed in response to Cubism.
+87: Early Futurist paintings hold in common with Cubism the fusing of the past and the present, the representation of different views of the subject pictured at the same time or successively, also called multiple perspective, simultaneity or multiplicity, while Constructivism was influenced by Picasso's technique of constructing sculpture from separate elements.
+88: Other common threads between these disparate movements include the faceting or simplification of geometric forms, and the association of mechanization and modern life.
