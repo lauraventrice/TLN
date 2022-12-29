@@ -77,14 +77,12 @@ for concept in definitions:
 
 with open(f'Esercizio1-DEFS/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
     writer = csv.writer(f)
-    for key, value in tokens_concepts.items():
-        writer.writerow([key])
-        writer.writerow(value)
-        for concept in definitions: 
-            if concept['Concept'] == key: 
-                for key, value in concept.items(): 
-                    if key != 'Concept': 
-                        writer.writerow(value)
+    for concept in definitions:
+        for key, value in concept.items():
+            if key == 'Concept':
+                writer.writerow([value])
+            else: 
+                writer.writerow(value)
 
 
 # creation of a phrase embedding (one-hot) for each definition 

@@ -2,6 +2,8 @@ import csv
 import json
 import nltk 
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet as wn
+
 
 # 1. read document definitions and create a data structure
 
@@ -50,8 +52,8 @@ stopwords = nltk.corpus.stopwords.words('english')
 
 tokens_concepts = {}
 
-for concept in definitions: 
-    keys = list(concept.keys())
+for concept in definitions:  
+    keys = list(concept.keys()) 
     keys.remove('Concept')
     tokens = set()
     for key in keys: # for all possible definition for the concept  
@@ -72,13 +74,41 @@ for concept in definitions:
     
     tokens_concepts[concept['Concept']] = list(tokens) 
 
-with open(f'Esercizio1-DEFS/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
+with open(f'Esercizio2-Content2Form/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
     writer = csv.writer(f)
-    for key, value in tokens_concepts.items():
-        writer.writerow([key])
-        writer.writerow(value)
-        for concept in definitions: 
-            if concept['Concept'] == key: 
-                for key, value in concept.items(): 
-                    if key != 'Concept': 
-                        writer.writerow(value)
+    for concept in definitions:
+        for key, value in concept.items():
+            if key == 'Concept':
+                writer.writerow([key])
+            else: 
+                writer.writerow(value)
+
+# 3. filter definition that are too short or too different from other definitions -> create lexial material
+
+
+for concept in definitions:
+    too_short = []
+    for key, value in concept.items():
+        if key != 'Concept':
+            if len(value) < 3:
+                too_short.append(key)
+    for key in too_short:
+        del concept[key]
+
+with open(f'Esercizio2-Content2Form/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    for concept in definitions:
+        for key, value in concept.items():
+            if key == 'Concept':
+                writer.writerow([value])
+            else: 
+                writer.writerow(value)
+
+
+    
+# 4. find the right concept using wordnet
+
+
+## creare un ranking per ogni concetto in cui sono presenti i synset (top 5)
+
+
