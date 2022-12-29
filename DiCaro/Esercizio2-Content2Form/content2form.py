@@ -3,7 +3,8 @@ import json
 import nltk 
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet as wn
-
+from collections import Counter
+from nltk.wsd import lesk
 
 # 1. read document definitions and create a data structure
 
@@ -67,21 +68,12 @@ for concept in definitions:
             def_tok = [token.lower() for token in def_tok if token not in stopwords and token.isalpha()]
             lemmatizer = WordNetLemmatizer() 
             def_lem = [lemmatizer.lemmatize(token) for token in def_tok] 
-            tokens.update(def_lem) 
+            #tokens.update(def_lem) 
             concept[key] = def_lem  
         else: 
             del concept[key] 
     
     tokens_concepts[concept['Concept']] = list(tokens) 
-
-with open(f'Esercizio2-Content2Form/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
-    writer = csv.writer(f)
-    for concept in definitions:
-        for key, value in concept.items():
-            if key == 'Concept':
-                writer.writerow([key])
-            else: 
-                writer.writerow(value)
 
 # 3. filter definition that are too short or too different from other definitions -> create lexial material
 
@@ -104,11 +96,78 @@ with open(f'Esercizio2-Content2Form/resource/preprocessing.csv', 'w', encoding='
             else: 
                 writer.writerow(value)
 
+# togliere gli outlier di definizioni
 
     
 # 4. find the right concept using wordnet
 
+def get_top_words(definitions: list, n_top: int): 
+    concept_counter = Counter()
+    
+    for definition in definitions:
+        concept_counter.update(definition)
+    
+    most_frequent_words = [word for word, _ in concept_counter.most_common(n_top)]
+    return most_frequent_words
+
+def get_synset(word: str, definitions: list): 
+    synset = lesk(definitions, word)
+
+    return synset
+
+def create_dict_word_dictionary(most_frequent_words: list, definitions: list): # se non va bene metto le liste separate delle definizioni
+    dict_word_dictionary = {}
+    for word in most_frequent_words:
+        for definition in definitions: 
+            if word in definition:
+                if word in dict_word_dictionary:
+                    dict_word_dictionary[word].update(definition)
+                else:
+                    dict_word_dictionary[word] = set(definition)
+
+    return dict_word_dictionary
+
+def onomasiologic_search(concept: dict, n_top: int):
+    
+    results = []
+    definitions = concept.values()
+    most_frequent_words = get_top_words(definitions, n_top)
+    dict_word_dictionary = create_dict_word_dictionary(most_frequent_words, definitions)
+
+    hyponyms = []
+    for word in most_frequent_words:
+        synset = get_synset(word, list(dict_word_dictionary[word]))
+        if synset:
+            hyponyms.extend(synset.hyponyms())
+    
+    res = []
+    for hyp in hyponyms:
+        hyp_def = hyp.definition() + " " + ','.join(hyp.examples())
+        
+        match_words = []
+        for word in most_frequent_words:
+            if word in hyp_def:
+                match_words.append(word) 
+        
+        res.append([hyp, match_words])
+
+     # sort the list using the number of important words found
+    sorted_res = sorted(res, key=lambda x: len(x[1]), reverse=True)
+    for synset, match_words in sorted_res[:5]:
+        results.append((synset.name(), match_words))
+
+    return results
+
+
 
 ## creare un ranking per ogni concetto in cui sono presenti i synset (top 5)
+
+for concept in definitions:
+    keys = list(concept.keys())
+    print(concept['Concept'])
+    keys.remove('Concept')
+    result = onomasiologic_search(concept, 15)
+    print(result, '\n\n\n')
+    
 
 

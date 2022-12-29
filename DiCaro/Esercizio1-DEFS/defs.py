@@ -4,7 +4,7 @@ import json
 from nltk.stem import WordNetLemmatizer
 import numpy as np
 from numpy.linalg import norm
-
+from collections import Counter 
 
 # 1. read document definitions and create a data structure
 
@@ -158,22 +158,21 @@ print("\t\t --------------------------")
 
 # 4. statistics about words 
 
+def get_top_words(definitions: list, n_top: int): 
+    concept_counter = Counter()
+    
+    for definition in definitions:
+        concept_counter.update(definition)
+    
+    most_frequent_words = [entry for entry in concept_counter.most_common(n_top)]
+    return most_frequent_words
+
 print("\nTop 5 words per concept: ")
 for concept in definitions: 
     keys = list(concept.keys())
     print(concept['Concept'])
     keys.remove('Concept')
-    occurrence_words = {}
-    for key in keys:
-        definition = concept[key]
-        for token in definition: 
-            if token in occurrence_words: 
-                occurrence_words[token] += 1
-            else: 
-                occurrence_words[token] = 1
-    
-    occurrence_words = sorted(occurrence_words.items(), key=lambda ow:(ow[1], ow[0]), reverse=True)
-    top_words = occurrence_words[:5] # extraction top 5 words 
+    top_words = get_top_words(concept.values(), 5)
     print(top_words) 
 
 print("\n-----------------------------\n")
