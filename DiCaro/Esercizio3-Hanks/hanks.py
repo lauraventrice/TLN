@@ -95,7 +95,7 @@ if not os.path.exists(path_corpus):
 
 synsets = []
 
-for subj, subj_pos, obj, obj_pos, sentence, token_sent in corpus:
+for subj, subj_pos, obj, obj_pos, sentence, token_sent, _ in corpus:
     synset_subj = None
     synset_obj = None
     if subj_pos == "PRON": 
