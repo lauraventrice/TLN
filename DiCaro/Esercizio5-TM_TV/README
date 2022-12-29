@@ -1,0 +1,10 @@
+## Testo
+
+A scelta Topic Modeling e Text Visualization:
+- Topic modeling: partendo da un corpus, estrarre topics
+    -  Hint: uso della libreria Gensim https://radimrehurek.com/gensim/
+- Visualizzazione: scelta di librerie di visualizzazione di dati testuali (qualsiasi!)
+
+## Risorse utilizzate
+
+https://www.kaggle.com/datasets/abisheksudarshan/topic-modeling-for-research-articles

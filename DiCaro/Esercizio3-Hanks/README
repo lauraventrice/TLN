@@ -1,0 +1,19 @@
+## TESTO
+
+Esercizio di laboratorio "Hanks"
+Scegliere un verbo transitivo (almeno 2 argomenti)
+- Recuperare da un corpus n (> 200) istanze (frasi) in cui esso viene usato
+- Effettuare parsing e disambiguazione (palmer, nltk)
+- Ottenere  i sensi 
+- Usare i super sensi di WordNet (o di CSI) sugli argomenti (subj e obj nel caso di 2 argomenti) del verbo scelto
+- Combinare i significati dai verbi, in maniera automatica seguendo la teoria di hanks
+- Aggregare i risultati, calcolare le frequenze, stampare i cluster semantici ottenuti (semantic types)
+
+
+- ritorna combinazione di semantic type per un verbo
+
+## Risorse utilizzate
+
+- Dataset di partenza: https://www.kaggle.com/datasets/fabiochiusano/medium-articles?resource=download
+- SpaCy: per parsing e individuazione di soggetti e oggetti del verbo
+- Wordnet: per individuare i sensi e i supersensi (lexname)

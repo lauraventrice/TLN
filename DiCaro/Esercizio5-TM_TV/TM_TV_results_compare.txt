@@ -1,0 +1,90 @@
+Text:  0
+Result model:  ['consider', 'model', 'low', 'point', 'work', 'datum', 'method', 'defect', 'base', 'cascade']
+Real tags:  ['Physics', 'Cosmology and Nongalactic Astrophysics', 'Instrumentation and Methods for Astrophysics']
+Text:  1
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Computer Science', 'Data Structures and Algorithms']
+Text:  2
+Result model:  ['consider', 'method', 'model', 'mass', 'asymptotically', 'result', 'galaxy', 'bar', 'low', 'high']
+Real tags:  ['Physics', 'Strongly Correlated Electrons']
+Text:  3
+Result model:  ['consider', 'model', 'low', 'point', 'work', 'datum', 'method', 'defect', 'base', 'cascade']
+Real tags:  ['Physics', 'Fluid Dynamics']
+Text:  4
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Computer Science', 'Computer Vision and Pattern Recognition', 'Machine Learning']
+Text:  5
+Result model:  ['method', 'consider', 'job', 'datum', 'algorithm', 'query', 'behavior', 'model', 'base', 'analysis']
+Real tags:  ['Computer Science', 'Social and Information Networks']
+Text:  6
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Statistics', 'Machine Learning']
+Text:  7
+Result model:  ['consider', 'method', 'model', 'mass', 'asymptotically', 'result', 'galaxy', 'bar', 'low', 'high']
+Real tags:  ['Physics', 'Statistics', 'Applications', 'Instrumentation and Methods for Astrophysics', 'Machine Learning']
+Text:  8
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Computer Science', 'Mathematics', 'Statistics', 'Information Theory', 'Statistics Theory']
+Text:  9
+Result model:  ['consider', 'model', 'low', 'point', 'work', 'datum', 'method', 'defect', 'base', 'cascade']
+Real tags:  ['Physics', 'Materials Science']
+Text:  10
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Computer Science', 'Data Structures and Algorithms']
+Text:  11
+Result model:  ['consider', 'method', 'model', 'mass', 'asymptotically', 'result', 'galaxy', 'bar', 'low', 'high']
+Real tags:  ['Physics', 'Astrophysics of Galaxies', 'Cosmology and Nongalactic Astrophysics']
+Text:  12
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Mathematics', 'Statistics', 'Statistics Theory']
+Text:  13
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Physics', 'Materials Science']
+Text:  14
+Result model:  ['method', 'consider', 'job', 'datum', 'algorithm', 'query', 'behavior', 'model', 'base', 'analysis']
+Real tags:  ['Computer Science', 'Statistics', 'Machine Learning', 'Robotics']
+Text:  15
+Result model:  ['consider', 'method', 'model', 'mass', 'asymptotically', 'result', 'galaxy', 'bar', 'low', 'high']
+Real tags:  ['Mathematics', 'Analysis of PDEs', 'Differential Geometry']
+Text:  16
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Mathematics', 'Analysis of PDEs']
+Text:  17
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Statistics', 'Applications', 'Machine Learning']
+Text:  18
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Physics', 'Astrophysics of Galaxies', 'Cosmology and Nongalactic Astrophysics']
+Text:  19
+Result model:  ['consider', 'method', 'model', 'mass', 'asymptotically', 'result', 'galaxy', 'bar', 'low', 'high']
+Real tags:  ['Physics', 'Astrophysics of Galaxies']
+Text:  20
+Result model:  ['consider', 'model', 'low', 'point', 'work', 'datum', 'method', 'defect', 'base', 'cascade']
+Real tags:  ['Computer Science', 'Statistics', 'Machine Learning']
+Text:  21
+Result model:  ['method', 'consider', 'job', 'datum', 'algorithm', 'query', 'behavior', 'model', 'base', 'analysis']
+Real tags:  ['Computer Science', 'Data Structures and Algorithms', 'Machine Learning']
+Text:  22
+Result model:  ['consider', 'model', 'low', 'point', 'work', 'datum', 'method', 'defect', 'base', 'cascade']
+Real tags:  ['Statistics', 'Methodology']
+Text:  23
+Result model:  ['method', 'consider', 'job', 'datum', 'algorithm', 'query', 'behavior', 'model', 'base', 'analysis']
+Real tags:  ['Computer Science', 'Artificial Intelligence', 'Robotics']
+Text:  24
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Computer Science', 'Computer Vision and Pattern Recognition']
+Text:  25
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Computer Science', 'Statistics', 'Machine Learning']
+Text:  26
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Computer Science', 'Artificial Intelligence']
+Text:  27
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Physics', 'Strongly Correlated Electrons']
+Text:  28
+Result model:  ['consider', 'method', 'problem', 'spin', 'model', 'network', 'algorithm', 'base', 'image', 'provide']
+Real tags:  ['Physics', 'Materials Science']
+Text:  29
+Result model:  ['consider', 'model', 'job', 'method', 'datum', 'problem', 'e', 'image', 'analysis', 'result']
+Real tags:  ['Computer Science', 'Information Theory']

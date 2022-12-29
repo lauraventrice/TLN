@@ -1,0 +1,17 @@
+## TESTO
+
+### Esercizio di laboratorio “Defs”: 
+
+- Calcolo similarità, vista come sovrapposizione lessicale, tra le definizioni presenti nel documento `definitions.csv`. (cardinalità intersezione normalizzata su lunghezza minima tra le due, o varianti)
+- Aggregazione sulle due dimensioni (concretezza / specificità), e analisi risultati
+
+### Hints:
+Esperimento usando filtri, preprocessing e metriche di sovrapposizione a vostra scelta 
+(es. usando stemming e stopword removal come preprocessing, calcolo frequenze top-k nelle
+definizioni, ecc.)
+## Risorse utilizzate 
+
+
+## Risultati
+
+Similarità:  [14.430976068539989, 43.77357209224907, 13.417581616721117, 36.909147327238195]

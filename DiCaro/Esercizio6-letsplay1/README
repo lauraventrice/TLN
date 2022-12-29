@@ -1,0 +1,11 @@
+## Testo
+
+### Creazione di una nuova lingua!
+Rimozione ambiguità attraverso allineamento di più lingue, e creazione del
+relativo dizionario non ambiguo
+
+- Hint: scegliere termini di due o più lingue, usare babelnet e a partire dal termine controllare nelle 
+due o più lingue quanti sensi ci sono -> se la differenza è notevole posso disambiguare
+
+## Risorse utilizzate
+
