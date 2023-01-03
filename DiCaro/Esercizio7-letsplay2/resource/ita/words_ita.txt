@@ -2670,7 +2670,6 @@ bussare
 buttare
 butterato
 bypassare
-c'
 cabalistico
 cabinato
 cablare
@@ -3125,7 +3124,6 @@ chiudere
 chiuso
 choccare
 chopiniano
-ci
 ciabattare
 ciadiano
 ciaikovskiano
@@ -5873,7 +5871,6 @@ evolvere
 evoluire
 evoluto
 evolutivo
-ex
 ex-Alemagna
 ex-Motta
 ex-comunista
@@ -5894,7 +5891,6 @@ extrasensoriale
 extraterrestre
 extraterritoriale
 extraurbano
-fa
 fare
 fabbricare
 fabbricabile
@@ -8870,8 +8866,6 @@ lustro
 lustrale
 luterano
 luttuoso
-là
-lì
 macabro
 macchiare
 macchiato
@@ -9741,7 +9735,6 @@ nitrato
 nitrire
 nitrico
 non
-no
 no-limits
 nobile
 nobilitare
@@ -9969,7 +9962,6 @@ omologo
 omologabile
 omonimo
 omosessuale
-on
 on-line
 oncologico
 ondeggiare
@@ -10035,7 +10027,6 @@ oprare
 optare
 opulento
 opzionale
-or
 ora
 orare
 orale
@@ -15032,7 +15023,6 @@ svoltare
 svolto
 svuotare
 swingare
-sì
 tabaccare
 tabaccoso
 tabulare
@@ -15657,7 +15647,6 @@ tutto
 tuttavia
 tuttofare
 tuttora
-tv
 tzigano
 ubbidire
 ubbidiente
@@ -15814,7 +15803,6 @@ utilmente
 utopico
 utopistico
 utracentenario
-vi
 vacare
 vacante
 vaccinare
