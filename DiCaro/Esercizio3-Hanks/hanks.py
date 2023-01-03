@@ -7,7 +7,7 @@ import os.path
 
 nlp = spacy.load("en_core_web_sm")
 
-# 1. Detection of 300 sentences where this handle is used
+# 1. Detection of 300 sentences where the verb 'handle' is used
 
 path = f'Esercizio3-Hanks/resource/medium_articles.csv'
 path_corpus = f'Esercizio3-Hanks/resource/corpus.txt'

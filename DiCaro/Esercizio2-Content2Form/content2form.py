@@ -2,7 +2,6 @@ import csv
 import json
 import nltk 
 from nltk.stem import WordNetLemmatizer
-from nltk.corpus import wordnet
 from collections import Counter
 from nltk.wsd import lesk
 
