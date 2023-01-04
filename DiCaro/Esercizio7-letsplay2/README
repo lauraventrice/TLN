@@ -1,7 +1,15 @@
 ## Testo
 
-False friends. Estrazione di parole simili o identiche (come stringhe)
-ma diverse come semantica.
+False friends. Estrazione di parole simili o identiche (come stringhe) ma diverse come semantica.
 
 
 ## Risorse utilizzate
+
+Words list: https://martinweisser.org/corpora_site/word_lists.html
+
+
+Eng: The British National Corpus (BNC) extracted from WordSmith Tools
+
+https://lexically.net/wordsmith/support/lemma_lists.html
+
+Ita: Morph-it!
