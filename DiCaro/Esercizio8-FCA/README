@@ -8,5 +8,6 @@ Implementare un sistema di Ontology Learning facendo uso della FCA (Formal Conce
             - Date 2 lingue in input (es. ita e eng)
             - Concepts: termini (di entrambe le lingue)
             - Features: synset di appartenenza -> supersensi, relazioni?? (tramite babelnet avrei quali relazioni ha)
+            # has quality -> forma
 
 ## Risorse
