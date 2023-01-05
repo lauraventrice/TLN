@@ -4,24 +4,30 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
 from nltk.wsd import lesk
+import os
 
 # 1. read document definitions and create a data structure
 
-with open(f'Esercizio1-DEFS/resource/definitions.csv', 'r', encoding='utf-8') as file:
-    reader = csv.DictReader(file)
-    definitions = []
-    for row in reader:
-        definitions.append(row)
+defs_path = f'Esercizio1-DEFS/resource/definitions.csv'
+defs_path_json = f'Esercizio1-DEFS/resource/definitions.json'
+slang_path = f'Esercizio1-DEFS/resource/slang.txt'
 
-with open(f'Esercizio1-DEFS/resource/definitions.json', 'w', encoding='utf-8') as f:
-    json.dump(definitions, f, indent=4)
+if not os.path.exists(defs_path_json):
+    with open(defs_path, 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        definitions = []
+        for row in reader:
+            definitions.append(row)
+
+    with open(defs_path_json, 'w', encoding='utf-8') as f:
+        json.dump(definitions, f, indent=4)
 
 
-with open(f'Esercizio1-DEFS/resource/definitions.json', 'r', encoding='utf-8') as f: 
+with open(defs_path_json, 'r', encoding='utf-8') as f: 
     definitions = json.load(f)
 
 
-with open(f'Esercizio1-DEFS/resource/slang.txt', 'r', encoding='utf-8') as f:
+with open(slang_path, 'r', encoding='utf-8') as f:
     slang = f.read().splitlines()
     slangs = []
     for pair in slang: 
@@ -76,7 +82,6 @@ for concept in definitions:
 
 # 3. filter definition that are too short or too different from other definitions -> create lexial material
 
-
 for concept in definitions:
     too_short = []
     for key, value in concept.items():
@@ -85,17 +90,6 @@ for concept in definitions:
                 too_short.append(key)
     for key in too_short:
         del concept[key]
-
-with open(f'Esercizio2-Content2Form/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
-    writer = csv.writer(f)
-    for concept in definitions:
-        for key, value in concept.items():
-            if key == 'Concept':
-                writer.writerow([value])
-            else: 
-                writer.writerow(value)
-
-# togliere gli outlier di definizioni
 
     
 # 4. find the right concept using wordnet
@@ -108,7 +102,7 @@ def get_top_words(definitions: list, n_top: int):
     
     most_frequent_words = [word for word, _ in concept_counter.most_common(n_top)]
 
-    print("top words:", most_frequent_words)
+    print("top words:", most_frequent_words, '\n')
 
     return most_frequent_words
 
@@ -121,10 +115,8 @@ def get_synset(word: str, definitions: list):
             synset_counter.update([synset])
 
     synset = None
-    #print("word:", word)
     if len(synset_counter) != 0:
         synset = synset_counter.most_common(1)[0][0]
-        #print("synset:", synset, "- tot volte:", synset_counter.most_common(1)[0][1], " su: ", len(definitions))
 
     return synset
 
@@ -158,7 +150,6 @@ def onomasiologic_search(concept: dict, n_top: int):
     res = []
     for hyp in hyponyms:
         hyp_def = hyp.definition() + " " + ', '.join(hyp.examples())
-        #print("DEFINIZIONE: ", hyp_def)
         
         match_words = []
         for word in most_frequent_words:
