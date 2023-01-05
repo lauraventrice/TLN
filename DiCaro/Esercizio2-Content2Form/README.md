@@ -1,6 +1,6 @@
-## EXERCISE TEXT 
+## Exercise text
 
-### TITLE “Content2form”: 
+### Title: “Content2form”: 
 
 Using the data on definitions ("defs" exercise), for each concept:
 - take the available definitions,

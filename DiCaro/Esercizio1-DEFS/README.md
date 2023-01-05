@@ -1,6 +1,6 @@
-## EXERCISE TEXT 
+## Exercise text
 
-### TITLE: “Defs”: 
+### Title: “Defs”: 
 
 - Calculate similarity, seen as lexical overlap, between definitions in the `definitions.csv` document. (intersection cardinality normalized to minimum length between the two, or variants)
 - Aggregation on the two dimensions (concreteness/specificity), and results analysis

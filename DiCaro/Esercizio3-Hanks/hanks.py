@@ -39,7 +39,6 @@ else:
         sentences = f.readlines()
 
 # 2. Detection of subjects and objects of the verb using dependecy parser (SpaCy) 
-# https://www.geeksforgeeks.org/nlp-wupalmer-wordnet-similarity/ 
 
 # possible subj: csubj, csubjpass, nsubj, nsubjpass
 # possible obj: dobj, pobj
@@ -133,8 +132,7 @@ for subj, subj_pos, obj, obj_pos, sentence, token_sent, _ in corpus:
     if synset_subj is not None and synset_obj is not None:
         synsets.append([synset_subj, synset_obj, token_sent])
 
-# 4. Detection of the supersense for each object and subject -- fare prova anche con csi 
-# http://medialab.di.unipi.it/wiki/SuperSense_Tagger oppure lexname in wordnet
+# 4. Detection of the supersense for each object and subject (lexname in wordnet)
 
 supersenses = []
 for synset_subj, synset_obj, token_sent in synsets: 
@@ -152,7 +150,7 @@ for supersense_subj, supersense_obj, _ in supersenses:
     else: 
         semantic_use[(supersense_subj, supersense_obj)] += 1
 
-# 6. BONUS: detection synset of verb in context and mapping with cluster semantics
+# 6. detection synset of verb in context and mapping with cluster semantics
 
 analysis = {}
 for supersense_subj, supersense_obj, token_sent in supersenses: 
