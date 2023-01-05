@@ -5,24 +5,30 @@ from nltk.stem import WordNetLemmatizer
 import numpy as np
 from numpy.linalg import norm
 from collections import Counter 
+import os 
 
 # 1. read document definitions and create a data structure
 
-with open(f'Esercizio1-DEFS/resource/definitions.csv', 'r', encoding='utf-8') as file:
-    reader = csv.DictReader(file)
-    definitions = []
-    for row in reader:
-        definitions.append(row)
+defs_path = f'Esercizio1-DEFS/resource/definitions.csv'
+defs_path_json = f'Esercizio1-DEFS/resource/definitions.json'
+slang_path = f'Esercizio1-DEFS/resource/slang.txt'
 
-with open(f'Esercizio1-DEFS/resource/definitions.json', 'w', encoding='utf-8') as f:
-    json.dump(definitions, f, indent=4)
+if not os.path.exists(defs_path_json):
+    with open(defs_path, 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        definitions = []
+        for row in reader:
+            definitions.append(row)
+
+    with open(defs_path_json, 'w', encoding='utf-8') as f:
+        json.dump(definitions, f, indent=4)
 
 
-with open(f'Esercizio1-DEFS/resource/definitions.json', 'r', encoding='utf-8') as f: 
+with open(defs_path_json, 'r', encoding='utf-8') as f: 
     definitions = json.load(f)
 
 
-with open(f'Esercizio1-DEFS/resource/slang.txt', 'r', encoding='utf-8') as f:
+with open(slang_path, 'r', encoding='utf-8') as f:
     slang = f.read().splitlines()
     slangs = []
     for pair in slang: 
