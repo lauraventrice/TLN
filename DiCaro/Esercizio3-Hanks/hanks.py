@@ -21,7 +21,7 @@ if not os.path.exists(path_corpus):
         for article in reader:
             if i == 0: 
                 i += 1
-            elif i < 10000:
+            elif i < 20000:
                 text = article[1]
                 articles.append(text)
                 sentences_text = nltk.sent_tokenize(text)
@@ -150,6 +150,11 @@ for supersense_subj, supersense_obj, _ in supersenses:
     else: 
         semantic_use[(supersense_subj, supersense_obj)] += 1
 
+semantic_use = dict(sorted(semantic_use.items(), key=lambda item: item[1], reverse=True))
+
+for key, value in semantic_use.items():
+    print(key, value)
+
 # 6. detection synset of verb in context and mapping with cluster semantics
 
 analysis = {}
@@ -172,7 +177,4 @@ for synset in analysis:
     print("Definizion synset: ", wn.synset(synset).definition())
     print("Semantic use: ")
     for subj, obj in analysis[synset]: 
-        print(subj, obj)
-        print("Frequency: ", analysis[synset][(subj, obj)])
-
-print(wn.synsets("handle"))
+        print(subj, obj, "\nFrequency: ", analysis[synset][(subj, obj)])

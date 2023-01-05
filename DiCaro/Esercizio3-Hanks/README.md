@@ -19,25 +19,122 @@ Choose a transitive verb (at least 2 arguments)
 
 ## Results 
 
-Synset:  wield.v.02   
+### List of pairs with supersense and count of occurrence
+
+('noun.artifact', 'noun.communication') 7
+('noun.person', 'noun.artifact') 6
+('noun.communication', 'noun.cognition') 5
+('noun.group', 'noun.communication') 5
+('noun.communication', 'noun.communication') 4
+('noun.artifact', 'noun.act') 4
+('noun.group', 'noun.attribute') 4
+('noun.person', 'noun.act') 4
+('noun.body', 'noun.event') 3
+('noun.artifact', 'noun.process') 3
+('noun.act', 'noun.group') 3
+('noun.artifact', 'noun.artifact') 3
+('noun.act', 'noun.cognition') 3
+('noun.group', 'noun.cognition') 3
+('noun.group', 'noun.act') 3
+('noun.person', 'noun.communication') 2
+('noun.artifact', 'noun.Tops') 2
+('noun.cognition', 'noun.artifact') 2
+('noun.artifact', 'noun.group') 2
+('noun.act', 'noun.communication') 2
+('noun.person', 'adj.all') 2
+('noun.plant', 'noun.cognition') 2
+('noun.cognition', 'noun.attribute') 2
+('noun.cognition', 'noun.event') 2
+('noun.act', 'noun.act') 2
+('noun.person', 'noun.process') 2
+('verb.competition', 'noun.communication') 1
+('verb.contact', 'noun.artifact') 1
+('noun.object', 'noun.object') 1
+('noun.body', 'noun.process') 1
+('noun.communication', 'adj.all') 1
+('noun.substance', 'noun.attribute') 1
+('noun.communication', 'noun.location') 1
+('noun.Tops', 'noun.event') 1
+('noun.group', 'noun.artifact') 1
+('noun.animal', 'noun.communication') 1
+('noun.artifact', 'noun.cognition') 1
+('noun.body', 'noun.group') 1
+('noun.location', 'noun.object') 1
+('noun.cognition', 'noun.substance') 1
+('adj.all', 'noun.communication') 1
+('noun.body', 'noun.cognition') 1
+('noun.communication', 'noun.artifact') 1
+('noun.event', 'noun.event') 1
+('verb.stative', 'noun.location') 1
+('noun.body', 'noun.artifact') 1
+('noun.animal', 'noun.attribute') 1
+('verb.stative', 'noun.group') 1
+('noun.cognition', 'noun.cognition') 1
+('noun.artifact', 'noun.event') 1
+('noun.act', 'noun.location') 1
+('adj.pert', 'noun.artifact') 1
+('noun.act', 'noun.state') 1
+('noun.person', 'noun.location') 1
+('noun.food', 'noun.artifact') 1
+('noun.substance', 'noun.act') 1
+('noun.attribute', 'noun.event') 1
+('noun.event', 'noun.attribute') 1
+('verb.motion', 'noun.cognition') 1
+('noun.person', 'noun.state') 1
+('noun.artifact', 'noun.relation') 1
+('noun.relation', 'noun.artifact') 1
+('verb.change', 'noun.cognition') 1
+('noun.act', 'noun.artifact') 1
+('noun.animal', 'noun.cognition') 1
+('noun.relation', 'noun.person') 1
+('noun.cognition', 'noun.person') 1
+('noun.artifact', 'noun.attribute') 1
+('noun.attribute', 'noun.possession') 1
+('verb.change', 'noun.possession') 1
+('noun.artifact', 'noun.person') 1
+('noun.state', 'noun.group') 1
+('noun.act', 'noun.person') 1
+('noun.attribute', 'noun.communication') 1
+('noun.body', 'noun.communication') 1
+('noun.person', 'noun.phenomenon') 1
+('noun.cognition', 'noun.communication') 1
+('adj.all', 'noun.phenomenon') 1
+('noun.process', 'noun.communication') 1
+('noun.artifact', 'noun.quantity') 1
+('noun.person', 'noun.group') 1
+('noun.communication', 'noun.act') 1
+('noun.attribute', 'noun.state') 1
+('noun.group', 'noun.state') 1
+('noun.cognition', 'noun.act') 1
+('noun.state', 'noun.act') 1
+('noun.group', 'noun.group') 1
+('noun.artifact', 'noun.state') 1
+('noun.communication', 'noun.person') 1
+('noun.attribute', 'noun.group') 1
+('noun.plant', 'noun.person') 1
+
+
+
+==Synset:  wield.v.02==
+
 Definizion synset:  handle effectively
 Semantic use:
 noun.body noun.event
 Frequency:  2
-noun.communication noun.communication 
+noun.communication noun.communication
+Frequency:  2
+verb.competition noun.communication
 Frequency:  1
-verb.competition noun.communication   
-Frequency:  1
-noun.communication noun.cognition     
-Frequency:  4
-noun.person noun.communication        
+noun.communication noun.cognition
+Frequency:  5
+noun.person noun.communication
 Frequency:  2
 noun.artifact noun.process
-Frequency:  1
+Frequency:  2
 verb.contact noun.artifact
 Frequency:  1
 noun.group noun.communication
-Frequency:  2
+Frequency:  5
 noun.object noun.object
 Frequency:  1
 noun.communication adj.all
@@ -45,11 +142,11 @@ Frequency:  1
 noun.communication noun.location
 Frequency:  1
 noun.artifact noun.act
-Frequency:  2
+Frequency:  4
 noun.act noun.group
 Frequency:  2
 noun.cognition noun.artifact
-Frequency:  1
+Frequency:  2
 noun.group noun.artifact
 Frequency:  1
 noun.animal noun.communication
@@ -57,19 +154,19 @@ Frequency:  1
 noun.artifact noun.cognition
 Frequency:  1
 noun.group noun.attribute
-Frequency:  3
+Frequency:  4
 noun.person noun.artifact
 Frequency:  3
 noun.artifact noun.artifact
-Frequency:  1
+Frequency:  3
 noun.person noun.act
-Frequency:  1
+Frequency:  4
 noun.body noun.group
 Frequency:  1
 noun.cognition noun.substance
 Frequency:  1
 noun.artifact noun.communication
-Frequency:  4
+Frequency:  6
 adj.all noun.communication
 Frequency:  1
 noun.body noun.cognition
@@ -87,23 +184,81 @@ Frequency:  1
 noun.act noun.state
 Frequency:  1
 noun.act noun.communication
-Frequency:  1
+Frequency:  2
 noun.person adj.all
-Frequency:  1
+Frequency:  2
 noun.person noun.location
 Frequency:  1
 noun.food noun.artifact
 Frequency:  1
 noun.group noun.cognition
-Frequency:  1
+Frequency:  3
 noun.cognition noun.attribute
 Frequency:  1
 noun.act noun.cognition
 Frequency:  1
+noun.event noun.attribute
+Frequency:  1
+verb.motion noun.cognition
+Frequency:  1
+noun.person noun.state
+Frequency:  1
+noun.artifact noun.relation
+Frequency:  1
+noun.relation noun.artifact
+Frequency:  1
+noun.cognition noun.event
+Frequency:  2
+verb.change noun.cognition
+Frequency:  1
+noun.act noun.artifact
+Frequency:  1
+noun.plant noun.cognition
+Frequency:  1
+noun.act noun.act
+Frequency:  2
+noun.cognition noun.person
+Frequency:  1
+noun.attribute noun.possession
+Frequency:  1
+noun.artifact noun.person
+Frequency:  1
+noun.act noun.person
+Frequency:  1
+noun.attribute noun.communication
+Frequency:  1
+noun.body noun.communication 
+Frequency:  1
+noun.cognition noun.communication
+Frequency:  1
+noun.process noun.communication
+Frequency:  1
+noun.person noun.process
+Frequency:  1
+noun.artifact noun.quantity
+Frequency:  1
+noun.group noun.act
+Frequency:  3
+noun.artifact noun.Tops
+Frequency:  1
+noun.person noun.group
+Frequency:  1
+noun.attribute noun.state
+Frequency:  1
+noun.group noun.group
+Frequency:  1
+noun.artifact noun.state
+Frequency:  1
+noun.communication noun.person
+Frequency:  1
+noun.attribute noun.group
+Frequency:  1
+noun.plant noun.person
+Frequency:  1
 
 
 
-                Synset:  handle.v.04
+                ==Synset:  handle.v.04==
 Definizion synset:  touch, lift, or hold with the hands
 Semantic use:
 noun.body noun.process
@@ -116,20 +271,28 @@ noun.act noun.cognition
 Frequency:  1
 noun.substance noun.act
 Frequency:  1
+verb.change noun.possession
+Frequency:  1
+noun.person noun.artifact
+Frequency:  1
+noun.communication noun.act
+Frequency:  1
 
 
 
-                Synset:  cover.v.05
+                ==Synset:  cover.v.05==
 Definizion synset:  act on verbally or in some form of artistic expression
 Semantic use:
 noun.substance noun.attribute
 Frequency:  1
 noun.animal noun.attribute
 Frequency:  1
+noun.state noun.group
+Frequency:  1
 
 
 
-                Synset:  treat.v.01
+                ==Synset:  treat.v.01==
 Definizion synset:  interact in a certain way
 Semantic use:
 noun.artifact noun.Tops
@@ -143,11 +306,23 @@ Frequency:  1
 noun.cognition noun.cognition
 Frequency:  1
 noun.person noun.artifact
+Frequency:  2
+noun.artifact noun.process
+Frequency:  1
+noun.relation noun.person
+Frequency:  1
+noun.artifact noun.attribute
+Frequency:  1
+noun.communication noun.communication
+Frequency:  2
+noun.person noun.process
+Frequency:  1
+noun.artifact noun.communication
 Frequency:  1
 
 
 
-                Synset:  manage.v.02
+                ==Synset:  manage.v.02==
 Definizion synset:  be in charge of, act on, or dispose of
 Semantic use:
 noun.artifact noun.group
@@ -160,4 +335,19 @@ noun.plant noun.cognition
 Frequency:  1
 noun.attribute noun.event
 Frequency:  1
-[Synset('handle.n.01'), Synset('manage.v.02'), Synset('treat.v.01'), Synset('cover.v.05'), Synset('handle.v.04'), Synset('wield.v.02'), Synset('handle.v.06')]
+noun.animal noun.cognition
+Frequency:  1
+noun.cognition noun.attribute
+Frequency:  1
+noun.body noun.event
+Frequency:  1
+noun.person noun.phenomenon
+Frequency:  1
+adj.all noun.phenomenon
+Frequency:  1
+noun.group noun.state
+Frequency:  1
+noun.cognition noun.act
+Frequency:  1
+noun.state noun.act
+Frequency:  1
