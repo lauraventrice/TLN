@@ -104,13 +104,13 @@ def get_top_words(definitions: list, n_top: int):
 
     print("top words:", most_frequent_words, '\n')
 
-    return most_frequent_words
+    return list(set(most_frequent_words))
 
 def get_synset(word: str, definitions: list): 
 
     synset_counter = Counter()
     for definition in definitions: 
-        synset = lesk(definition, word)
+        synset = lesk(definition, word, 'n')
         if synset:
             synset_counter.update([synset])
 
@@ -132,6 +132,27 @@ def create_dict_word_dictionary(most_frequent_words: list, definitions: list):
 
     return dict_word_dictionary
 
+def rank(top_words: list, important_words: list): 
+    top_words_5 = top_words[:5]
+    top_words_10 = top_words[5:10]
+    top_words_end = top_words[10:]
+
+    rank = len(important_words)
+
+    count_5 = 0
+    count_10 = 0
+    count_end = 0
+
+    for word in important_words:
+        if word in top_words_5:
+            count_5 += 1
+        if word in top_words_10:
+            count_10 += 1
+        if word in top_words_end:
+            count_end += 1
+
+    return rank+(count_5)+(count_10*0.5)+(count_end*(-0.25))
+
 def onomasiologic_search(concept: dict, n_top: int):
     
     results = []
@@ -147,6 +168,7 @@ def onomasiologic_search(concept: dict, n_top: int):
         if synset:
             hyponyms.extend(synset.hypernyms())
     
+    hyponyms = list(set(hyponyms))
     res = []
     for hyp in hyponyms:
         hyp_def = hyp.definition() + " " + ', '.join(hyp.examples())
@@ -159,7 +181,7 @@ def onomasiologic_search(concept: dict, n_top: int):
         res.append([hyp, match_words])
 
      # sort the list using the number of important words found
-    sorted_res = sorted(res, key=lambda x: len(x[1]), reverse=True)
+    sorted_res = sorted(res, key=lambda x: rank(most_frequent_words, x[1]), reverse=True)
     for synset, match_words in sorted_res[:5]:
         results.append((synset.name(), match_words))
 
@@ -168,8 +190,5 @@ def onomasiologic_search(concept: dict, n_top: int):
 
 for concept in definitions:
     print(concept['Concept'])
-    result = onomasiologic_search(concept, 20)
+    result = onomasiologic_search(concept, 30)
     print(result, '\n\n\n')
-    
-
-
