@@ -81,15 +81,6 @@ for concept in definitions:
     
     tokens_concepts[concept['Concept']] = list(tokens) 
 
-with open(f'Esercizio1-DEFS/resource/preprocessing.csv', 'w', encoding='utf-8') as f:
-    writer = csv.writer(f)
-    for concept in definitions:
-        for key, value in concept.items():
-            if key == 'Concept':
-                writer.writerow([value])
-            else: 
-                writer.writerow(value)
-
 
 # creation of a phrase embedding (one-hot) for each definition 
 
@@ -124,23 +115,11 @@ for embedding_concept in embeddings_concepts:
     for embedding in embedding_concept:
         similarity_row = []
         for embedding2 in embedding_concept:
-            if all(elem == 0 for elem in embedding) and all(elem == 0 for elem in embedding2):
-                similarity_row.append(1)
-            elif all(elem == 0 for elem in embedding) or all(elem == 0 for elem in embedding2):
-                similarity_row.append(0)
-            else: 
-                cosine_similarity = cosine_sim(embedding, embedding2)
-                similarity_row.append(cosine_similarity)
+            cosine_similarity = cosine_sim(embedding, embedding2)
+            similarity_row.append(cosine_similarity)
         sim_matrix_conc.append(similarity_row)
 
     similarities.append(sim_matrix_conc)
-
-with open(f'Esercizio1-DEFS/resource/similarities.csv', 'w', encoding='utf-8') as f:
-    writer = csv.writer(f)
-    for similarity in similarities:
-        for row in similarity:
-            writer.writerow(row)
-        writer.writerow([])
 
 mean_concepts = []
 
@@ -183,6 +162,7 @@ for concept in definitions:
 
 print("\n-----------------------------\n")
 # mean length of definitions for concept
+print("Mean length of definitions for concept:")
 for concept in definitions:
     keys = list(concept.keys())
     keys.remove('Concept')
@@ -191,7 +171,7 @@ for concept in definitions:
         definition = concept[key]
         length.append(len(definition))
     mean_length = np.mean(length)
-    print("Mean length for ", concept['Concept'], ": ", round(mean_length, 2))
+    print(concept['Concept'], ": ", round(mean_length, 2))
 
 print("\n-----------------------------\n")
 #5. mean similarity values between the two dimensions of concepts
@@ -206,4 +186,3 @@ print("Concrete: ", round(concrete_concept_mean, 3))
 print("Abstract: ", round(abstract_concept_mean, 3))
 print("Generic:  ", round(generic_concept_mean, 3))
 print("Specific: ", round(specific_concept_mean, 3))
-
