@@ -322,7 +322,7 @@ Frequency:  1
 
 
 
-                ==Synset:  manage.v.02==
+==Synset:  manage.v.02==
 Definizion synset:  be in charge of, act on, or dispose of
 Semantic use:
 noun.artifact noun.group
