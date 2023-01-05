@@ -1,11 +1,9 @@
 ## Testo
 
-### Creazione di una nuova lingua!
-Rimozione ambiguità attraverso allineamento di più lingue, e creazione del
-relativo dizionario non ambiguo
-
-- Hint: scegliere termini di due o più lingue, usare babelnet e a partire dal termine controllare nelle 
-due o più lingue quanti sensi ci sono -> se la differenza è notevole posso disambiguare
+### “Frutta con la M”. 
+Esercizio in cui si specifica una categoria (ad es. “fruit” oppure “at supermarket” (più difficile) 
+assieme ad una lettera di inizio parola. Creare un gioco in cui il sistema crea combinazioni
+casuali di input e prova a sfidare sul tempo un utente. 
 
 ## Risorse utilizzate
 

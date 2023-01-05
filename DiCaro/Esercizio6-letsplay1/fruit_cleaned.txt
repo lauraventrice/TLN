@@ -1,0 +1,230 @@
+morello.n.02			 Def:cultivated sour cherry with dark-colored skin and juice
+windfall.n.01			 Def:fruit that has fallen from the tree
+quandong.n.02			 Def:the fruit of the Brisbane quandong tree
+cocoa_plum.n.02			 Def:plum-shaped whitish to almost black fruit used for preserves; tropical American
+victoria_plum.n.01			 Def:a large red plum served as dessert
+clementine.n.02			 Def:a mandarin orange of a deep reddish orange color and few seeds
+calabash.n.01			 Def:round gourd of the calabash tree
+flame_tokay.n.01			 Def:purplish-red table grape
+pitahaya.n.02			 Def:highly colored edible fruit of pitahaya cactus having bright red juice; often as large as a peach
+concord_grape.n.01			 Def:slipskin grape; a purple table grape of the northeastern United States
+red_currant.n.02			 Def:small red berries used primarily in jams and jellies
+pineapple.n.02			 Def:large sweet fleshy tropical fruit with a terminal tuft of stiff leaves; widely cultivated
+berry.n.02			 Def:a small fruit having any of various structures, e.g., simple (grape or blueberry) or aggregate (blackberry or raspberry)
+samara.n.01			 Def:a winged often one-seed indehiscent fruit as of the ash or elm or maple
+hog_plum.n.03			 Def:fruit of the wild plum of southern United States
+apricot.n.02			 Def:downy yellow to rosy-colored fruit resembling a small peach
+ketembilla.n.02			 Def:maroon-purple gooseberry-like fruit of India having tart-sweet purple pulp used especially for preserves
+pomelo.n.02			 Def:large pear-shaped fruit similar to grapefruit but with coarse dry pulp
+emperor.n.02			 Def:red table grape of California
+grape.n.01			 Def:any of various juicy fruit of the genus Vitis with green or purple skins; grow in clusters
+beach_plum.n.02			 Def:small dark purple fruit used especially in jams and pies
+pearmain.n.01			 Def:any of several varieties of apples with red skins
+freestone.n.01			 Def:fruit (especially peach) whose flesh does not adhere to the pit
+lemon.n.01			 Def:yellow oval fruit with juicy acidic flesh
+rowanberry.n.01			 Def:decorative red berrylike fruit of a rowan tree
+papaya.n.02			 Def:large oval melon-like tropical fruit with yellowish flesh
+pond_apple.n.02			 Def:ovoid yellow fruit with very fragrant peach-colored flesh; related to custard apples
+loganberry.n.02			 Def:large red variety of the dewberry
+barbados_gooseberry.n.02			 Def:small yellow to orange fruit of the Barbados gooseberry cactus used in desserts and preserves and jellies
+ackee.n.01			 Def:red pear-shaped tropical fruit with poisonous seeds; flesh is poisonous when unripe or overripe
+aggregate_fruit.n.01			 Def:fruit consisting of many individual small fruits or drupes derived from separate ovaries within a common receptacle: e.g. blackberry; raspberry; pineapple
+watermelon.n.02			 Def:large oblong or roundish melon with a hard green rind and sweet watery red or occasionally yellowish pulp
+greengage.n.01			 Def:sweet green or greenish-yellow variety of plum
+sour_cherry.n.03			 Def:acid cherries used for pies and preserves
+valencia_orange.n.01			 Def:variety of sweet orange cultivated extensively in Florida and California
+pyxidium.n.01			 Def:fruit of such plants as the plantain; a capsule whose upper part falls off when the seeds are released
+garambulla.n.02			 Def:small berrylike fruit
+sloe.n.03			 Def:small sour dark purple fruit of especially the Allegheny plum bush
+persimmon.n.02			 Def:orange fruit resembling a plum; edible when fully ripe
+blackheart.n.02			 Def:heart cherry with dark flesh and skin cherry
+edible_fruit.n.01			 Def:edible reproductive body of a seed plant especially one having sweet flesh
+sour_gourd.n.03			 Def:acid-tasting Australian gourd-like fruit with a woody rind and large seeds
+capulin.n.02			 Def:Mexican black cherry
+wild_cherry.n.01			 Def:the fruit of the wild cherry tree
+plum.n.02			 Def:any of numerous varieties of small to medium-sized round or oval fruit having a smooth skin and a single pit
+marang.n.02			 Def:tropical fruit from the Philippines having a mass of small seeds embedded in sweetish white pulp
+ceriman.n.02			 Def:tropical cylindrical fruit resembling a pinecone with pineapple-banana flavor
+acerola.n.02			 Def:acid red or yellow cherry-like fruit of a tropical American shrub very rich in vitamin C
+custard_apple.n.02			 Def:the fruit of any of several tropical American trees of the genus Annona having soft edible pulp
+honeydew.n.01			 Def:the fruit of a variety of winter melon vine; a large smooth greenish-white melon with pale green flesh
+breadfruit.n.02			 Def:a large round seedless or seeded fruit with a texture like bread; eaten boiled or baked or roasted or ground into flour; the roasted seeds resemble chestnuts
+bullock's_heart.n.02			 Def:large heart-shaped tropical fruit with soft acid pulp
+boysenberry.n.02			 Def:large raspberry-flavored fruit; cross between blackberries and raspberries
+winter_melon.n.02			 Def:the fruit of the winter melon vine; a green melon with pale green to orange flesh that keeps well
+bell_apple.n.01			 Def:the edible yellow fruit of the Jamaica honeysuckle
+citron.n.01			 Def:large lemonlike fruit with thick aromatic rind; usually preserved
+durian.n.02			 Def:huge fruit native to southeastern Asia `smelling like Hell and tasting like Heaven'; seeds are roasted and eaten like nuts
+jujube.n.02			 Def:dark red plumlike fruit of Old World buckthorn trees
+berry.n.01			 Def:any of numerous small and pulpy edible fruits; used as desserts or in making jams and jellies and preserves
+persian_melon.n.02			 Def:the fruit of a variety of winter melon vine; a large green melon with orange flesh
+juniper_berry.n.01			 Def:berrylike fruit of a plant of the genus Juniperus especially the berrylike cone of the common juniper
+thompson_seedless.n.01			 Def:seedless green table grape of California
+scuppernong.n.01			 Def:amber-green muscadine grape of southeastern United States
+granny_smith.n.01			 Def:apple with a green skin and hard tart flesh
+nectarine.n.02			 Def:a variety or mutation of the peach that has a smooth skin
+bramley's_seedling.n.01			 Def:very large cooking apple
+schizocarp.n.01			 Def:a dry dehiscent fruit that at maturity splits into two or more parts each with a single seed
+currant.n.03			 Def:small dried seedless raisin grown in the Mediterranean region and California; used in cooking
+seedless_raisin.n.01			 Def:dried seedless grape
+tamarind.n.02			 Def:large tropical seed pod with very tangy pulp that is eaten fresh or cooked with rice and fish or preserved for curries and chutneys
+melon_ball.n.01			 Def:a bite of melon cut as a sphere
+buckthorn_berry.n.01			 Def:fruit of various buckthorns yielding dyes or pigments
+raisin.n.01			 Def:dried grape
+satsuma.n.02			 Def:medium-sized largely seedless mandarin orange with thin smooth skin
+jonathan.n.01			 Def:red late-ripening apple; primarily eaten raw
+navel_orange.n.01			 Def:seedless orange enclosing a small secondary fruit at the apex
+damson.n.01			 Def:dark purple plum of the damson tree
+loquat.n.02			 Def:yellow olive-sized semitropical fruit with a large free stone and relatively little flesh; used for jellies
+huckleberry.n.03			 Def:blue-black berry similar to blueberries and bilberries of the eastern United States
+grapefruit.n.02			 Def:large yellow fruit with somewhat acid juicy pulp; usual serving consists of a half
+syconium.n.01			 Def:the fleshy multiple fruit of the fig consisting of an enlarged hollow receptacle containing numerous fruitlets
+fig.n.04			 Def:fleshy sweet pear-shaped yellowish or purple multiple fruit eaten fresh or preserved or dried
+sugarberry.n.02			 Def:small edible dark purple to black berry with large pits; southern United States
+vinifera_grape.n.02			 Def:grape from a cultivated variety of the common grape vine of Europe
+mango.n.02			 Def:large oval tropical fruit having smooth skin, juicy aromatic pulp, and a large hairy seed
+plumcot.n.02			 Def:hybrid between plum and apricot
+seeded_raisin.n.01			 Def:seeded grape that has been dried
+fruitlet.n.01			 Def:a diminutive fruit, especially one that is part of a multiple fruit
+cox's_orange_pippin.n.01			 Def:a yellow Pippin with distinctive flavor
+kumquat.n.02			 Def:small oval citrus fruit with thin sweet rind and very acid pulp
+mcintosh.n.01			 Def:early-ripening apple popular in the northeastern United States; primarily eaten raw but suitable for applesauce
+jaboticaba.n.02			 Def:tough-skinned purple grapelike tropical fruit grown in Brazil
+slipskin_grape.n.01			 Def:a grape whose skin slips readily from the pulp
+amarelle.n.02			 Def:pale red sour cherry with colorless or nearly colorless juice
+acorn.n.01			 Def:fruit of the oak tree: a smooth thin-walled nut in a woody cup-shaped base
+crab_apple.n.03			 Def:small sour apple; suitable for preserving
+marasca.n.01			 Def:small bitter fruit of the marasca cherry tree from whose juice maraschino liqueur is made
+temple_orange.n.02			 Def:large sweet easily-peeled Florida fruit with deep orange rind
+muskmelon.n.02			 Def:the fruit of a muskmelon vine; any of several sweet melons related to cucumbers
+empire.n.05			 Def:an eating apple that somewhat resembles a McIntosh; used as both an eating and a cooking apple
+anjou.n.02			 Def:a pear with firm flesh and a green skin
+quandong.n.04			 Def:red Australian fruit; used for dessert or in jam
+cherimoya.n.02			 Def:large tropical fruit with leathery skin and soft pulp; related to custard apples
+baneberry.n.01			 Def:a poisonous berry of a plant of the genus Actaea
+elderberry.n.02			 Def:berrylike fruit of an elder used for e.g. wines and jellies
+melon.n.01			 Def:any of numerous fruits of the gourd family having a hard rind and sweet juicy flesh
+gourd.n.02			 Def:any of numerous inedible fruits with hard rinds
+orange.n.01			 Def:round yellow to orange fruit of any of several citrus trees
+bartlett.n.03			 Def:juicy yellow pear
+prairie_gourd.n.01			 Def:small hard green-and-white inedible fruit of the prairie gourd plant
+chokecherry.n.01			 Def:the fruit of the chokecherry tree
+macoun.n.01			 Def:similar to McIntosh; juicy and late-ripening
+saskatoon.n.02			 Def:edible purple or red berries
+hip.n.05			 Def:the fruit of a rose plant
+quince.n.02			 Def:aromatic acid-tasting pear-shaped fruit used in preserves
+catawba.n.02			 Def:slipskin grape; a reddish American table grape
+mombin.n.02			 Def:purplish tropical fruit
+gooseberry.n.02			 Def:currant-like berry used primarily in jams and jellies
+pomegranate.n.02			 Def:large globular fruit having many seeds with juicy red pulp in a tough brownish-red rind
+lime.n.06			 Def:the green acidic fruit of any of various lime trees
+tangelo.n.02			 Def:large sweet juicy hybrid between tangerine and grapefruit having a thick wrinkled skin
+dewberry.n.02			 Def:blackberry-like fruits of any of several trailing blackberry bushes
+olive.n.04			 Def:one-seeded fruit of the European olive tree usually pickled and used as a relish
+seckel.n.01			 Def:small yellowish- to reddish-brown pear
+citrange.n.02			 Def:more aromatic and acid tasting than oranges; used in beverages and marmalade
+acinus.n.01			 Def:one of the small drupes making up an aggregate or multiple fruit like a blackberry
+currant.n.01			 Def:any of several tart red or black berries used primarily for jellies and jams
+golden_delicious.n.01			 Def:a sweet eating apple with yellow skin
+pome.n.01			 Def:a fleshy fruit (apple or pear or related fruits) having seed chambers and an outer fleshy part
+medlar.n.03			 Def:a South African globular fruit with brown leathery skin and pithy flesh having a sweet-acid taste
+hog_plum.n.04			 Def:yellow oval tropical fruit
+carambola.n.02			 Def:deeply ridged yellow-brown tropical fruit; used raw as a vegetable or in salad or when fully ripe as a dessert
+bosc.n.01			 Def:greenish-yellow pear
+rambutan.n.02			 Def:pleasantly acid bright red oval Malayan fruit covered with soft spines
+sapodilla.n.02			 Def:tropical fruit with a rough brownish skin and very sweet brownish pulp
+achene.n.01			 Def:small dry indehiscent fruit with the seed distinct from the fruit wall
+mandarin.n.05			 Def:a somewhat flat reddish-orange loose skinned citrus of China
+casaba.n.01			 Def:melon having yellowish rind and whitish flesh
+muscat.n.04			 Def:sweet aromatic grape used for raisins and wine
+prima.n.01			 Def:used primarily as eating apples
+guava.n.03			 Def:tropical fruit having yellow skin and pink pulp; eaten fresh or used for e.g. jellies
+fox_grape.n.02			 Def:purplish-black wild grape of the eastern United States with tough skins that slip easily from the flesh; cultivated in many varieties
+heart_cherry.n.02			 Def:large heart-shaped sweet cherry with soft flesh
+stayman_winesap.n.01			 Def:crisp tart apple; good for eating raw and suitable for cooking
+cranberry.n.02			 Def:very tart red berry used for sauce or juice
+passion_fruit.n.01			 Def:egg-shaped tropical fruit of certain passionflower vines; used for sherbets and confectionery and drinks
+granadilla.n.04			 Def:the egg-shaped edible fruit of tropical American vines related to passionflowers
+sweet_calabash.n.02			 Def:apple-sized passion fruit of the West Indies
+buffalo_nut.n.01			 Def:oily drupaceous fruit of rabbitwood
+kiwi.n.03			 Def:fuzzy brown egg-shaped fruit with slightly tart green flesh
+apple.n.01			 Def:fruit with red or yellow or green skin and sweet to tart crisp whitish flesh
+tangerine.n.02			 Def:any of various deep orange mandarins grown in the United States and southern Africa
+cubeb.n.01			 Def:spicy fruit of the cubeb vine; when dried and crushed is used medicinally or in perfumery and sometimes smoked in cigarettes
+bing_cherry.n.01			 Def:dark red or blackish sweet cherry
+longanberry.n.02			 Def:Asian fruit similar to litchi
+muscadine.n.02			 Def:dull-purple grape of southern United States
+soursop.n.02			 Def:large spiny tropical fruit with tart pulp related to custard apples
+pear.n.01			 Def:sweet juicy gritty-textured fruit available in many varieties
+cling.n.01			 Def:fruit (especially peach) whose flesh adheres strongly to the pit
+cortland.n.01			 Def:large apple with a red skin
+baldwin.n.03			 Def:an American eating apple with red or yellow and red skin
+lane's_prince_albert.n.01			 Def:apple used primarily in cooking
+simple_fruit.n.01			 Def:an indehiscent fruit derived from a single ovary having one or many seeds within a fleshy wall or pericarp: e.g. grape; tomato; cranberry
+delicious.n.01			 Def:variety of sweet eating apples
+lingonberry.n.02			 Def:tart red berries similar to American cranberries but smaller
+dried_fruit.n.01			 Def:fruit preserved by drying
+mulberry.n.02			 Def:sweet usually dark purple blackberry-like fruit of any of several mulberry trees of the genus Morus
+avocado.n.01			 Def:a pear-shaped tropical fruit with green or blackish skin and rich yellowish pulp enclosing a single large seed
+dried_apricot.n.01			 Def:apricots preserved by drying
+canistel.n.02			 Def:ovoid orange-yellow mealy sweet fruit of Florida and West Indies
+sorb.n.01			 Def:acid gritty-textured fruit
+sweetsop.n.02			 Def:sweet pulpy tropical fruit with thick scaly rind and shiny black seeds
+papaw.n.02			 Def:fruit with yellow flesh; related to custard apples
+sultana.n.01			 Def:pale yellow seedless grape used for raisins and wine
+pippin.n.01			 Def:any of numerous superior eating apples with yellow or greenish yellow skin flushed with red
+genipap.n.01			 Def:a succulent orange-sized tropical fruit with a thick rind
+bilberry.n.03			 Def:blue-black berries similar to American blueberries
+newtown_wonder.n.01			 Def:apple used primarily in cooking
+stayman.n.01			 Def:apple grown chiefly in the Shenandoah Valley
+sapote.n.02			 Def:brown oval fruit flesh makes excellent sherbet
+medlar.n.04			 Def:crabapple-like fruit used for preserves
+ribier.n.01			 Def:dark reddish-purple table grape of California
+sour_gourd.n.02			 Def:African gourd-like fruit with edible pulp
+strawberry.n.01			 Def:sweet fleshy red fruit
+prune.n.01			 Def:dried plum
+mangosteen.n.02			 Def:two- to three-inch tropical fruit with juicy flesh suggestive of both peaches and pineapples
+drupelet.n.01			 Def:a small part of an aggregate fruit that resembles a drupe
+tokay.n.02			 Def:variety of wine grape originally grown in Hungary; the prototype of vinifera grapes
+peach.n.03			 Def:downy juicy fruit with sweet yellowish or whitish flesh
+black_olive.n.01			 Def:olives picked ripe and cured in brine then dried or pickled or preserved canned or in oil
+blackberry.n.01			 Def:large sweet black or very dark purple edible aggregate fruit of any of various bushes of the genus Rubus
+rose_apple.n.02			 Def:fragrant oval yellowish tropical fruit used in jellies and confections
+olive.n.01			 Def:small ovoid fruit of the European olive tree; important food and source of oil
+grimes'_golden.n.01			 Def:yellow apple that ripens in late autumn; eaten raw
+litchi.n.02			 Def:Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
+ilama.n.02			 Def:whitish tropical fruit with a pinkish tinge related to custard apples; grown in the southern United States
+accessory_fruit.n.01			 Def:fruit containing much fleshy tissue besides that of the ripened ovary; as apple or strawberry
+genip.n.02			 Def:round one-inch Caribbean fruit with green leathery skin and sweet juicy translucent pulp; eaten like grapes
+pulasan.n.02			 Def:fruit of an East Indian tree similar to the rambutan but sweeter
+citrus.n.01			 Def:any of numerous fruits of the genus Citrus having thick rind and juicy pulp; grown in warm regions
+cantaloup.n.02			 Def:the fruit of a cantaloup vine; small to medium-sized melon with yellowish flesh
+key_lime.n.01			 Def:small yellow-green limes of southern Florida
+sweet_cherry.n.02			 Def:any of several fruits of cultivated cherry trees that have sweet flesh
+mamey.n.02			 Def:globular or ovoid tropical fruit with thick russet leathery rind and juicy yellow or reddish flesh
+anchovy_pear.n.02			 Def:West Indian fruit resembling the mango; often pickled
+prickly_pear.n.02			 Def:round or pear-shaped spiny fruit of any of various prickly pear cacti
+green_olive.n.01			 Def:olives picked green and pickled in brine; infrequently stuffed with e.g. pimento
+date.n.08			 Def:sweet edible fruit of the date palm with a single long woody seed
+carissa_plum.n.01			 Def:edible scarlet plumlike fruit of a South African plant
+kai_apple.n.01			 Def:South African fruit smelling and tasting like apricots; used for pickles and preserves
+winesap.n.01			 Def:crisp apple with dark red skin
+bitter_orange.n.02			 Def:highly acidic orange used especially in marmalade
+drupe.n.01			 Def:fleshy indehiscent fruit with a single seed: e.g. almond; peach; plum; cherry; elderberry; olive; jujube
+sweet_orange.n.01			 Def:orange with sweet juicy pulp; often has a thin skin
+northern_spy.n.01			 Def:large late-ripening apple with skin striped with yellow and red
+raspberry.n.02			 Def:red or black edible aggregate berries usually smaller than the related blackberries
+may_apple.n.01			 Def:edible but insipid fruit of the May apple plant
+lanseh.n.01			 Def:East Indian tart yellow berrylike fruit
+wintergreen.n.03			 Def:spicy red berrylike fruit; source of wintergreen oil
+banana.n.02			 Def:elongated crescent-shaped yellow fruit with soft sweet flesh
+jackfruit.n.02			 Def:immense East Indian fruit resembling breadfruit; it contains an edible pulp and nutritious seeds that are commonly roasted
+feijoa.n.02			 Def:dark-green kiwi-sized tropical fruit with white flesh; used chiefly for jellies and preserves
+red_delicious.n.01			 Def:a sweet eating apple with bright red skin; most widely grown apple worldwide
+black_currant.n.02			 Def:small black berries used in jams and jellies
+cherry.n.03			 Def:a red fruit with a single hard stone
+net_melon.n.02			 Def:the fruit of a variety of muskmelon vine; a melon with netlike markings and deep green flesh
+rome_beauty.n.01			 Def:large red apple used primarily for baking
+hagberry.n.01			 Def:small cherry much liked by birds
+blueberry.n.02			 Def:sweet edible dark-blue berries of either low-growing or high-growing blueberry plants
+jaffa_orange.n.01			 Def:sweet almost seedless orange of Israel
