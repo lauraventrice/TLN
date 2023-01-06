@@ -91,6 +91,9 @@ if not os.path.exists(path_corpus):
         for sentence in corpus:
             f.write('"'+sentence[4]+'"'+"\n")
 
+corpus_passive = [[subj, subj_pos, obj, obj_pos, sentence, token_sent, active] for subj, subj_pos, obj, obj_pos, sentence, token_sent, active in corpus if not active]
+
+print("Length corpus passive: ", len(corpus_passive))
 # 3. Detection of the synset for each object and subject
 
 synsets = []
@@ -179,3 +182,25 @@ for synset in analysis:
     print("Semantic use: ")
     for subj, obj in analysis[synset]: 
         print(subj, obj, "\nFrequency: ", analysis[synset][(subj, obj)])
+    
+    print("\n\nSummary: ")
+
+    count_subj = {}
+    count_obj = {}
+    for subj, obj in analysis[synset]:
+        if subj not in count_subj:
+            count_subj[subj] = analysis[synset][(subj, obj)]
+        else: 
+            count_subj[subj] += analysis[synset][(subj, obj)]
+        if obj not in count_obj:
+            count_obj[obj] = analysis[synset][(subj, obj)]
+        else: 
+            count_obj[obj] += analysis[synset][(subj, obj)]
+
+    print("\nSUPERSENSES SUBJECT")
+    for subj in count_subj:
+        print(subj, ":", count_subj[subj])
+    
+    print("\n\nSUPERSENSES OBJECT")
+    for obj in count_obj:
+        print(obj, ":", count_obj[obj])
