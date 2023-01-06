@@ -21,7 +21,7 @@ if not os.path.exists(path_corpus):
         for article in reader:
             if i == 0: 
                 i += 1
-            elif i < 20000:
+            elif i < 30000:
                 text = article[1]
                 articles.append(text)
                 sentences_text = nltk.sent_tokenize(text)
@@ -40,8 +40,8 @@ else:
 
 # 2. Detection of subjects and objects of the verb using dependecy parser (SpaCy) 
 
-# possible subj: csubj, csubjpass, nsubj, nsubjpass
-# possible obj: dobj, pobj
+# subj: csubj, csubjpass, nsubj, nsubjpass
+# obj: dobj, pobj
 
 corpus = []
 for sentence in sentences: 
@@ -52,7 +52,7 @@ for sentence in sentences:
     obj_pos = ""
     token_sent = []
     for token in doc: 
-        token_sent.append(token.text)
+        token_sent.append(token.lemma_)
         if token.text == "handle" and token.pos_ == "VERB": 
             indirect_obj = False
             active = True
@@ -62,28 +62,29 @@ for sentence in sentences:
                     indirect_obj = True
                 #if subj != "" and obj != "":
                 #    break
-                if child.dep_.__contains__("subj") and subj == "":
+                if child.dep_.__contains__("subj") and subj == "" and child.text != "that":
                     active = not child.dep_.__contains__("pass")
-                    subj = child.text
+                    subj = child.lemma_
                     subj_pos = child.pos_
                 elif (child.dep_ == "dobj" or child.dep_ == "dative") and obj == "":
-                    obj = child.text
+                    obj = child.lemma_
                     obj_pos = child.pos_
             if subj == "" or obj == "" and not indirect_obj:
-                if ("VERB" == token.head.pos_ or "AUX" == token.head.pos_) and "comp" in token.dep_: 
+                if ("VERB" == token.head.pos_ or "AUX" == token.head.pos_) and ("comp" in token.dep_ or "conj" in token.dep_): 
                     head_children = token.head.children
                     for head_child in head_children:
-                        if head_child.dep_ == "nsubj" and subj == "":
-                            subj = head_child.text
+                        if head_child.dep_.__contains__("subj") and subj == "":
+                            subj = head_child.lemma_
                             subj_pos = head_child.pos_
-                        elif head_child.dep_ == "dobj" and obj == "":
-                            obj = head_child.text
+                        elif (head_child.dep_ == "dobj" or head_child.dep_ == "dative") and obj == "":
+                            obj = head_child.lemma_
                             obj_pos = head_child.pos_
 
     if subj != "" and obj != "" and not indirect_obj: # transitive verb -> if subj and obj and indirect_obj : ditransitive verb!
         corpus.append([subj, subj_pos, obj, obj_pos, sentence, token_sent, str(active)])
 
 print("Length corpus: ", len(corpus))
+
 
 if not os.path.exists(path_corpus): 
     with open (path_corpus, 'w', encoding='utf-8') as f:
@@ -99,12 +100,12 @@ for subj, subj_pos, obj, obj_pos, sentence, token_sent, _ in corpus:
     synset_obj = None
     if subj_pos == "PRON": 
         if subj.lower() != "it" and subj.lower() != "its" and subj.lower() != "itself":
-            synset_subj = wn.synset('person.n.01')
+            synset_subj = wn.synset('person.n.03')
         else: 
             synset_subj = wn.synset('thing.n.6') # thing (a vaguely specified concern) "several matters to attend to"; "it is none of your affair"; "things are going well"
     elif obj_pos == "PRON":
         if obj.lower() != "it" and obj.lower() != "its" and obj.lower() != "itself":
-            synset_obj = wn.synset('person.n.01')
+            synset_obj = wn.synset('person.n.03')
         else: 
             synset_obj = wn.synset('thing.n.6')     
     else:     
