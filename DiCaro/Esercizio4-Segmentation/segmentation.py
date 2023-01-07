@@ -65,9 +65,8 @@ for index, sentence in sentences_enumerate:
     words = nlp(sentence)
     words_clean = [word.lemma_.lower() for word in words if word.is_alpha and word.text not in stopwords and word.pos_ in ["NOUN", "VERB", "ADJ", "ADV"]]
     
-    if len(words_clean) > 10: # filter sentences with less than 10 words
-        words_text.update(words_clean)
-        words_sentence.update(words_clean)
+    words_text.update(words_clean)
+    words_sentence.update(words_clean)
 
     words_sentences[index] = words_sentence
 
@@ -96,11 +95,11 @@ for row_to_drop in rows_to_drop:
 
 
 # 4. Visualization of the frequency of the words
-with pd.option_context('display.max_rows', None,
-                   'display.max_columns', None,
-                   'display.precision', 3,
-                   ):
-    print(df)
+#with pd.option_context('display.max_rows', None,
+#                   'display.max_columns', None,
+#                   'display.precision', 3,
+#                   ):
+#    print(df)
 
 
 # 5. text segmentation in a casual way 
@@ -108,11 +107,22 @@ with pd.option_context('display.max_rows', None,
 n_segments = 3
 segments = []
 width = len(df.columns) // (n_segments + 1)
+possible_cuts = list(df.columns[1:-2])
+
+import random
 
 for i in range(n_segments): 
     segment = (width * (i+1)) + 5
-    print("SEGMENTO!: ", segment, type(segment))
     segments.append(segment)
+    possible_cuts.remove(segment)
+    if segment+1 in possible_cuts: 
+        possible_cuts.remove(segment+1)
+    if segment-1 in possible_cuts:
+        possible_cuts.remove(segment-1)
+
+segments.sort()
+
+print("segments", segments)
 
 def cohesion(centroid, sentence) -> float: 
     return np.linalg.norm(centroid - sentence)
@@ -123,10 +133,8 @@ def intra_group_cohesion(df_segment: pd.DataFrame):
     for index in df_segment.columns: 
         sentence = df_segment[[index]].astype(float).to_numpy() 
         cohesion_sentence = cohesion(centroid_segment, sentence)
-        cohesion_value += cohesion_sentence # trovare altro modo
+        cohesion_value += cohesion_sentence 
     return cohesion_value/len(df_segment.columns)
-
-# 5.1 BEGIN ALGORITHM 
 
 def segmentation(df: pd.DataFrame, segments_df: list): 
     df_segmented = []
@@ -149,25 +157,25 @@ def segmentation(df: pd.DataFrame, segments_df: list):
 def change_segmentation(segment1: pd.DataFrame, segment2: pd.DataFrame, reverse = False):
     segment1_new = segment1.copy()
     segment2_new = segment2.copy()
-    if len(segment1) > 2: 
+    if len(segment1) > 1 and len(segment2) > 1: 
         if reverse:
             first_column = segment2.columns[0]
             segment1_new.insert(len(segment1.columns), first_column, segment2[first_column])
-            segment2_new = segment2.drop(first_column, axis=1)
+            segment2_new.drop(first_column, axis=1, inplace=True)
         else: 
             last_column = segment1.columns[-1]
-            segment1_new = segment1.drop(last_column, axis=1)
+            segment1_new.drop(last_column, axis=1, inplace=True)
             segment2_new.insert(0, last_column, segment1[[last_column]])
     
     return segment1_new, segment2_new
 
-def text_segmentation(df: pd.DataFrame, segments: list):
+def text_segmentation(df: pd.DataFrame, segments: list): # main algorithm
     to_continue = True
-    #segments.sort()
+    segments.sort()
     while to_continue:    
         new_segments = []
         df_segmented = segmentation(df, segments)
-        print("SEGMENTED:", df_segmented)
+        #print("SEGMENTED:", df_segmented)
         pairs_segments = zip(df_segmented, df_segmented[1:], segments)
         for segment1, segment2, value_segment in pairs_segments: # per tutte le porzioni di testo
             # 6. intra-group cohesion in segments
@@ -197,13 +205,12 @@ def text_segmentation(df: pd.DataFrame, segments: list):
         for value in segments: 
             no_change = no_change and value in new_segments
 
-        print("NO CHANGE: ", no_change)
         if no_change:
             to_continue = False
         else: 
             segments = new_segments
+            print("NEW SEGMENTS: ", segments)
 
-    print("SPLIT DEFINITIVI:", segments)
     return segments
 
 
