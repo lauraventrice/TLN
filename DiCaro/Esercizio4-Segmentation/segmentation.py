@@ -110,7 +110,7 @@ segments = []
 width = len(df.columns) // (n_segments + 1)
 
 for i in range(n_segments): 
-    segment = width * (i+1)
+    segment = (width * (i+1)) + 5
     print("SEGMENTO!: ", segment, type(segment))
     segments.append(segment)
 
@@ -143,7 +143,7 @@ def segmentation(df: pd.DataFrame, segments_df: list):
         df = df.drop(df_new.columns, axis=1) 
         df_segmented.append(df_new)
    
-    df_segmented.append(df) # aggiungo il resto
+    df_segmented.append(df)
     return df_segmented
 
 def change_segmentation(segment1: pd.DataFrame, segment2: pd.DataFrame, reverse = False):
