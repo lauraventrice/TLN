@@ -130,11 +130,17 @@ def intra_group_cohesion(df_segment: pd.DataFrame):
 
 def segmentation(df: pd.DataFrame, segments_df: list): 
     df_segmented = []
-    for segment_df in segments_df: # per tutti i segmenti scelti 
-        columns_to_drop = df.columns[segment_df:]
-        print("columns_to_drop : ", "VAL:", segment_df, columns_to_drop)
-        df_new = df.drop(columns_to_drop, axis=1) # lo segmento con segment_df
-        df = df.drop(df_new.columns, axis=1) # il resto
+    for segment_df in segments_df: # for each segment chosen
+        columns_to_drop = []
+        find = False
+        for col in df.columns:
+            if col == segment_df and not find:
+                find = True
+            if find:
+                columns_to_drop.append(col)
+        
+        df_new = df.drop(columns_to_drop, axis=1)
+        df = df.drop(df_new.columns, axis=1) 
         df_segmented.append(df_new)
    
     df_segmented.append(df) # aggiungo il resto
