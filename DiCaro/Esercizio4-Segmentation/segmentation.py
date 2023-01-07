@@ -1,55 +1,79 @@
-import nltk 
 import wikipediaapi
 import pandas as pd
-import random
 import numpy as np
 from numpy.linalg import norm
+import os
+from collections import Counter
+import spacy
+import nltk 
 
 wiki_wiki = wikipediaapi.Wikipedia('en')
+nlp = spacy.load("en_core_web_sm")
 stopwords = nltk.corpus.stopwords.words('english')
-# 1. Paragraphs from different topics 
+# 1. Load corpus - Paragraphs from different topics 
 
-pages = ["New York City", "Artificial Intelligence", "Vincent van Gogh", "Cubism"]
+file_corpus = f"Esercizio4-Segmentation/resource/corpus.txt"
+
+pages = ["New York City", "Machine Learning", "Vincent van Gogh", "Cubism"]
 
 text = ""
-for page in pages: 
-    page_wiki = wiki_wiki.page(page)
-    print("Page - Title: %s" % page_wiki.title)
-    summary = page_wiki.summary
-    #print("Page - Summary: %s" % summary)
-    if text == "": 
-        text = summary
-    else: 
-        text = text + "\n" + summary
+sentences_enumerate = []
+
+if not os.path.exists(file_corpus):
+    text_sentences = []
+    for page in pages: 
+        text_topic_sentences = []
+        page_wiki = wiki_wiki.page(page)
+        print("Page - Title: %s" % page_wiki.title)
+        text_topic = page_wiki.summary
+        sections = page_wiki.sections
+        for i in range(5): 
+            text_topic += sections[i].text.replace("\n", " ")
+        #print("Page - Summary: %s" % summary)
+        if text == "":  
+            text = text_topic
+        else:
+            text = text + "\n" + text_topic
+
+        text_topic_sentences = [sent.text.strip() for sent in nlp(text_topic).sents if sent.text.strip() != ""]
+
+        text_sentences.extend([' '.join(text_topic_sentences[i:i+4]) for i in range(0, len(text_topic_sentences), 4)])
+
+    sentences_enumerate = list(enumerate(text_sentences))
+
+    with open(file_corpus, "w", encoding='utf-8') as f:
+        for index, sentence in sentences_enumerate:
+            f.write(str(index) + ": " + sentence + "\n")
+
+else: 
+    with open(file_corpus, "r", encoding='utf-8') as f:
+        sentences = f.readlines()
+        sentences_enumerate = []
+        for sentence in sentences: 
+            index = sentence.split(":")[0]
+            sentence = sentence.split(":")[1]
+            sentences_enumerate.append((int(index), sentence))
+
+# cuts: [19, 35, 58]
 
 # 2. Sentences, pre processing and word count
 
-text_sentences = nltk.sent_tokenize(text)
-
 words_sentences = {}
-words_text = []
-file_corpus = f"Esercizio4-Segmentation/resource/corpus.txt"
-sentences_enumerate = enumerate(text_sentences)
+words_text = set()
+for index, sentence in sentences_enumerate:
+    words_sentence = Counter()
+    words = nlp(sentence)
+    words_clean = [word.lemma_.lower() for word in words if word.is_alpha and word.text not in stopwords and word.pos_ in ["NOUN", "VERB", "ADJ", "ADV"]]
+    
+    if len(words_clean) > 10: # filter sentences with less than 10 words
+        words_text.update(words_clean)
+        words_sentence.update(words_clean)
 
-with open(file_corpus, "w", encoding='utf-8') as f:
-    for index, sentence in sentences_enumerate:
-        words_sentence = {}
-        f.write(str(index) + ": " + sentence + "\n")
-        words = nltk.word_tokenize(sentence)
-        words_clean = [word.lower() for word in words if word.isalpha() and not word.lower() in stopwords]
-        lemmatizer = nltk.stem.WordNetLemmatizer()
-        words_lemm = [lemmatizer.lemmatize(word) for word in words_clean]
-        words_missing = [lemma for lemma in words_lemm if lemma not in words_text]
-        words_text.extend(words_missing)
-        for lemma in words_lemm: 
-            if lemma in words_sentence: 
-                words_sentence[lemma] += 1 
-            else: 
-                words_sentence[lemma] = 1 
-        
-        words_sentences[index] = words_sentence
+    words_sentences[index] = words_sentence
 
-# TODO: INSERIRE GLI 0 CON CRITERIO!
+words_text = list(words_text) 
+
+# complete encoding of the words in the sentences with 0s
 for sentence in words_sentences:    
     words_count = list(words_sentences[sentence].keys())
     for word in words_text: 
@@ -61,12 +85,10 @@ for sentence in words_sentences:
 df = pd.DataFrame(words_sentences)
 
 rows_to_drop = []
-for index, row in df.iterrows(): # eliminare le parole che hanno una distribuzione uniforme
-    #print("ROW:", row)
-    row_sparse = row[row != 0]
-    #print("ROW SPARSE:", row_sparse)
-    sparsity = len(row_sparse) / len(row)
-    if sparsity < 0.05 or sparsity > 0.90: 
+for index, row in df.iterrows():
+    row_valued = row[row != 0]
+    sparsity = len(row_valued) / len(row)
+    if sparsity < 0.10 or sparsity > 0.90: # are not meaningful words (too used or too rare)
         rows_to_drop.append(index)
 
 for row_to_drop in rows_to_drop: 
@@ -85,14 +107,12 @@ with pd.option_context('display.max_rows', None,
 
 n_segments = 3
 segments = []
-len_columns = len(df.columns)
-df_columns = df.columns[2:len_columns-2] 
+width = len(df.columns) // (n_segments + 1)
 
 for i in range(n_segments): 
-    segment = random.choice(df_columns) 
+    segment = width * (i+1)
     print("SEGMENTO!: ", segment, type(segment))
     segments.append(segment)
-    df_columns = df_columns.drop([segment, segment+1])
 
 def cohesion(centroid, sentence) -> float: 
     return np.linalg.norm(centroid - sentence)
@@ -110,13 +130,9 @@ def intra_group_cohesion(df_segment: pd.DataFrame):
 
 def segmentation(df: pd.DataFrame, segments_df: list): 
     df_segmented = []
-    for segment_df in segments_df: 
-        columns_to_drop = []
-        find = False
-        for column in df.columns: 
-            find = find or column == segment_df
-            if find: 
-                columns_to_drop.append(column)
+    for segment_df in segments_df: # per tutti i segmenti scelti 
+        columns_to_drop = df.columns[segment_df:]
+        print("columns_to_drop : ", "VAL:", segment_df, columns_to_drop)
         df_new = df.drop(columns_to_drop, axis=1) # lo segmento con segment_df
         df = df.drop(df_new.columns, axis=1) # il resto
         df_segmented.append(df_new)
@@ -139,9 +155,9 @@ def change_segmentation(segment1: pd.DataFrame, segment2: pd.DataFrame, reverse 
     
     return segment1_new, segment2_new
 
-def text_segmentation(df: pd.DataFrame, segments: np.array):
+def text_segmentation(df: pd.DataFrame, segments: list):
     to_continue = True
-    segments = np.sort(segments) # parto da quelli casuali
+    #segments.sort()
     while to_continue:    
         new_segments = []
         df_segmented = segmentation(df, segments)
