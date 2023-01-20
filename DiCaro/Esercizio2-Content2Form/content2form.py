@@ -8,9 +8,9 @@ import os
 
 # 1. read document definitions and create a data structure
 
-defs_path = f'Esercizio1-DEFS/resource/definitions.csv'
-defs_path_json = f'Esercizio1-DEFS/resource/definitions.json'
-slang_path = f'Esercizio1-DEFS/resource/slang.txt'
+defs_path = f'DiCaro/Esercizio1-DEFS/resource/definitions.csv'
+defs_path_json = f'DiCaro/Esercizio1-DEFS/resource/definitions.json'
+slang_path = f'DiCaro/Esercizio1-DEFS/resource/slang.txt'
 
 if not os.path.exists(defs_path_json):
     with open(defs_path, 'r', encoding='utf-8') as file:
@@ -80,7 +80,7 @@ for concept in definitions:
     
     tokens_concepts[concept['Concept']] = list(tokens) 
 
-# 3. filter definition that are too short or too different from other definitions -> create lexial material
+# 3. filter definition that are too short -> create lexial material
 
 for concept in definitions:
     too_short = []
@@ -107,7 +107,6 @@ def get_top_words(definitions: list, n_top: int):
     return list(set(most_frequent_words))
 
 def get_synset(word: str, definitions: list): 
-
     synset_counter = Counter()
     for definition in definitions: 
         synset = lesk(definition, word, 'n')
@@ -162,15 +161,15 @@ def onomasiologic_search(concept: dict, n_top: int):
     most_frequent_words = get_top_words(definitions, n_top)
     dict_word_dictionary = create_dict_word_dictionary(most_frequent_words, definitions)
 
-    hyponyms = []
+    hypernyms = []
     for word in most_frequent_words:
         synset = get_synset(word, dict_word_dictionary[word])
         if synset:
-            hyponyms.extend(synset.hypernyms())
+            hypernyms.extend(synset.hypernyms())
     
-    hyponyms = list(set(hyponyms))
+    hypernyms = list(set(hypernyms))
     res = []
-    for hyp in hyponyms:
+    for hyp in hypernyms:
         hyp_def = hyp.definition() + " " + ', '.join(hyp.examples())
         
         match_words = []
