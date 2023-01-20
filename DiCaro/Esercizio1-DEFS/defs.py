@@ -9,9 +9,9 @@ import os
 
 # 1. read document definitions and create a data structure
 
-defs_path = f'Esercizio1-DEFS/resource/definitions.csv'
-defs_path_json = f'Esercizio1-DEFS/resource/definitions.json'
-slang_path = f'Esercizio1-DEFS/resource/slang.txt'
+defs_path = f'DiCaro/Esercizio1-DEFS/resource/definitions.csv'
+defs_path_json = f'DiCaro/Esercizio1-DEFS/resource/definitions.json'
+slang_path = f'DiCaro/Esercizio1-DEFS/resource/slang.txt'
 
 if not os.path.exists(defs_path_json):
     with open(defs_path, 'r', encoding='utf-8') as file:
