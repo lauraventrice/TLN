@@ -9,7 +9,7 @@ Choice Topic Modeling and Text Visualization:
 
 ## Resources
 
-Corpus: https://www.kaggle.com/datasets/abisheksudarshan/topic-modeling-for-research-articles
+Corpus: "fetch_20newsgroup" from sklearn
 Gensim library: https://radimrehurek.com/gensim/
 
 ## Results

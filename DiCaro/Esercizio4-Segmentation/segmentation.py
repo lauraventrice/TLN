@@ -12,7 +12,7 @@ nlp = spacy.load("en_core_web_sm")
 stopwords = nltk.corpus.stopwords.words('english')
 # 1. Load corpus - Paragraphs from different topics 
 
-file_corpus = f"Esercizio4-Segmentation/resource/corpus.txt"
+file_corpus = f"DiCaro/Esercizio4-Segmentation/resource/corpus.txt"
 
 pages = ["New York City", "Machine Learning", "Vincent van Gogh", "Cubism"]
 
@@ -102,14 +102,12 @@ for row_to_drop in rows_to_drop:
 #    print(df)
 
 
-# 5. text segmentation in a casual way 
+# 5. text segmentation 
 
 n_segments = 3
 segments = []
 width = len(df.columns) // (n_segments + 1)
 possible_cuts = list(df.columns[1:-2])
-
-import random
 
 for i in range(n_segments): 
     segment = (width * (i+1)) + 5

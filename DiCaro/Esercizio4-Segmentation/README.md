@@ -9,7 +9,7 @@ Implement a simple algorithm on text segmentation
 
 ## Resources
 
-- Wikipedia pages : "New York City", "Artificial Intelligence", "Vincent van Gogh", "Cubism"
+- Wikipedia pages : "New York City", "Machine Learning", "Vincent van Gogh", "Cubism"
 - nltk 
 
 ## Results 
