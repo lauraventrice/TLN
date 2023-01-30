@@ -1,51 +1,51 @@
-Term1	Term2	SimilarityLivio	SimilarityLaura	MeanSimilarity	
-crittogramma	simbolo	3	2	3
-campus	università	3	2	3
-libertà	libertà	4	2	3
-tifone	ciclone	4	2	3
-manuale	guida turistica	2	2	3
-Ebola	virus Ebola	4	2	3
-principessa	biscotto	0	2	3
-treno	tram	3	2	3
-ecosistema	economia	2	2	3
-regina regnante	regina degli scacchi	2	2	3
-oro	zinco	3	2	3
-cursore	patatine fritte	0	2	3
-Rio delle Amazzoni	foresta	3	2	3
-tennis	statistica	0	2	3
-Bolzano	teorema	0	2	3
-altitudine	conversione	0	2	3
-barca	albero	1	2	3
-trono	spada	3	2	3
-cotone	maglione	3	2	3
-ciliegia	fragola	3	2	3
-Islam	Corano	2	2	3
-Neanderthal	sport	0	2	3
-nepotismo	re	2	2	3
-personaggio	persona	2	2	3
-cisterna	vagone	0	2	3
-Mercurio	Giove	3	2	3
-bronchite	acetaminofene	1	2	3
-sangue	corpo	2	2	3
-islamofobia	ISIS	1	2	3
-uncinetto	uniforme	1	2	3
-Hadoop	touchscreen	0	2	3
-combustibile fossile	fossile	0	2	3
-mutante	sociobiologia	0	2	3
-sorella	fratello	3	2	3
-matita	storia	0	2	3
-eczema	dermatite	2	2	3
-imperatore	governatore	3	2	3
-corona	chiave	0	2	3
-algebra	operazione	1	2	3
-pistone	motore	1	2	3
-borsa di studio	retta	0	2	3
-libro	manoscritto	3	2	3
-lantana	bocca di leone	3	2	3
-buco nero	vuoto	0	2	3
-Impero Persiano	Ciro	0	2	3
-editoriale	notizia	1	2	3
-decorazione	busta	0	2	3
-squalo balena	aragosta	3	2	3
-mais	granturco	3	2	3
-disturbo bipolare	problema	2	2	3
+Term1	Term2	Sim_Livio	Sim_Laura	Mean
+crittogramma	simbolo	3.0	2.5	2.75
+campus	università	3.0	3.2	3.1
+libertà	libertà	4.0	4.0	4.0
+tifone	ciclone	4.0	3.7	3.85
+manuale	guida turistica	2.0	3.0	2.5
+Ebola	virus Ebola	4.0	4.0	4.0
+principessa	biscotto	0.0	0.2	0.1
+treno	tram	3.0	3.5	3.25
+ecosistema	economia	2.0	2.3	2.15
+regina regnante	regina degli scacchi	2.0	2.3	2.15
+oro	zinco	3.0	3.2	3.1
+cursore	patatine fritte	0.0	0.0	0.0
+Rio delle Amazzoni	foresta	3.0	2.5	2.75
+tennis	statistica	0.0	0.5	0.25
+Bolzano	teorema	0.0	0.0	0.0
+altitudine	conversione	0.0	0.0	0.0
+barca	albero	1.0	1.2	1.1
+trono	spada	3.0	2.5	2.75
+cotone	maglione	3.0	3.2	3.1
+ciliegia	fragola	3.0	3.3	3.15
+Islam	Corano	2.0	3.0	2.5
+Neanderthal	sport	0.0	0.2	0.1
+nepotismo	re	2.0	2.2	2.1
+personaggio	persona	2.0	2.6	2.3
+cisterna	vagone	0.0	1.2	0.6
+Mercurio	Giove	3.0	3.2	3.1
+bronchite	acetaminofene	1.0	1.5	1.25
+sangue	corpo	2.0	3.3	2.65
+islamofobia	ISIS	1.0	1.2	1.1
+uncinetto	uniforme	1.0	1.3	1.15
+Hadoop	touchscreen	0.0	0.1	0.05
+combustibile fossile	fossile	0.0	2.2	1.1
+mutante	sociobiologia	0.0	0.1	0.05
+sorella	fratello	3.0	3.6	3.3
+matita	storia	0.0	0.3	0.15
+eczema	dermatite	2.0	2.7	2.35
+imperatore	governatore	3.0	3.3	3.15
+corona	chiave	0.0	0.2	0.1
+algebra	operazione	1.0	3.0	2.0
+pistone	motore	1.0	3.0	2.0
+borsa di studio	retta	0.0	1.2	0.6
+libro	manoscritto	3.0	3.7	3.35
+lantana	bocca di leone	3.0	3.4	3.2
+buco nero	vuoto	0.0	3.0	1.5
+Impero Persiano	Ciro	0.0	1.3	0.65
+editoriale	notizia	1.0	1.2	1.1
+decorazione	busta	0.0	1.0	0.5
+squalo balena	aragosta	3.0	3.2	3.1
+mais	granturco	3.0	3.7	3.35
+disturbo bipolare	problema	2.0	1.5	1.75
