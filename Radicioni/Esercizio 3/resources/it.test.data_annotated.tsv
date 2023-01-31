@@ -2,13 +2,13 @@ Term1	Term2	Sim_Livio	Sim_Laura	Mean
 crittogramma	simbolo	3.0	2.5	2.75
 campus	università	3.0	3.2	3.1
 libertà	libertà	4.0	4.0	4.0
-tifone	ciclone	4.0	4.0	3.85
+tifone	ciclone	4.0	4.0	4.0
 manuale	guida turistica	2.0	3.0	2.5
-Ebola	virus Ebola	4.0	3.5	4.0
+Ebola	virus Ebola	4.0	3.5	3.75
 principessa	biscotto	0.0	0.2	0.1
 treno	tram	3.0	3.5	3.25
 ecosistema	economia	2.0	2.3	2.15
-regina regnante	regina degli scacchi	2.0 0   2.15
+regina regnante	regina degli scacchi	2.0	0.0	1.0
 oro	zinco	3.0	3.2	3.1
 cursore	patatine fritte	0.0	0.0	0.0
 Rio delle Amazzoni	foresta	3.0	2.5	2.75
@@ -22,7 +22,7 @@ ciliegia	fragola	3.0	3.3	3.15
 Islam	Corano	2.0	3.0	2.5
 Neanderthal	sport	0.0	0.2	0.1
 nepotismo	re	2.0	2.2	2.1
-personaggio	persona	2.0	3.2	2.3
+personaggio	persona	2.0	3.2	2.6
 cisterna	vagone	0.0	1.2	0.6
 Mercurio	Giove	3.0	3.2	3.1
 bronchite	acetaminofene	1.0	1.5	1.25
