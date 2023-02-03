@@ -1,51 +1,51 @@
 Term1	Term2	BS1	BS2	Terms_in_BS1	Terms_in_BS2
-crittogramma	simbolo	bn:00024193n	bn:00070445n	crittogramma,criptogramma,crittogrammi	semiologia,semeiologia,semiotica
-campus	università	bn:00015097n	bn:00079152n	Cittadella_universitaria,cittadella_universitaria,Campus_universitario	politecnico,accademia,collegio
-libertà	libertà	bn:00050954n	bn:00050954n	indipendenza,Frēodōm,libertà_individuale	indipendenza,Frēodōm,libertà_individuale
-tifone	ciclone	bn:00045282n	bn:00045282n	tempesta_tropicale,tifone,tifone_(meteorologia)	tempesta_tropicale,tifone,tifone_(meteorologia)
-manuale	guida turistica	bn:00030689n	bn:00042106n	enchiridion,metodo,manuale	guida_turistica_(libro),guida,guida_(libro)
-Ebola	virus Ebola	bn:00029565n	bn:00029566n	febbre_emorragica_da_Ebola,febbre_emorragica_ebola,febbre_emorragica_Ebola	virus_ebola,Ebola_(virus),Virus_ebola
-principessa	biscotto	bn:00064417n	bn:00048549n	principesse,principessa,princessa	biscotto,jumbal
-treno	tram	bn:00066028n	bn:03294634n	convoglio,treno_passeggeri,treno	luce-veicolo_ferroviario,veicolo_metropolitana_leggera,rete_metrotranviaria
-ecosistema	economia	bn:00029687n	bn:00029683n	ecosistema,sistema_ecologico,eco-sistema	economia
+crittogramma	simbolo	bn:00024193n	bn:00070445n	criptogramma,crittogramma,crittogrammi	semiologia,Semiologi,semeiologia
+campus	università	bn:00015097n	bn:00079152n	cittadella_universitaria,Campus_universitario,città_universitaria	collegio,accademia,università_di_ricerca
+libertà	libertà	bn:00050954n	bn:00050954n	autodeterminazione,libertà_personale,sovranità	autodeterminazione,libertà_personale,sovranità
+tifone	ciclone	bn:00045282n	bn:00045282n	depressioni_tropicali,uragano,tifone_(meteorologia)	depressioni_tropicali,uragano,tifone_(meteorologia)
+manuale	guida turistica	bn:00030689n	bn:00042106n	vademecum,enchiridion,manuale	guida_turistica,guida,guida_(libro)
+Ebola	virus Ebola	bn:00029565n	bn:00029566n	Zaire_ebolavirus,Ebola,Ebola_virus_disease	Zaire_ebolavirus,virus_Ebola,virus_ebola
+principessa	biscotto	bn:00064417n	bn:00048549n	principesse,princessa,principessa	jumbal,biscotto
+treno	tram	bn:00066028n	bn:03294634n	ferrovia_treno,convoglio,treno	luce-veicolo_ferroviario,sistema_di_metropolitana_leggera,veicoli_ferroviari_leggeri
+ecosistema	economia	bn:00029687n	bn:00029683n	biogeocenosi,biosistema,ecosistemi	economia
 regina regnante	regina degli scacchi				
-oro	zinco	bn:00006911n	bn:00006861n	Mercato_dell'oro,oro,oncia_d'oro	zn,numero_atomico_30,estrazione_dello_zinco
-cursore	patatine fritte	bn:00024529n	bn:00743205n	Puntatore_del_mouse,cursore,puntatore_del_mouse	Fries_with_That,Patatine_fritte,Patatine_fritte_(serie_televisiva)
-Rio delle Amazzoni	foresta	bn:00003245n	bn:00041737n	Rio_delle_Amazzoni,Amazzoni,amazon_river	foresta
-tennis	statistica	bn:00495691n	bn:03399058n	Tennis_(videogioco),Tennis	statistica,abilità,attributo
-Bolzano	teorema	bn:13890341n	bn:01145346n	Bolzano_(Belluno),Bolzano_Bellunese	Teorema,Teorema_(film)
+oro	zinco	bn:00006911n	bn:00006861n	Giacimento_aurifero,Gold_Futures,Au	zinco,Vitamina_Z,Zn
+cursore	patatine fritte	bn:00024529n	bn:00743205n	Puntatore_del_mouse,cursore,puntatore_del_mouse	Fries_with_That?,Fries_with_That,Patatine_fritte_(serie_televisiva)
+Rio delle Amazzoni	foresta	bn:00003245n	bn:00041737n	Solimoes,Rio_delle_Amazzoni,Solimões	foresta
+tennis	statistica	bn:00495691n	bn:03399058n	Tennis_(videogioco),Tennis	attributo,statistica,abilità
+Bolzano	teorema	bn:13890341n	bn:01145346n	Bolzano_Bellunese,Bolzano_(Belluno)	Teorema_(film),Teorema
 altitudine	conversione	bn:00003143n	bn:00077989n	altezza,altitudine,ortocentro	trasformazione
-barca	albero	bn:00008596n	bn:00053706n	brigantino_a_palo,barca	albero_(vela),albero_di_mezzana,albero
-trono	spada	bn:00077086n	bn:03829974n	truono,trono	periodo_delle_migrazioni,Spada,spada_(periodo_delle_migrazioni)
-cotone	maglione	bn:00023073n	bn:00048570n	cotonato,cotone	golf_(abbigliamento),maglioni,maglia
-ciliegia	fragola	bn:00018175n	bn:00074577n	ciliegia,ciliegie,ciliegio	fragola,Fragaria_ananassa,fraga
-Islam	Corano	bn:00047600n	bn:00002370n	islamismo,religione_islamica,Islam	Qur'an,Mushaf,edizioni_del_Corano
-Neanderthal	sport	bn:00044581n	bn:00215325n	l'uomo_di_neandertal,neandertaliano,homo_sapiens_neanderthalensis	SPOrt
-nepotismo	re	bn:00057307n	bn:00024097n	Baronismo,clientelare,baronismo	monarchi,regalità,testa_coronata
-personaggio	persona	bn:00017749n	bn:00017749n	personaggio,personae,ruolo	personaggio,personae,ruolo
-cisterna	vagone	bn:00074452n	bn:00015785n	serbatoi_di_stoccaggio,serbatoio,serbatoi	carro_merci,vagone_ferroviario,Automotrice_ferroviaria
-Mercurio	Giove	bn:00069344n	bn:00069344n	mercurio,Luna_(astrologia),Saturno	mercurio,Luna_(astrologia),Saturno
-bronchite	acetaminofene	bn:00013313n	bn:00000834n	bronchite	Efferalgan,co-codamol,paracetamol
-sangue	corpo	bn:00011346n	bn:00011748n	flusso_sanguigno,elementi_figurati,flusso_ematico	tronco_(anatomia),tronco,corpo
-islamofobia	ISIS	bn:00047611n	bn:15487402n	islamofobia,antislamismo,Islamofobia	Daish,ISIS,Stato_Islamico_dell'Iraq_e_del_Levante
-uncinetto	uniforme	bn:00023885n	bn:00042407n	crochet,uncinetto,crochet_ago	tenuta_da_amazzone,amazzone,riding_habit
-Hadoop	touchscreen	bn:03415734n	bn:00077733n	Hadoop_Distributed_File_System,Hadoop,HDFS	touch-sensitive,touch_screen,touchscreen_capacitivo
-combustibile fossile	fossile	bn:00036027n	bn:00036026n	combustibili_fossili,Fonte_fossile,sostanze_fossili	Fossilizzato,fossilizzato,microfossili
-mutante	sociobiologia	bn:00018894n	bn:00072570n	mutazione_genetica,mutazione_puntiforme,mutazione_schiena	sociobiologia
-sorella	fratello	bn:00071400n	bn:00071400n	fratellastro,fratelli,sorella	fratellastro,fratelli,sorella
+barca	albero	bn:00008596n	bn:00053706n	brigantino_a_palo,barca	albero_(vela),albero_maestro,albero_di_mezzana
+trono	spada	bn:00077086n	bn:03829974n	trono,truono	Spada_nel_periodo_delle_migrazioni,periodo_delle_migrazioni,spada_(periodo_delle_migrazioni)
+cotone	maglione	bn:00023073n	bn:00048570n	cotone,cotonato	maglione,maglioni,golf
+ciliegia	fragola	bn:00018175n	bn:00074577n	ciliegia,ciliegie,ciliegio	fraga,Fragaria_ananassa,fragola
+Islam	Corano	bn:00047600n	bn:00002370n	mezza_luna,fede_islamica,islamismo	edizioni_del_Corano,Alcorano,Corano
+Neanderthal	sport	bn:00044581n	bn:00215325n	Homo_sapiens_neanderthalensis,Neanderthal,homo_sapiens_neanderthalensis	SPOrt
+nepotismo	re	bn:00057307n	bn:00024097n	clientelare,nepotismo,Baronia_accademica	sovrano,regina,sovrani
+personaggio	persona	bn:00017749n	bn:00017749n	parte,ruolo,personaggi	parte,ruolo,personaggi
+cisterna	vagone	bn:00074452n	bn:00015785n	serbatoi,serbatoio,cisterna	carro_ferroviario,elettromotrice,veicolo_ferroviario
+Mercurio	Giove	bn:00069344n	bn:00069344n	mercurio,Saturno,venere	mercurio,Saturno,venere
+bronchite	acetaminofene	bn:00013313n	bn:00000834n	bronchite	tylenol_pm,panadol,anacin_iii
+sangue	corpo	bn:00011346n	bn:00011748n	elementi_corpuscolati,flusso_sanguigno,ematologiche	torace,busto,tronco
+islamofobia	ISIS	bn:00047611n	bn:15487402n	antislamismo,Islamofobia,islamofobia	Stato_Islamico_dell'Iraq_e_del_Levante,IS,Stato_Islamico_dell'Iraq_e_della_Siria
+uncinetto	uniforme	bn:00023885n	bn:00042407n	Uncinetto,Lavoro_all'uncinetto,aghetto	tenuta_da_amazzone,riding_habit,amazzone
+Hadoop	touchscreen	bn:03415734n	bn:00077733n	HDFS,Apache_Hadoop,Hadoop_Distributed_File_System	touch_screen,touchscreen_capacitivo,schermo_sensibile_al_tocco
+combustibile fossile	fossile	bn:00036027n	bn:00036026n	fonti_fossili,combustibile_fossile,petrolio_e_gas	fossili,microfossili,fossile
+mutante	sociobiologia	bn:00018894n	bn:00072570n	mutazioni_puntiformi,Mutazioni_genetiche,mutazione	sociobiologia
+sorella	fratello	bn:00071400n	bn:00071400n	sorellastra,fratelli,fratello	sorellastra,fratelli,fratello
 matita	storia	bn:02272538n	bn:00044269n	matita,fascio	storia
-eczema	dermatite	bn:00029715n	bn:00026454n	esantema,eczema,Eczemi	Dermatiti,dermatosi,dermatite
-imperatore	governatore	bn:00014550n	bn:01550599n	imperatore,Caio_Giulio_Cesare,Gaio_Giulio_Cesare	governatore_(storia_romana),governatore_romano,governatore_provinciale_romano
-corona	chiave	bn:00034102n	bn:00019683n	corona_(musica),punto_coronato,Fermata	chiave_di_soprano,chiave_di_tenore,chiave_di_violino
-algebra	operazione	bn:03325213n	bn:00053826n	algebra,algebra_(teoria_degli_anelli),algebra_su_un_anello	operandi,operazione_interna,operazione_algebrica
-pistone	motore	bn:00062630n	bn:00030850n	pistone,pistone_(meccanica),stantuffo	motore,propulsore,motori
-borsa di studio	retta	bn:00014060n	bn:00078557n	borsa_di_studio,borse_di_studio	tassa_d'iscrizione,tasse_universitarie,tassa_scolastica
-libro	manoscritto	bn:00012059n	bn:00044453n	controguardia,libro,sguardie	manoscritti,manoscritto
-lantana	bocca di leone	bn:00049943n	bn:00004738n	lantana,Lantana	Antirrhinum_majus,bocca_di_Leone_comune,mediterraneo_bocca_di_leone
-buco nero	vuoto	bn:00010920n	bn:03321000n	buchi_neri,buco_nero	vuoto_cosmico,vuoto,vuoto_(astronomia)
-Impero Persiano	Ciro	bn:00061704n	bn:03352442n	civiltà_persiana,regno_di_Persia,Impero_Persiano	Ciro,Ciro_(patriarca_di_Costantinopoli)
-editoriale	notizia	bn:00020825n	bn:00057563n	colonna_di_giornale,pagina_editoriale,editoriali	giornali,carta_da_giornale,Storia_dei_quotidiani_e_dei_periodici
-decorazione	busta	bn:00025767n	bn:02096953n	decorazione,addobbo	busta
-squalo balena	aragosta	bn:00067621n	bn:03823397n	Squalo_balena,Rhincodon,squali_balena	Aragosta_spinosa_comune,Aragosta_spinosa_europea,Palinurus_quadricornis
-mais	granturco	bn:00022678n	bn:00022678n	granone,Corn_Futures,Meliga	granone,Corn_Futures,Meliga
-disturbo bipolare	problema	bn:00010593n	bn:00048242n	Disordine_bipolare,depressione_maniacale,Depressione_bipolare	problema
+eczema	dermatite	bn:00029715n	bn:00026454n	Eczemi,eczema,eczemi	dermatosi,dermatiti,dermatite
+imperatore	governatore	bn:00014550n	bn:01550599n	imperatore,Cesare,Gaius_Iulius_Caesar	governatore_provinciale_romano,governatore_romano,governatore_(storia_romana)
+corona	chiave	bn:00034102n	bn:00019683n	corona_(musica),Fermata,corona	chiave_di_tenore,chiave_di_mezzosoprano,chiave
+algebra	operazione	bn:03325213n	bn:00053826n	R-algebra,algebra_(teoria_degli_anelli),algebra_su_di_un_anello	operazione_algebrica,operazione,operazione_interna
+pistone	motore	bn:00062630n	bn:00030850n	pistone_(meccanica),pistone,stantuffo	motori,motore,propulsore
+borsa di studio	retta	bn:00014060n	bn:00078557n	borse_di_studio,borsa_di_studio	retta_scolastica,tassa_d'iscrizione,tasse_universitarie
+libro	manoscritto	bn:00012059n	bn:00044453n	storia_del_libro,prima_di_copertina,piatto_superiore	manoscritti,manoscritto
+lantana	bocca di leone	bn:00049943n	bn:00004738n	Lantana,lantana	Bocca_di_leone,mediterraneo_bocca_di_leone,bocca_di_leone
+buco nero	vuoto	bn:00010920n	bn:03321000n	buco_nero,buchi_neri	vuoto,vuoto_(astronomia),vuoto_cosmico
+Impero Persiano	Ciro	bn:00061704n	bn:03352442n	regno_di_Persia,impero_persiano,Impero_Persiano	Ciro,Ciro_(patriarca_di_Costantinopoli)
+editoriale	notizia	bn:00020825n	bn:00057563n	fondo,cronaca,colonna_di_giornale	quotidiano,giornali,quotidiano_nazionale
+decorazione	busta	bn:00025767n	bn:02096953n	addobbo,decorazione	busta
+squalo balena	aragosta	bn:00067621n	bn:03823397n	Rhincodontidae,rhincodon_typus,Squalo_balena	palinurus_elephas,Aragosta_spinosa_europea,Palinurus_vulgaris
+mais	granturco	bn:00022678n	bn:00022678n	frumentone,Z._mays,mais_(alimento)	frumentone,Z._mays,mais_(alimento)
+disturbo bipolare	problema	bn:00010593n	bn:00048242n	disturbo_bipolare_dell'umore,spettro_bipolare,Disturbo_ciclotimico	problema
