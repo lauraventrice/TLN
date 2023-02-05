@@ -12,5 +12,4 @@ Implement a simple algorithm on text segmentation
 - Wikipedia pages : "New York City", "Machine Learning", "Vincent van Gogh", "Cubism"
 - nltk 
 
-## Results 
 
