@@ -11,5 +11,3 @@ Choice Topic Modeling and Text Visualization:
 
 Corpus: "fetch_20newsgroup" from sklearn
 Gensim library: https://radimrehurek.com/gensim/
-
-## Results
