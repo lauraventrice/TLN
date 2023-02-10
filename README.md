@@ -1,5 +1,5 @@
 # TLN Project
-Development of the project for Natural Language Technologies course at University of Turin.
+Development of the project for Natural Language Technologies course at University of Turin in the Master of Computer Science.
 
 The course main focus is about the basic elements on modern technologies for Natural Language Processing and is arranged into
 three main components: 
