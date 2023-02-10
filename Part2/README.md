@@ -91,6 +91,7 @@ The first part of this exercise is to implement three WordNet-based similarity m
 - Wu & Palmer
 - Shortest Path
 - Leakcock & Chodorow 
+
 For each of these similarity measures, calculate
 - Spearman's correlation indices and
 - Pearson's correlation indices between the results obtained and the 'target' results in the annotated file.
